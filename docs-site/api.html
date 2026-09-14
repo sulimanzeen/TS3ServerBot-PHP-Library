@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>API reference — TS3ServerBot Query</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-depth="0" data-page="api">
+<header>
+    <div class="brand-block">
+        <button type="button" class="menu-toggle" aria-label="Open navigation">Menu</button>
+        <p class="brand">TS3ServerBot Query <span>TS3ServerBot.com</span></p>
+        <p class="meta">Developer docs · TeamSpeak 3.13.8 + 6.0.0-beta12.1 · SSH + WebQuery</p>
+    </div>
+    <form class="search-form" action="search.html" method="get" role="search">
+        <label class="sr-only" for="docs-search">Search documentation</label>
+        <input id="docs-search" class="search-input" type="search" name="q" placeholder="Search commands, methods, args…" autocomplete="off" spellcheck="false">
+        <kbd>/</kbd>
+        <div class="search-results" hidden></div>
+    </form>
+</header>
+<div class="layout">
+    <nav><p class="nav-group">Guides</p><ul><li><a href="index.html">Home</a></li><li><a href="guides/installation.html">Installation</a></li><li><a href="guides/first-connection.html">First connection</a></li><li><a href="guides/ssh.html">SSH</a></li><li><a href="guides/webquery.html">WebQuery</a></li><li><a href="guides/architecture.html">Architecture</a></li><li><a href="guides/not-supported.html">Not supported</a></li><li><a href="guides/errors.html">Errors</a></li><li><a href="guides/troubleshooting.html">Troubleshooting</a></li><li><a href="guides/security.html">Security</a></li><li><a href="guides/compatibility.html">Compatibility</a></li><li><a href="guides/examples.html">Examples</a></li></ul><p class="nav-group">Reference</p><ul><li><a href="reference/configuration.html">Configuration</a></li><li><a href="reference/operations.html">Operations</a></li><li><a href="reference/commands.html">Command matrix</a></li><li class="active"><a href="api.html">API reference</a></li></ul><p class="nav-group">TeamSpeak 6</p><ul><li><a href="reference/teamspeak6-commands.html">TS6-only commands</a></li></ul></nav>
+    <main>
+        <h1 id="api-reference">API reference</h1><p>Generated from PHPDoc in <code>src/</code>. Query targets are TeamSpeak 3.13.8 and TeamSpeak 6.0.0-beta12.1.</p><h2 id="TS3ServerBot-Client-TeamSpeakClient">TS3ServerBot\Client\TeamSpeakClient</h2><p class="path"><code>src/Client\TeamSpeakClient.php</code></p><h3 id="TS3ServerBot-Client-TeamSpeakClient-__construct">__construct</h3><pre><code>public function __construct(
+        private readonly ClientConfig $config,
+        private readonly TransportInterface $transport,
+        ?CommandCatalog $catalog = null,
+    )</code></pre><pre class="doc">Developer-facing entry point for TS3ServerBot Query.
+Connects to TeamSpeak 3.13.8 or TeamSpeak 6.0.0-beta12.1 using SSH ServerQuery or WebQuery HTTP.
+Raw/telnet Query is not available. Command catalogs match those two server versions.
+Unknown 6.0.0-beta12.1 command names are sent to the server instead of being invented here.
+@package TS3ServerBot
+/
+final class TeamSpeakClient
+{
+    private ConnectionState $state = ConnectionState::Disconnected;
+
+    private ?int $selectedServerId;
+
+    private ?int $selectedServerPort;
+
+    private readonly CommandCatalog $catalog;
+
+    /**
+@param ClientConfig $config Transport and credentials. Secrets are never logged.
+@param TransportInterface $transport SSH or WebQuery implementation.
+@param CommandCatalog|null $catalog Command list for the configured server family.</pre><h3 id="TS3ServerBot-Client-TeamSpeakClient-webQuery">webQuery</h3><pre><code>public function webQuery(ClientConfig $config, ?HttpClientInterface $http = null)</code></pre><pre class="doc">Creates a WebQuery client. Requires an API key. Uses HTTP header `x-api-key`, never a URL query string.
+@throws \TS3ServerBot\Exception\InvalidParameterException</pre><h3 id="TS3ServerBot-Client-TeamSpeakClient-ssh">ssh</h3><pre><code>public function ssh(ClientConfig $config, ?SshSessionInterface $session = null)</code></pre><pre class="doc">Creates an SSH ServerQuery client. Requires username and password for the SSH handshake.
+That handshake is Query authentication; callers do not need a second `login()` unless they
+want to switch Query identity.
+@throws \TS3ServerBot\Exception\InvalidParameterException</pre><h3 id="TS3ServerBot-Client-TeamSpeakClient-connect">connect</h3><pre><code>public function connect()</code></pre><pre class="doc">Opens the configured transport.
+WebQuery marks the client ready (API key is sent on each request). SSH authenticates the
+encrypted session with the configured Query username and password, waits for the ServerQuery
+banner, and is then already logged in. A second Query `login` command is not required.
+When SSH config includes `virtualServerId` or `virtualServerPort`, `use` is sent automatically.
+@throws \TS3ServerBot\Exception\ConnectionException
+@throws \TS3ServerBot\Exception\AuthenticationException
+@throws \TS3ServerBot\Exception\TimeoutException</pre><h3 id="TS3ServerBot-Client-TeamSpeakClient-disconnect">disconnect</h3><pre><code>public function disconnect()</code></pre><pre class="doc">Closes the transport. SSH sends `quit` when possible.</pre><h3 id="TS3ServerBot-Client-TeamSpeakClient-isConnected">isConnected</h3><pre><code>public function isConnected()</code></pre><pre class="doc">Whether the client is connected (SSH session open or WebQuery marked ready).</pre><h3 id="TS3ServerBot-Client-TeamSpeakClient-getState">getState</h3><pre><code>public function getState()</code></pre><pre class="doc">Current connection lifecycle state.</pre><h3 id="TS3ServerBot-Client-TeamSpeakClient-getTransport">getTransport</h3><pre><code>public function getTransport()</code></pre><pre class="doc">Returns the active transport: SSH or WebQuery.</pre><h3 id="TS3ServerBot-Client-TeamSpeakClient-login">login</h3><pre><code>public function login(?string $username = null, ?string $password = null)</code></pre><pre class="doc">Authenticates with ServerQuery `login`. SSH only. WebQuery uses the API key instead.
+SSH already authenticates during `connect()` using the same username and password. Call this
+only to switch Query identity. TeamSpeak deselects the virtual server after `login`; call
+`useServer()` again afterward.
+Permission: `b_serverquery_login`. TeamSpeak 3.13.8.
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Client-TeamSpeakClient-logout">logout</h3><pre><code>public function logout()</code></pre><pre class="doc">Deselects the virtual server and logs out. SSH only.
+Command: `logout`. Permission: `b_serverquery_login`. TeamSpeak 3.13.8.
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Client-TeamSpeakClient-useServer">useServer</h3><pre><code>public function useServer(?int $id = null, ?int $port = null, bool $virtual = false, ?string $nickname = null)</code></pre><pre class="doc">Selects a virtual server. SSH uses `use`. WebQuery stores the id/port for later HTTP paths.
+Command: `use` (SSH). Permission: `b_virtualserver_select`. TeamSpeak 3.13.8.
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Client-TeamSpeakClient-server">server</h3><pre><code>public function server(?int $id = null, ?int $port = null)</code></pre><pre class="doc">Returns a virtual-server helper using the current selection or the given id.</pre><h3 id="TS3ServerBot-Client-TeamSpeakClient-instance">instance</h3><pre><code>public function instance()</code></pre><pre class="doc">Instance-level helper (`version`, `serverlist`, `hostinfo`, ...).</pre><h3 id="TS3ServerBot-Client-TeamSpeakClient-whoami">whoami</h3><pre><code>public function whoami()</code></pre><pre class="doc">Displays information about the current Query connection.
+Command: `whoami`. TeamSpeak 3.13.8.
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Client-TeamSpeakClient-version">version</h3><pre><code>public function version()</code></pre><pre class="doc">Displays version, platform, and build number.
+Command: `version`. TeamSpeak 3.13.8.
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Client-TeamSpeakClient-createApiKey">createApiKey</h3><pre><code>public function createApiKey(string $scope, int $lifetime = 14, ?int $clientDatabaseId = null)</code></pre><pre class="doc">Creates a WebQuery API key. Typically run over SSH because a key is required to use WebQuery.
+Command: `apikeyadd`. TeamSpeak 3.13.8. Scope must be manage, write, or read.
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Client-TeamSpeakClient-drainNotifications">drainNotifications</h3><pre><code>public function drainNotifications()</code></pre><pre class="doc">Notification lines collected from the SSH session. Field lists are not documented in 3.13.8.
+@return list&lt;string&gt;</pre><h3 id="TS3ServerBot-Client-TeamSpeakClient-execute">execute</h3><pre><code>public function execute(string $command, array $parameters = [], array $options = [])</code></pre><pre class="doc">Executes a Query command.
+On TeamSpeak 3 this is not a raw Query string API: the name must exist in the 3.13.8 catalog,
+and WebQuery-incompatible commands are rejected. On TeamSpeak 6 the 6.0.0-beta12.1 catalog is used
+the same way; names unknown to that catalog are still sent so a newer beta can answer or return an error.
+@param array&lt;string, scalar|list&lt;scalar&gt;&gt; $parameters
+@param list&lt;string&gt; $options
+@throws \TS3ServerBot\Exception\InvalidStateException
+@throws \TS3ServerBot\Exception\InvalidParameterException
+@throws \TS3ServerBot\Exception\UnsupportedOperationException
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Client-TeamSpeakClient-assertOptions">assertOptions</h3><pre><code>public function assertOptions(string $command, array $options)</code></pre><pre class="doc">@param list&lt;string&gt; $options
+@throws InvalidParameterException
+@throws UnsupportedOperationException</pre><h3 id="TS3ServerBot-Client-TeamSpeakClient-catalog">catalog</h3><pre><code>public function catalog()</code></pre><pre class="doc">Returns the command catalog for the configured server family.</pre><h2 id="TS3ServerBot-Config-ClientConfig">TS3ServerBot\Config\ClientConfig</h2><p class="path"><code>src/Config\ClientConfig.php</code></p><h3 id="TS3ServerBot-Config-ClientConfig-__construct">__construct</h3><pre><code>public function __construct(
+        public readonly string $host,
+        public readonly Transport $transport,
+        public readonly int $sshPort = self::DEFAULT_SSH_PORT,
+        public readonly int $webQueryPort = self::DEFAULT_WEBQUERY_PORT,
+        public readonly bool $webQueryTls = false,
+        public readonly float $timeoutSeconds = 10.0,
+        public readonly ?string $username = null,
+        public readonly ?string $password = null,
+        public readonly ?string $apiKey = null,
+        public readonly ?string $nickname = null,
+        public readonly ?int $virtualServerId = null,
+        public readonly ?int $virtualServerPort = null,
+        public readonly bool $verifyTls = true,
+        public readonly ?string $sshHostFingerprint = null,
+        public readonly ServerFamily $serverFamily = ServerFamily::TeamSpeak3,
+    )</code></pre><pre class="doc">Immutable connection settings for TS3ServerBot Query.
+There is no raw/telnet Query port option. SSH defaults to 10022 and WebQuery to 10080
+as documented for TeamSpeak 3.13.8 Query. TeamSpeak 6 uses the same SSH and WebQuery
+transports; set {@see ServerFamily::TeamSpeak6} when connecting to a TS6 server.
+@package TS3ServerBot
+/
+final class ClientConfig
+{
+    public const DEFAULT_SSH_PORT = 10022;
+
+    public const DEFAULT_WEBQUERY_PORT = 10080;
+
+    /**
+@param string $host Hostname or IP of the TeamSpeak server.
+@param Transport $transport SSH or WebQuery only.
+@param int $sshPort SSH ServerQuery port. Documented default is 10022.
+@param int $webQueryPort WebQuery HTTP port. Documented default is 10080.
+@param bool $webQueryTls When true, WebQuery uses https:// (typically a reverse proxy). Native TeamSpeak HTTPS on 10443 is not claimed.
+@param float $timeoutSeconds Socket and HTTP timeout.
+@param string|null $username ServerQuery username. For SSH this is the SSH login; the handshake is Query authentication. Never logged.
+@param string|null $password ServerQuery password. For SSH this is the SSH password. Never logged.
+@param string|null $apiKey WebQuery API key. Never logged. Sent as header x-api-key.
+@param string|null $nickname Optional Query nickname used with the documented `use` client_nickname parameter.
+@param int|null $virtualServerId Default virtual server id for WebQuery paths and SSH `use`.
+@param int|null $virtualServerPort Default virtual server voice port for `/byport/` or `use port=`.
+@param bool $verifyTls Verify TLS certificates for WebQuery HTTPS.
+@param string|null $sshHostFingerprint Optional SHA256 fingerprint of the SSH host key. Connection fails on mismatch when set.
+@param ServerFamily $serverFamily TeamSpeak 3 uses the 3.13.8 catalog. TeamSpeak 6 uses the 6.0.0-beta12.1 catalog; unknown names are still sent.</pre><h3 id="TS3ServerBot-Config-ClientConfig-__debugInfo">__debugInfo</h3><pre><code>public function __debugInfo()</code></pre><pre class="doc">@return array&lt;string, mixed&gt;</pre><h2 id="TS3ServerBot-Config-ServerFamily">TS3ServerBot\Config\ServerFamily</h2><p class="path"><code>src/Config\ServerFamily.php</code></p><h2 id="TS3ServerBot-Config-Transport">TS3ServerBot\Config\Transport</h2><p class="path"><code>src/Config\Transport.php</code></p><h2 id="TS3ServerBot-Connection-ConnectionState">TS3ServerBot\Connection\ConnectionState</h2><p class="path"><code>src/Connection\ConnectionState.php</code></p><h2 id="TS3ServerBot-Domain-Instance">TS3ServerBot\Domain\Instance</h2><p class="path"><code>src/Domain\Instance.php</code></p><h3 id="TS3ServerBot-Domain-Instance-__construct">__construct</h3><pre><code>public function __construct(private readonly TeamSpeakClient $client)</code></pre><pre class="doc">Instance-level operations documented without a selected virtual server.
+@package TS3ServerBot
+/
+final class Instance
+{
+    /**
+@param TeamSpeakClient $client Connected framework client.</pre><h3 id="TS3ServerBot-Domain-Instance-getVersion">getVersion</h3><pre><code>public function getVersion()</code></pre><pre class="doc">Displays the servers version information including platform and build number.
+Command: `version`. Supported on SSH and WebQuery. TeamSpeak 3.13.8.
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-Instance-getHostInfo">getHostInfo</h3><pre><code>public function getHostInfo()</code></pre><pre class="doc">Displays server instance connection info.
+Command: `hostinfo`. Permission: `b_serverinstance_info_view`. TeamSpeak 3.13.8.
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-Instance-getInfo">getInfo</h3><pre><code>public function getInfo()</code></pre><pre class="doc">Displays the server instance configuration.
+Command: `instanceinfo`. Permission: `b_serverinstance_info_view`. TeamSpeak 3.13.8.
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-Instance-getServers">getServers</h3><pre><code>public function getServers(array $options = [])</code></pre><pre class="doc">Lists virtual servers on the instance.
+Command: `serverlist`. Permission: `b_serverinstance_virtualserver_list`. TeamSpeak 3.13.8.
+@param list&lt;string&gt; $options Documented flags: uid, short, all, onlyoffline
+@return list&lt;QueryNode&gt;
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-Instance-getServerIdByPort">getServerIdByPort</h3><pre><code>public function getServerIdByPort(int $port)</code></pre><pre class="doc">Finds a virtual server database id by voice port.
+Command: `serveridgetbyport`. Permission: `b_serverinstance_virtualserver_list`. TeamSpeak 3.13.8.
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-Instance-sendGlobalMessage">sendGlobalMessage</h3><pre><code>public function sendGlobalMessage(string $message)</code></pre><pre class="doc">Sends a global text message to all virtual servers.
+Command: `gm`. TeamSpeak 3.13.8.
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-Instance-getBindings">getBindings</h3><pre><code>public function getBindings()</code></pre><pre class="doc">Lists IP addresses used by the server instance.
+Command: `bindinglist`. TeamSpeak 3.13.8.
+@return list&lt;QueryNode&gt;
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-Instance-signLicenseMessage">signLicenseMessage</h3><pre><code>public function signLicenseMessage(string $message)</code></pre><pre class="doc">Signs a message with the license private key. TeamSpeak 6. Does not work with no license or the default license.
+Command: `licensesignmessage`. Permission: `b_serverinstance_licensesign_message`.
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h2 id="TS3ServerBot-Domain-QueryNode">TS3ServerBot\Domain\QueryNode</h2><p class="path"><code>src/Domain\QueryNode.php</code></p><h3 id="TS3ServerBot-Domain-QueryNode-__construct">__construct</h3><pre><code>public function __construct(private readonly array $properties)</code></pre><pre class="doc">One decoded ServerQuery item (a key/value row from a list or info command).
+@package TS3ServerBot
+/
+final class QueryNode
+{
+    /**
+@param array&lt;string, string&gt; $properties</pre><h3 id="TS3ServerBot-Domain-QueryNode-all">all</h3><pre><code>public function all()</code></pre><pre class="doc">@return array&lt;string, string&gt;</pre><h3 id="TS3ServerBot-Domain-QueryNode-get">get</h3><pre><code>public function get(string $key, ?string $default = null)</code></pre><pre class="doc">Returns a decoded string property, or the default when the key is absent.</pre><h3 id="TS3ServerBot-Domain-QueryNode-getInt">getInt</h3><pre><code>public function getInt(string $key, ?int $default = null)</code></pre><pre class="doc">Returns a property cast to int, or the default when the key is empty.</pre><h3 id="TS3ServerBot-Domain-QueryNode-has">has</h3><pre><code>public function has(string $key)</code></pre><pre class="doc">Whether the item contains the given property key.</pre><h2 id="TS3ServerBot-Domain-VirtualServer">TS3ServerBot\Domain\VirtualServer</h2><p class="path"><code>src/Domain\VirtualServer.php</code></p><h3 id="TS3ServerBot-Domain-VirtualServer-__construct">__construct</h3><pre><code>public function __construct(
+        private readonly TeamSpeakClient $client,
+        private readonly ?int $id,
+        private readonly ?int $port = null,
+    )</code></pre><pre class="doc">Virtual-server operations mapped to documented ServerQuery commands.
+@package TS3ServerBot
+/
+final class VirtualServer
+{
+    /**
+@param TeamSpeakClient $client Connected framework client.
+@param int|null $id Virtual server id used for WebQuery paths.
+@param int|null $port Virtual server voice port used for `/byport/` when set.</pre><h3 id="TS3ServerBot-Domain-VirtualServer-getId">getId</h3><pre><code>public function getId()</code></pre><pre class="doc">Virtual server id used for WebQuery paths and SSH `use`, if known.</pre><h3 id="TS3ServerBot-Domain-VirtualServer-getPort">getPort</h3><pre><code>public function getPort()</code></pre><pre class="doc">Virtual server voice port used for `/byport/` or `use port=`, if known.</pre><h3 id="TS3ServerBot-Domain-VirtualServer-getInfo">getInfo</h3><pre><code>public function getInfo()</code></pre><pre class="doc">Displays detailed configuration of the selected virtual server.
+Command: `serverinfo`. Permission: `b_virtualserver_info_view`. TeamSpeak 3.13.8.
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-VirtualServer-getClients">getClients</h3><pre><code>public function getClients(array $options = [])</code></pre><pre class="doc">Lists clients online on the virtual server.
+Command: `clientlist`. Permissions: `b_virtualserver_client_list` plus subscribe powers.
+Documented options: uid, away, voice, times, groups, info, country, ip, icon, badges.
+`location` is not exposed; it appears only in the changelog, not in clientlist.txt.
+@param list&lt;string&gt; $options
+@return list&lt;QueryNode&gt;
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-VirtualServer-getChannels">getChannels</h3><pre><code>public function getChannels(array $options = [])</code></pre><pre class="doc">Lists channels on the virtual server.
+Command: `channellist`. Permission: `b_virtualserver_channel_list`.
+Documented options: topic, flags, voice, limits, icon, secondsempty, banners.
+@param list&lt;string&gt; $options
+@return list&lt;QueryNode&gt;
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-VirtualServer-getClientInfo">getClientInfo</h3><pre><code>public function getClientInfo(array $clientIds)</code></pre><pre class="doc">Displays details for one or more online clients.
+Command: `clientinfo`. Permission: `b_client_info_view`. TeamSpeak 3.13.8.
+@param list&lt;int&gt; $clientIds
+@return list&lt;QueryNode&gt;
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-VirtualServer-getChannelInfo">getChannelInfo</h3><pre><code>public function getChannelInfo(int $channelId)</code></pre><pre class="doc">Displays channel properties.
+Command: `channelinfo`. TeamSpeak 3.13.8.
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-VirtualServer-kick">kick</h3><pre><code>public function kick(array $clientIds, int $reasonId, ?string $message = null, bool $continueOnError = false)</code></pre><pre class="doc">Kicks one or more clients from a channel (`reasonid` 4) or the server (`reasonid` 5).
+Command: `clientkick`. TeamSpeak 3.13.8. `reasonmsg` may be at most 40 characters.
+@param list&lt;int&gt; $clientIds
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-VirtualServer-move">move</h3><pre><code>public function move(array $clientIds, int $channelId, ?string $channelPassword = null, bool $continueOnError = false)</code></pre><pre class="doc">Moves one or more clients into a channel.
+Command: `clientmove`. TeamSpeak 3.13.8.
+@param list&lt;int&gt; $clientIds
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-VirtualServer-poke">poke</h3><pre><code>public function poke(int $clientId, string $message)</code></pre><pre class="doc">Sends a poke message to a client.
+Command: `clientpoke`. TeamSpeak 3.13.8.
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-VirtualServer-sendTextMessage">sendTextMessage</h3><pre><code>public function sendTextMessage(int $targetMode, string $message, int $target = 0)</code></pre><pre class="doc">Sends a text message. `targetmode` 1 = client, 2 = channel, 3 = server.
+Command: `sendtextmessage`. TeamSpeak 3.13.8.
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-VirtualServer-edit">edit</h3><pre><code>public function edit(array $properties)</code></pre><pre class="doc">Changes virtual server properties.
+Command: `serveredit`. TeamSpeak 3.13.8.
+@param array&lt;string, scalar&gt; $properties
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-VirtualServer-getServerGroups">getServerGroups</h3><pre><code>public function getServerGroups()</code></pre><pre class="doc">Lists server groups.
+Command: `servergrouplist`. TeamSpeak 3.13.8.
+@return list&lt;QueryNode&gt;
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-VirtualServer-addClientToServerGroup">addClientToServerGroup</h3><pre><code>public function addClientToServerGroup(int $clientDatabaseId, int ...$serverGroupIds)</code></pre><pre class="doc">Adds a client to one or more server groups.
+Command: `clientaddservergroup`. TeamSpeak 3.13.8.
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-VirtualServer-removeClientFromServerGroup">removeClientFromServerGroup</h3><pre><code>public function removeClientFromServerGroup(int $clientDatabaseId, int $serverGroupId)</code></pre><pre class="doc">Removes a client from a server group.
+Command: `clientdelservergroup`. TeamSpeak 3.13.8.
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-VirtualServer-getBans">getBans</h3><pre><code>public function getBans()</code></pre><pre class="doc">Lists ban rules on the virtual server.
+Command: `banlist`. TeamSpeak 3.13.8.
+@return list&lt;QueryNode&gt;
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-VirtualServer-banClient">banClient</h3><pre><code>public function banClient(array $clientIds, ?int $time = null, ?string $reason = null, bool $continueOnError = false)</code></pre><pre class="doc">Bans one or more online clients.
+Command: `banclient`. TeamSpeak 3.13.8.
+@param list&lt;int&gt; $clientIds
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-VirtualServer-registerNotifications">registerNotifications</h3><pre><code>public function registerNotifications(string $event, ?int $channelId = null)</code></pre><pre class="doc">Registers for ServerQuery event notifications. SSH only. Notify payloads are not documented.
+Command: `servernotifyregister`. Permission: `b_virtualserver_notify_register`.
+TeamSpeak 6 also documents event `bans` (permission `b_client_ban_list`).
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-VirtualServer-unregisterNotifications">unregisterNotifications</h3><pre><code>public function unregisterNotifications(?string $event = null, ?int $channelId = null)</code></pre><pre class="doc">Unregisters ServerQuery event notifications. SSH only.
+Command: `servernotifyunregister`. On TeamSpeak 6, `event` and `id` can unregister a single source.
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-VirtualServer-findBans">findBans</h3><pre><code>public function findBans(?string $ip = null, ?string $name = null, ?string $uid = null, ?string $mytsid = null)</code></pre><pre class="doc">Finds matching ban rules. TeamSpeak 6. At least one of ip, name, uid, or mytsid is required.
+Command: `banfind`. Permission: `b_client_ban_list`.
+@return list&lt;QueryNode&gt;
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-VirtualServer-createAuthenticationToken">createAuthenticationToken</h3><pre><code>public function createAuthenticationToken(int $durationSeconds)</code></pre><pre class="doc">Creates a JWT signed with the server identity. TeamSpeak 6. Duration is in seconds (max 1 hour).
+Command: `authenticationtoken`.
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-VirtualServer-getChatLoginToken">getChatLoginToken</h3><pre><code>public function getChatLoginToken()</code></pre><pre class="doc">Returns a JWT for Matrix/Synapse chat login when the server is configured for Matrix. TeamSpeak 6.
+Command: `chatlogintoken`.
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-VirtualServer-setHomebase">setHomebase</h3><pre><code>public function setHomebase(?int $clientDatabaseId = null)</code></pre><pre class="doc">Sets this server as the Matrix homebase for the caller, or for cldbid if given. TeamSpeak 6.
+Command: `homebaseset`. Permissions: `b_virtualserver_homebase_set`; `b_virtualserver_homebase_manage` with cldbid.
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-VirtualServer-deleteHomebase">deleteHomebase</h3><pre><code>public function deleteHomebase(?int $clientDatabaseId = null)</code></pre><pre class="doc">Unsets this server as the Matrix homebase for the caller, or for cldbid if given. TeamSpeak 6.
+Command: `homebasedel`. Permission: `b_virtualserver_homebase_manage` when using cldbid.
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-VirtualServer-isHomebaseSet">isHomebaseSet</h3><pre><code>public function isHomebaseSet(?int $clientDatabaseId = null)</code></pre><pre class="doc">Checks whether this server is the Matrix homebase for the caller, or for cldbid if given. TeamSpeak 6.
+Command: `homebaseisset`. Permission: `b_virtualserver_homebase_manage` when using cldbid.
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-VirtualServer-listHomebases">listHomebases</h3><pre><code>public function listHomebases(?string $returnCode = null)</code></pre><pre class="doc">Lists users who set this server as their Matrix homebase. TeamSpeak 6.
+Command: `homebaselist`. Permission: `b_virtualserver_homebase_list`.
+Optional return_code is sent back on a notify message; notify payload fields are not documented.
+@return list&lt;QueryNode&gt;
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-VirtualServer-getChannelFileHttpToken">getChannelFileHttpToken</h3><pre><code>public function getChannelFileHttpToken(?int $channelId = null, ?string $specialChannel = null)</code></pre><pre class="doc">Returns a JWT for a TeamSpeak HTTP file-transfer server. TeamSpeak 6. SSH only (`ft*`).
+Command: `ftgetchannelfilehttptoken`. Pass a channel id or a special channel name
+(`avatars`, `icons`, `chat`, `listuserfiles`). The HTTP transfer after the token is not implemented.
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h3 id="TS3ServerBot-Domain-VirtualServer-getDatabaseClients">getDatabaseClients</h3><pre><code>public function getDatabaseClients(array $options = [], ?int $start = null, ?int $duration = null)</code></pre><pre class="doc">Lists client identities known by the server.
+Command: `clientdblist`. On TeamSpeak 6, `-homebaseonly` is documented.
+@param list&lt;string&gt; $options
+@return list&lt;QueryNode&gt;
+@throws \TS3ServerBot\Exception\TeamSpeakException</pre><h2 id="TS3ServerBot-Exception-AuthenticationException">TS3ServerBot\Exception\AuthenticationException</h2><p class="path"><code>src/Exception\AuthenticationException.php</code></p><h2 id="TS3ServerBot-Exception-ConnectionException">TS3ServerBot\Exception\ConnectionException</h2><p class="path"><code>src/Exception\ConnectionException.php</code></p><h2 id="TS3ServerBot-Exception-InvalidParameterException">TS3ServerBot\Exception\InvalidParameterException</h2><p class="path"><code>src/Exception\InvalidParameterException.php</code></p><h2 id="TS3ServerBot-Exception-InvalidStateException">TS3ServerBot\Exception\InvalidStateException</h2><p class="path"><code>src/Exception\InvalidStateException.php</code></p><h2 id="TS3ServerBot-Exception-PermissionException">TS3ServerBot\Exception\PermissionException</h2><p class="path"><code>src/Exception\PermissionException.php</code></p><h2 id="TS3ServerBot-Exception-ProtocolException">TS3ServerBot\Exception\ProtocolException</h2><p class="path"><code>src/Exception\ProtocolException.php</code></p><h2 id="TS3ServerBot-Exception-ServerException">TS3ServerBot\Exception\ServerException</h2><p class="path"><code>src/Exception\ServerException.php</code></p><h3 id="TS3ServerBot-Exception-ServerException-__construct">__construct</h3><pre><code>public function __construct(
+        string $message,
+        private readonly int $serverErrorId,
+        private readonly array $extra = [],
+        int $code = 0,
+        ?\Throwable $previous = null
+    )</code></pre><pre class="doc">Thrown when the TeamSpeak server returns a non-success error id / WebQuery status code.
+@package TS3ServerBot
+/
+class ServerException extends TeamSpeakException
+{
+    /**
+@param array&lt;string, string&gt; $extra Extra error fields from the Query error line (never includes credentials).</pre><h3 id="TS3ServerBot-Exception-ServerException-getServerErrorId">getServerErrorId</h3><pre><code>public function getServerErrorId()</code></pre><pre class="doc">TeamSpeak error id from `error id=` or WebQuery `status.code`.</pre><h3 id="TS3ServerBot-Exception-ServerException-getExtra">getExtra</h3><pre><code>public function getExtra()</code></pre><pre class="doc">@return array&lt;string, string&gt;</pre><h2 id="TS3ServerBot-Exception-TeamSpeakException">TS3ServerBot\Exception\TeamSpeakException</h2><p class="path"><code>src/Exception\TeamSpeakException.php</code></p><h2 id="TS3ServerBot-Exception-TimeoutException">TS3ServerBot\Exception\TimeoutException</h2><p class="path"><code>src/Exception\TimeoutException.php</code></p><h2 id="TS3ServerBot-Exception-TransportException">TS3ServerBot\Exception\TransportException</h2><p class="path"><code>src/Exception\TransportException.php</code></p><h2 id="TS3ServerBot-Exception-UnexpectedResponseException">TS3ServerBot\Exception\UnexpectedResponseException</h2><p class="path"><code>src/Exception\UnexpectedResponseException.php</code></p><h2 id="TS3ServerBot-Exception-UnsupportedOperationException">TS3ServerBot\Exception\UnsupportedOperationException</h2><p class="path"><code>src/Exception\UnsupportedOperationException.php</code></p><h2 id="TS3ServerBot-Protocol-CommandCatalog">TS3ServerBot\Protocol\CommandCatalog</h2><p class="path"><code>src/Protocol\CommandCatalog.php</code></p><h3 id="TS3ServerBot-Protocol-CommandCatalog-forFamily">forFamily</h3><pre><code>public function forFamily(ServerFamily $family)</code></pre><pre class="doc">Catalog of ServerQuery commands for TeamSpeak 3.13.8 and 6.0.0-beta12.1.
+TeamSpeak 3 uses command-catalog.json (3.13.8). TeamSpeak 6 uses command-catalog-ts6.json
+(6.0.0-beta12.1). Names missing from the active catalog are not invented locally.
+@package TS3ServerBot
+/
+final class CommandCatalog
+{
+    /**
+@var array&lt;string, CommandDefinition&gt;
+/
+    private array $commands;
+
+    /**
+Loads the catalog that matches a TeamSpeak server family.</pre><h3 id="TS3ServerBot-Protocol-CommandCatalog-__construct">__construct</h3><pre><code>public function __construct(
+        ?string $catalogPath = null,
+        private readonly ServerFamily $family = ServerFamily::TeamSpeak3,
+    )</code></pre><pre class="doc">@param string|null $catalogPath Path to a catalog JSON file. Defaults to the TeamSpeak 3.13.8 catalog.
+@param ServerFamily $family Used in error messages and {@see family()}.</pre><h3 id="TS3ServerBot-Protocol-CommandCatalog-family">family</h3><pre><code>public function family()</code></pre><pre class="doc">Server family this catalog was built for.</pre><h3 id="TS3ServerBot-Protocol-CommandCatalog-find">find</h3><pre><code>public function find(string $name)</code></pre><pre class="doc">Looks up a documented command by name, or null when it is not in this catalog.</pre><h3 id="TS3ServerBot-Protocol-CommandCatalog-get">get</h3><pre><code>public function get(string $name)</code></pre><pre class="doc">Looks up a documented command by name.
+@throws UnsupportedOperationException</pre><h3 id="TS3ServerBot-Protocol-CommandCatalog-has">has</h3><pre><code>public function has(string $name)</code></pre><pre class="doc">Whether the name exists in this catalog.</pre><h3 id="TS3ServerBot-Protocol-CommandCatalog-all">all</h3><pre><code>public function all()</code></pre><pre class="doc">@return list&lt;CommandDefinition&gt;</pre><h2 id="TS3ServerBot-Protocol-CommandDefinition">TS3ServerBot\Protocol\CommandDefinition</h2><p class="path"><code>src/Protocol\CommandDefinition.php</code></p><h3 id="TS3ServerBot-Protocol-CommandDefinition-__construct">__construct</h3><pre><code>public function __construct(
+        public readonly string $name,
+        public readonly string $usage,
+        public readonly array $permissions,
+        public readonly array $parameters,
+        public readonly array $options,
+        public readonly bool $webQuery,
+        public readonly bool $sshOnly,
+        public readonly string $category,
+        public readonly ?string $aliasOf,
+        public readonly string $source,
+    )</code></pre><pre class="doc">Metadata for one documented ServerQuery command.
+@package TS3ServerBot
+/
+final class CommandDefinition
+{
+    /**
+@param list&lt;string&gt; $permissions
+@param list&lt;string&gt; $parameters
+@param list&lt;string&gt; $options</pre><h2 id="TS3ServerBot-Protocol-QueryCommand">TS3ServerBot\Protocol\QueryCommand</h2><p class="path"><code>src/Protocol\QueryCommand.php</code></p><h3 id="TS3ServerBot-Protocol-QueryCommand-__construct">__construct</h3><pre><code>public function __construct(
+        public readonly string $name,
+        public readonly array $parameters = [],
+        public readonly array $options = [],
+        public readonly ?int $virtualServerId = null,
+        public readonly ?int $virtualServerPort = null,
+    )</code></pre><pre class="doc">Structured ServerQuery command. Callers pass a Query command name and PHP values, never a raw Query string.
+@package TS3ServerBot
+/
+final class QueryCommand
+{
+    /**
+@param array&lt;string, scalar|list&lt;scalar&gt;&gt; $parameters
+@param list&lt;string&gt; $options Option names without the leading minus, e.g. &quot;uid&quot;.
+@throws InvalidParameterException</pre><h2 id="TS3ServerBot-Protocol-QueryDecoder">TS3ServerBot\Protocol\QueryDecoder</h2><p class="path"><code>src/Protocol\QueryDecoder.php</code></p><h3 id="TS3ServerBot-Protocol-QueryDecoder-decode">decode</h3><pre><code>public function decode(string $payload)</code></pre><pre class="doc">Parses ServerQuery text responses documented for TeamSpeak 3.13.8.
+@package TS3ServerBot
+/
+final class QueryDecoder
+{
+    /**
+Parses a ServerQuery payload into items and an error line.</pre><h3 id="TS3ServerBot-Protocol-QueryDecoder-parsePairs">parsePairs</h3><pre><code>public function parsePairs(string $line)</code></pre><pre class="doc">Parses `key=value` tokens from one Query line.
+@return array&lt;string, string&gt;</pre><h3 id="TS3ServerBot-Protocol-QueryDecoder-splitUnescaped">splitUnescaped</h3><pre><code>public function splitUnescaped(string $input, string $delimiter)</code></pre><pre class="doc">Splits a line on an unescaped delimiter (`|` or space).
+@return list&lt;string&gt;</pre><h3 id="TS3ServerBot-Protocol-QueryDecoder-stripPromptPrefix">stripPromptPrefix</h3><pre><code>public function stripPromptPrefix(string $line)</code></pre><pre class="doc">Removes a ServerQuery prompt (`name@port(sid):status&gt;`) that may prefix a payload line.</pre><h2 id="TS3ServerBot-Protocol-QueryEncoder">TS3ServerBot\Protocol\QueryEncoder</h2><p class="path"><code>src/Protocol\QueryEncoder.php</code></p><h3 id="TS3ServerBot-Protocol-QueryEncoder-encode">encode</h3><pre><code>public function encode(QueryCommand $command)</code></pre><pre class="doc">Builds a ServerQuery command line from structured PHP values.
+@package TS3ServerBot
+/
+final class QueryEncoder
+{
+    /**
+Returns the ServerQuery command line, including escaped parameters and dash options.</pre><h2 id="TS3ServerBot-Protocol-QueryEscaper">TS3ServerBot\Protocol\QueryEscaper</h2><p class="path"><code>src/Protocol\QueryEscaper.php</code></p><h3 id="TS3ServerBot-Protocol-QueryEscaper-encode">encode</h3><pre><code>public function encode(string $value)</code></pre><pre class="doc">Encodes and decodes ServerQuery escape sequences documented for TeamSpeak 3.13.8.
+@package TS3ServerBot
+/
+final class QueryEscaper
+{
+    /**
+@var array&lt;string, string&gt;
+/
+    private const ENCODE = [
+        &#039;\\&#039; =&gt; &#039;\\\\&#039;,
+        &#039;/&#039; =&gt; &#039;\\/&#039;,
+        &#039; &#039; =&gt; &#039;\\s&#039;,
+        &#039;|&#039; =&gt; &#039;\\p&#039;,
+        &quot;\x07&quot; =&gt; &#039;\\a&#039;,
+        &quot;\x08&quot; =&gt; &#039;\\b&#039;,
+        &quot;\x0c&quot; =&gt; &#039;\\f&#039;,
+        &quot;\n&quot; =&gt; &#039;\\n&#039;,
+        &quot;\r&quot; =&gt; &#039;\\r&#039;,
+        &quot;\t&quot; =&gt; &#039;\\t&#039;,
+        &quot;\v&quot; =&gt; &#039;\\v&#039;,
+    ];
+
+    /**
+@var array&lt;string, string&gt;
+/
+    private const DECODE = [
+        &#039;\\\\&#039; =&gt; &#039;\\&#039;,
+        &#039;\\/&#039; =&gt; &#039;/&#039;,
+        &#039;\\s&#039; =&gt; &#039; &#039;,
+        &#039;\\p&#039; =&gt; &#039;|&#039;,
+        &#039;\\a&#039; =&gt; &quot;\x07&quot;,
+        &#039;\\b&#039; =&gt; &quot;\x08&quot;,
+        &#039;\\f&#039; =&gt; &quot;\x0c&quot;,
+        &#039;\\n&#039; =&gt; &quot;\n&quot;,
+        &#039;\\r&#039; =&gt; &quot;\r&quot;,
+        &#039;\\t&#039; =&gt; &quot;\t&quot;,
+        &#039;\\v&#039; =&gt; &quot;\v&quot;,
+    ];
+
+    /**
+Encodes a PHP string using the documented ServerQuery escape table.</pre><h3 id="TS3ServerBot-Protocol-QueryEscaper-decode">decode</h3><pre><code>public function decode(string $value)</code></pre><pre class="doc">Decodes ServerQuery escape sequences in a value.</pre><h2 id="TS3ServerBot-Protocol-QueryResponse">TS3ServerBot\Protocol\QueryResponse</h2><p class="path"><code>src/Protocol\QueryResponse.php</code></p><h3 id="TS3ServerBot-Protocol-QueryResponse-__construct">__construct</h3><pre><code>public function __construct(
+        public readonly int $errorId,
+        public readonly string $errorMessage,
+        public readonly array $items = [],
+        public readonly array $errorExtra = [],
+    )</code></pre><pre class="doc">Parsed ServerQuery or WebQuery response.
+Error id 1281 (empty database result) is treated as success with no items, as documented for WebQuery clients.
+@package TS3ServerBot
+/
+final class QueryResponse
+{
+    public const ERROR_OK = 0;
+
+    public const ERROR_DATABASE_EMPTY_RESULT = 1281;
+
+    /**
+@param list&lt;QueryNode&gt; $items
+@param array&lt;string, string&gt; $errorExtra</pre><h3 id="TS3ServerBot-Protocol-QueryResponse-isOk">isOk</h3><pre><code>public function isOk()</code></pre><pre class="doc">True when the TeamSpeak error id is 0 or the documented empty-result code 1281.</pre><h3 id="TS3ServerBot-Protocol-QueryResponse-throwIfError">throwIfError</h3><pre><code>public function throwIfError()</code></pre><pre class="doc">@throws AuthenticationException
+@throws PermissionException
+@throws ServerException</pre><h3 id="TS3ServerBot-Protocol-QueryResponse-first">first</h3><pre><code>public function first()</code></pre><pre class="doc">First result row, or null when the body is empty.</pre><h3 id="TS3ServerBot-Protocol-QueryResponse-requireFirst">requireFirst</h3><pre><code>public function requireFirst()</code></pre><pre class="doc">First result row, or UnexpectedResponseException when the body is empty.</pre><h3 id="TS3ServerBot-Protocol-QueryResponse-firstHaving">firstHaving</h3><pre><code>public function firstHaving(string $key)</code></pre><pre class="doc">First result row that has a non-empty value for the given key.</pre><h2 id="TS3ServerBot-Protocol-WebQueryMapper">TS3ServerBot\Protocol\WebQueryMapper</h2><p class="path"><code>src/Protocol\WebQueryMapper.php</code></p><h3 id="TS3ServerBot-Protocol-WebQueryMapper-toBody">toBody</h3><pre><code>public function toBody(QueryCommand $command)</code></pre><pre class="doc">Maps structured Query commands to WebQuery HTTP JSON as documented in doc/webquery.md.
+@package TS3ServerBot
+/
+final class WebQueryMapper
+{
+    /**
+@return array&lt;string, mixed&gt;</pre><h3 id="TS3ServerBot-Protocol-WebQueryMapper-path">path</h3><pre><code>public function path(QueryCommand $command)</code></pre><pre class="doc">Builds the WebQuery URL path, including `/{id}/` or `/byport/{port}/` when a server is selected.</pre><h3 id="TS3ServerBot-Protocol-WebQueryMapper-fromJson">fromJson</h3><pre><code>public function fromJson(array $json)</code></pre><pre class="doc">@param array&lt;string, mixed&gt; $json</pre><h2 id="TS3ServerBot-Support-SecretRedactor">TS3ServerBot\Support\SecretRedactor</h2><p class="path"><code>src/Support\SecretRedactor.php</code></p><h3 id="TS3ServerBot-Support-SecretRedactor-redactArray">redactArray</h3><pre><code>public function redactArray(array $values)</code></pre><pre class="doc">Removes secrets from arrays and strings before logging or debug output.
+@package TS3ServerBot
+/
+final class SecretRedactor
+{
+    private const SECRET_KEYS = [
+        &#039;password&#039;,
+        &#039;client_login_password&#039;,
+        &#039;apikey&#039;,
+        &#039;api-key&#039;,
+        &#039;apiKey&#039;,
+        &#039;x-api-key&#039;,
+        &#039;token&#039;,
+        &#039;pw&#039;,
+        &#039;cpw&#039;,
+        &#039;tcpw&#039;,
+        &#039;ftkey&#039;,
+        &#039;salt&#039;,
+    ];
+
+    /**
+@param array&lt;string, mixed&gt; $values
+@return array&lt;string, mixed&gt;</pre><h3 id="TS3ServerBot-Support-SecretRedactor-redactText">redactText</h3><pre><code>public function redactText(string $text)</code></pre><pre class="doc">@var array&lt;string, mixed&gt; $value */
+                $redacted[$key] = self::redactArray($value);
+                continue;
+            }
+
+            $redacted[$key] = $value;
+        }
+
+        return $redacted;
+    }
+
+    /**
+Redacts known secret patterns from a log or debug string.</pre><h2 id="TS3ServerBot-Transport-CurlHttpClient">TS3ServerBot\Transport\CurlHttpClient</h2><p class="path"><code>src/Transport\CurlHttpClient.php</code></p><h3 id="TS3ServerBot-Transport-CurlHttpClient-post">post</h3><pre><code>public function post(string $url, array $headers, string $body, float $timeout, bool $verifyTls)</code></pre><pre class="doc">cURL implementation of WebQuery HTTP POST.
+@package TS3ServerBot
+/
+final class CurlHttpClient implements HttpClientInterface
+{
+    /**
+{@inheritDoc}</pre><h2 id="TS3ServerBot-Transport-HttpClientInterface">TS3ServerBot\Transport\HttpClientInterface</h2><p class="path"><code>src/Transport\HttpClientInterface.php</code></p><h3 id="TS3ServerBot-Transport-HttpClientInterface-post">post</h3><pre><code>public function post(string $url, array $headers, string $body, float $timeout, bool $verifyTls)</code></pre><pre class="doc">HTTP POST used by WebQueryTransport.
+@package TS3ServerBot
+/
+interface HttpClientInterface
+{
+    /**
+@param array&lt;string, string&gt; $headers</pre><h2 id="TS3ServerBot-Transport-HttpResult">TS3ServerBot\Transport\HttpResult</h2><p class="path"><code>src/Transport\HttpResult.php</code></p><h2 id="TS3ServerBot-Transport-PhpSecLibSshSession">TS3ServerBot\Transport\PhpSecLibSshSession</h2><p class="path"><code>src/Transport\PhpSecLibSshSession.php</code></p><h3 id="TS3ServerBot-Transport-PhpSecLibSshSession-authenticate">authenticate</h3><pre><code>public function authenticate(
+        string $host,
+        int $port,
+        string $username,
+        string $password,
+        float $timeout,
+        ?string $hostFingerprint
+    )</code></pre><pre class="doc">phpseclib SSH2 session that never requests a PTY, matching the 3.13.8 changelog guidance for bots.
+TeamSpeak Query over SSH uses the Query username and password for the SSH handshake. That
+handshake is Query authentication. A second ServerQuery `login` command is not required.
+@package TS3ServerBot
+/
+final class PhpSecLibSshSession implements SshSessionInterface
+{
+    private ?SSH2 $ssh = null;
+
+    private string $buffer = &#039;&#039;;
+
+    /**
+{@inheritDoc}</pre><h3 id="TS3ServerBot-Transport-PhpSecLibSshSession-write">write</h3><pre><code>public function write(string $data)</code></pre><pre class="doc">{@inheritDoc}</pre><h3 id="TS3ServerBot-Transport-PhpSecLibSshSession-readLine">readLine</h3><pre><code>public function readLine(float $timeout)</code></pre><pre class="doc">{@inheritDoc}</pre><h3 id="TS3ServerBot-Transport-PhpSecLibSshSession-disconnect">disconnect</h3><pre><code>public function disconnect()</code></pre><pre class="doc">{@inheritDoc}</pre><h2 id="TS3ServerBot-Transport-SshQueryTransport">TS3ServerBot\Transport\SshQueryTransport</h2><p class="path"><code>src/Transport\SshQueryTransport.php</code></p><h3 id="TS3ServerBot-Transport-SshQueryTransport-name">name</h3><pre><code>public function name()</code></pre><pre class="doc">Encrypted ServerQuery session over SSH (documented default port 10022). Does not use raw/telnet Query.
+@package TS3ServerBot
+/
+final class SshQueryTransport implements TransportInterface
+{
+    /**
+@var list&lt;string&gt;
+/
+    private array $pendingNotifications = [];
+
+    private bool $connected = false;
+
+    public function __construct(
+        private readonly ClientConfig $config,
+        private readonly SshSessionInterface $session,
+        private readonly QueryEncoder $encoder = new QueryEncoder(),
+        private readonly QueryDecoder $decoder = new QueryDecoder(),
+    ) {
+    }
+
+    /**
+{@inheritDoc}</pre><h3 id="TS3ServerBot-Transport-SshQueryTransport-connect">connect</h3><pre><code>public function connect()</code></pre><pre class="doc">{@inheritDoc}</pre><h3 id="TS3ServerBot-Transport-SshQueryTransport-disconnect">disconnect</h3><pre><code>public function disconnect()</code></pre><pre class="doc">{@inheritDoc}</pre><h3 id="TS3ServerBot-Transport-SshQueryTransport-isConnected">isConnected</h3><pre><code>public function isConnected()</code></pre><pre class="doc">{@inheritDoc}</pre><h3 id="TS3ServerBot-Transport-SshQueryTransport-execute">execute</h3><pre><code>public function execute(QueryCommand $command)</code></pre><pre class="doc">{@inheritDoc}</pre><h3 id="TS3ServerBot-Transport-SshQueryTransport-drainNotifications">drainNotifications</h3><pre><code>public function drainNotifications()</code></pre><pre class="doc">Unsolicited notify lines collected during command reads.
+The 3.13.8 docs do not define notify field lists. These strings are returned unverified.
+@return list&lt;string&gt;</pre><h2 id="TS3ServerBot-Transport-SshSessionInterface">TS3ServerBot\Transport\SshSessionInterface</h2><p class="path"><code>src/Transport\SshSessionInterface.php</code></p><h3 id="TS3ServerBot-Transport-SshSessionInterface-authenticate">authenticate</h3><pre><code>public function authenticate(
+        string $host,
+        int $port,
+        string $username,
+        string $password,
+        float $timeout,
+        ?string $hostFingerprint
+    )</code></pre><pre class="doc">Minimal SSH session used by SshQueryTransport. The default implementation uses phpseclib and does not allocate a PTY.
+@package TS3ServerBot
+/
+interface SshSessionInterface
+{
+    /**
+Authenticates to the TeamSpeak SSH Query listener without allocating a PTY.</pre><h3 id="TS3ServerBot-Transport-SshSessionInterface-write">write</h3><pre><code>public function write(string $data)</code></pre><pre class="doc">Writes bytes to the SSH channel.</pre><h3 id="TS3ServerBot-Transport-SshSessionInterface-readLine">readLine</h3><pre><code>public function readLine(float $timeout)</code></pre><pre class="doc">Reads one line from the SSH channel or null at EOF.</pre><h3 id="TS3ServerBot-Transport-SshSessionInterface-disconnect">disconnect</h3><pre><code>public function disconnect()</code></pre><pre class="doc">Closes the SSH channel.</pre><h2 id="TS3ServerBot-Transport-TransportInterface">TS3ServerBot\Transport\TransportInterface</h2><p class="path"><code>src/Transport\TransportInterface.php</code></p><h3 id="TS3ServerBot-Transport-TransportInterface-connect">connect</h3><pre><code>public function connect()</code></pre><pre class="doc">Sends ServerQuery operations over SSH or WebQuery to TeamSpeak 3.13.8 or TeamSpeak 6.
+Implementations exist for SSH and WebQuery only.
+@package TS3ServerBot
+/
+interface TransportInterface
+{
+    /**
+Opens the transport.</pre><h3 id="TS3ServerBot-Transport-TransportInterface-disconnect">disconnect</h3><pre><code>public function disconnect()</code></pre><pre class="doc">Closes the transport.</pre><h3 id="TS3ServerBot-Transport-TransportInterface-isConnected">isConnected</h3><pre><code>public function isConnected()</code></pre><pre class="doc">Whether the transport currently has an open session.</pre><h3 id="TS3ServerBot-Transport-TransportInterface-execute">execute</h3><pre><code>public function execute(QueryCommand $command)</code></pre><pre class="doc">Executes one catalog command and returns the decoded response.</pre><h3 id="TS3ServerBot-Transport-TransportInterface-name">name</h3><pre><code>public function name()</code></pre><pre class="doc">Identifies the transport as SSH or WebQuery.</pre><h2 id="TS3ServerBot-Transport-WebQueryTransport">TS3ServerBot\Transport\WebQueryTransport</h2><p class="path"><code>src/Transport\WebQueryTransport.php</code></p><h3 id="TS3ServerBot-Transport-WebQueryTransport-name">name</h3><pre><code>public function name()</code></pre><pre class="doc">WebQuery HTTP/JSON transport (documented default port 10080 for TeamSpeak 3.13.8 Query).
+TeamSpeak 6 uses the same HTTP JSON client. Paths follow the documented `/{sid}/{command}` pattern.
+@package TS3ServerBot
+/
+final class WebQueryTransport implements TransportInterface
+{
+    private bool $connected = false;
+
+    public function __construct(
+        private readonly ClientConfig $config,
+        private readonly HttpClientInterface $http,
+        private readonly WebQueryMapper $mapper = new WebQueryMapper(),
+    ) {
+    }
+
+    /**
+{@inheritDoc}</pre><h3 id="TS3ServerBot-Transport-WebQueryTransport-connect">connect</h3><pre><code>public function connect()</code></pre><pre class="doc">{@inheritDoc}</pre><h3 id="TS3ServerBot-Transport-WebQueryTransport-disconnect">disconnect</h3><pre><code>public function disconnect()</code></pre><pre class="doc">{@inheritDoc}</pre><h3 id="TS3ServerBot-Transport-WebQueryTransport-isConnected">isConnected</h3><pre><code>public function isConnected()</code></pre><pre class="doc">{@inheritDoc}</pre><h3 id="TS3ServerBot-Transport-WebQueryTransport-execute">execute</h3><pre><code>public function execute(QueryCommand $command)</code></pre><pre class="doc">{@inheritDoc}</pre>
+    </main>
+</div>
+<script src="assets/search-index.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

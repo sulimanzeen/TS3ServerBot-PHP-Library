@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WebQuery transport — TS3ServerBot Query</title>
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-depth="1" data-page="guides/webquery">
+<header>
+    <div class="brand-block">
+        <button type="button" class="menu-toggle" aria-label="Open navigation">Menu</button>
+        <p class="brand">TS3ServerBot Query <span>TS3ServerBot.com</span></p>
+        <p class="meta">Developer docs · TeamSpeak 3.13.8 + 6.0.0-beta12.1 · SSH + WebQuery</p>
+    </div>
+    <form class="search-form" action="../search.html" method="get" role="search">
+        <label class="sr-only" for="docs-search">Search documentation</label>
+        <input id="docs-search" class="search-input" type="search" name="q" placeholder="Search commands, methods, args…" autocomplete="off" spellcheck="false">
+        <kbd>/</kbd>
+        <div class="search-results" hidden></div>
+    </form>
+</header>
+<div class="layout">
+    <nav><p class="nav-group">Guides</p><ul><li><a href="../index.html">Home</a></li><li><a href="installation.html">Installation</a></li><li><a href="first-connection.html">First connection</a></li><li><a href="ssh.html">SSH</a></li><li class="active"><a href="webquery.html">WebQuery</a></li><li><a href="architecture.html">Architecture</a></li><li><a href="not-supported.html">Not supported</a></li><li><a href="errors.html">Errors</a></li><li><a href="troubleshooting.html">Troubleshooting</a></li><li><a href="security.html">Security</a></li><li><a href="compatibility.html">Compatibility</a></li><li><a href="examples.html">Examples</a></li></ul><p class="nav-group">Reference</p><ul><li><a href="../reference/configuration.html">Configuration</a></li><li><a href="../reference/operations.html">Operations</a></li><li><a href="../reference/commands.html">Command matrix</a></li><li><a href="../api.html">API reference</a></li></ul><p class="nav-group">TeamSpeak 6</p><ul><li><a href="../reference/teamspeak6-commands.html">TS6-only commands</a></li></ul></nav>
+    <main>
+        <h1 id="webquery-transport">WebQuery transport</h1><h2 id="what-it-is">What it is</h2><p>HTTP JSON interface documented for TeamSpeak 3.13.8 (same contract on 6.0.0-beta12.1). Default port <strong>10080</strong>.</p><h2 id="when-to-use-it">When to use it</h2><p>Stateless request/response management: list clients, list channels, server info, kick, edit, and other commands that WebQuery supports.</p><h2 id="configuration">Configuration</h2><ul><li>Host</li><li><code>webQueryPort</code> (default 10080)</li><li><code>apiKey</code> (required)</li><li><code>virtualServerId</code> or <code>virtualServerPort</code></li><li>Optional <code>webQueryTls</code> for <code>https://</code> when you terminate TLS on a reverse proxy</li></ul><p>Native TeamSpeak <code>https</code> on 10443 is <strong>not claimed</strong>; the 3.13.8 quickstart tells operators to use a reverse proxy.</p><h2 id="authentication">Authentication</h2><p>Every call requires an API key as HTTP header <code>x-api-key</code>. The library does not put the key in the URL.</p><p>Keys are created at first server start or with SSH command <code>apikeyadd</code> (scopes <code>manage</code>, <code>write</code>, <code>read</code>).</p><h2 id="lifecycle">Lifecycle</h2><p>WebQuery has no Query session. <code>connect()</code> marks the client ready. Each method is one HTTP POST.</p><h2 id="operations">Operations</h2><p>Most catalog commands work. These do <strong>not</strong> (from <code>webquery.md</code>):</p><ul><li><code>ft*</code></li><li><code>help</code></li><li><code>login</code>, <code>logout</code>, <code>quit</code></li><li><code>servernotifyregister</code>, <code>servernotifyunregister</code></li><li><code>use</code></li></ul><p>The framework throws <code>UnsupportedOperationException</code> if you call them on WebQuery.</p><p>Virtual server selection is the URL path <code>/{serverId}/{command}</code> or <code>/byport/{port}/{command}</code>.</p><h2 id="errors">Errors</h2><p>JSON <code>status.code</code> is 0 on success. <code>1281</code> (empty database result) is treated as success with no items. HTTP 401/403 becomes <code>AuthenticationException</code>.</p><h2 id="security">Security</h2><p>Port 10080 is cleartext HTTP in the 3.13.8 docs. Prefer an HTTPS reverse proxy. Keep API keys secret.</p><h2 id="limitations">Limitations</h2><p>No event stream. No file-transfer commands. No <code>use</code>/<code>login</code> session.</p>
+    </main>
+</div>
+<script src="../assets/search-index.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

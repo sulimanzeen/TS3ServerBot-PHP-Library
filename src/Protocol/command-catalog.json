@@ -1,0 +1,2806 @@
+﻿[
+    {
+        "name":  "apikeyadd",
+        "usage":  "apikeyadd scope={manage|write|read} [lifetime={days}] [cldbid={clientDBID}]",
+        "permissions":  [
+                            "b_virtualserver_apikey_add",
+                            "b_virtualserver_apikey_manage"
+                        ],
+        "parameters":  [
+                           "scope",
+                           "lifetime",
+                           "cldbid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/apikeyadd.txt"
+    },
+    {
+        "name":  "apikeydel",
+        "usage":  "apikeydel id={ID}",
+        "permissions":  [
+                            "b_virtualserver_apikey_manage"
+                        ],
+        "parameters":  [
+                           "id"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/apikeydel.txt"
+    },
+    {
+        "name":  "apikeylist",
+        "usage":  "apikeylist [cldbid={clientDBID|*}] [start={offset}] [duration={limit}] [-count]",
+        "permissions":  [
+                            "b_virtualserver_apikey_manage"
+                        ],
+        "parameters":  [
+                           "cldbid",
+                           "start",
+                           "duration"
+                       ],
+        "options":  [
+                        "count"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/apikeylist.txt"
+    },
+    {
+        "name":  "banadd",
+        "usage":  "banadd [ip={regexp}] [name={regexp}] [uid={clientUID}] [mytsid=({mytsid}|empty)] [time={timeInSeconds}] [banreason={text}] [lastnickname={nickname}]",
+        "permissions":  [
+                            "b_client_ban_create"
+                        ],
+        "parameters":  [
+                           "ip",
+                           "name",
+                           "uid",
+                           "mytsid",
+                           "time",
+                           "banreason",
+                           "lastnickname"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/banadd.txt"
+    },
+    {
+        "name":  "banclient",
+        "usage":  "banclient [-continueonerror] [time={timeInSeconds}] [banreason={text}] clid={clientID}...",
+        "permissions":  [
+                            "i_client_ban_power",
+                            "i_client_needed_ban_power"
+                        ],
+        "parameters":  [
+                           "time",
+                           "banreason",
+                           "clid"
+                       ],
+        "options":  [
+                        "continueonerror"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/banclient.txt"
+    },
+    {
+        "name":  "bandel",
+        "usage":  "bandel banid={banID}",
+        "permissions":  [
+                            "b_client_ban_delete",
+                            "b_client_ban_delete_own"
+                        ],
+        "parameters":  [
+                           "banid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/bandel.txt"
+    },
+    {
+        "name":  "bandelall",
+        "usage":  "bandelall",
+        "permissions":  [
+                            "b_client_ban_delete"
+                        ],
+        "parameters":  [
+
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/bandelall.txt"
+    },
+    {
+        "name":  "banlist",
+        "usage":  "banlist [start={offset}] [duration={limit}] [-count]",
+        "permissions":  [
+                            "b_client_ban_list"
+                        ],
+        "parameters":  [
+                           "start",
+                           "duration"
+                       ],
+        "options":  [
+                        "count"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/banlist.txt"
+    },
+    {
+        "name":  "bindinglist",
+        "usage":  "bindinglist [subsystem={voice|query|filetransfer}]",
+        "permissions":  [
+                            "b_serverinstance_binding_list"
+                        ],
+        "parameters":  [
+                           "subsystem"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/bindinglist.txt"
+    },
+    {
+        "name":  "channeladdperm",
+        "usage":  "channeladdperm [-continueonerror] cid={channelID} [permid={permID}...] [permsid={permName}...] permvalue={permValue}...",
+        "permissions":  [
+                            "i_group_modify_power",
+                            "i_group_needed_modify_power",
+                            "i_permission_modify_power"
+                        ],
+        "parameters":  [
+                           "cid",
+                           "permid",
+                           "permsid",
+                           "permvalue"
+                       ],
+        "options":  [
+                        "continueonerror"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/channeladdperm.txt"
+    },
+    {
+        "name":  "channelclientaddperm",
+        "usage":  "channelclientaddperm [-continueonerror] cid={channelID} cldbid={clientDBID} [permid={permID}...] [permsid={permName}...] permvalue={permValue}...",
+        "permissions":  [
+                            "i_group_modify_power",
+                            "i_group_needed_modify_power",
+                            "i_permission_modify_power"
+                        ],
+        "parameters":  [
+                           "cid",
+                           "cldbid",
+                           "permid",
+                           "permsid",
+                           "permvalue"
+                       ],
+        "options":  [
+                        "continueonerror"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/channelclientaddperm.txt"
+    },
+    {
+        "name":  "channelclientdelperm",
+        "usage":  "channelclientdelperm cid={channelID} cldbid={clientDBID} [permid={permID}...] [permsid={permName}...]",
+        "permissions":  [
+                            "i_group_modify_power",
+                            "i_group_needed_modify_power",
+                            "i_permission_modify_power"
+                        ],
+        "parameters":  [
+                           "cid",
+                           "cldbid",
+                           "permid",
+                           "permsid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/channelclientdelperm.txt"
+    },
+    {
+        "name":  "channelclientpermlist",
+        "usage":  "channelclientpermlist cid={channelID} cldbid={clientDBID} [-permsid]",
+        "permissions":  [
+                            "b_virtualserver_channelclient_permission_list"
+                        ],
+        "parameters":  [
+                           "cid",
+                           "cldbid"
+                       ],
+        "options":  [
+                        "permsid"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/channelclientpermlist.txt"
+    },
+    {
+        "name":  "channelcreate",
+        "usage":  "channelcreate channel_name={channelName} [channel_properties...]",
+        "permissions":  [
+                            "i_channel_min_depth",
+                            "i_channel_max_depth",
+                            "b_channel_create_child",
+                            "b_channel_create_permanent",
+                            "b_channel_create_semi_permanent",
+                            "b_channel_create_temporary",
+                            "b_channel_create_with_topic",
+                            "b_channel_create_with_description",
+                            "b_channel_create_with_password",
+                            "b_channel_create_with_banner",
+                            "i_channel_create_modify_with_codec_maxquality",
+                            "i_channel_create_modify_with_codec_latency_factor_min",
+                            "b_channel_create_with_maxclients",
+                            "b_channel_create_with_maxfamilyclients",
+                            "b_channel_create_with_sortorder",
+                            "b_channel_create_with_default",
+                            "b_channel_create_with_needed_talk_power"
+                        ],
+        "parameters":  [
+                           "channel_name"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/channelcreate.txt"
+    },
+    {
+        "name":  "channeldelete",
+        "usage":  "channeldelete cid={channelID} force={1|0}",
+        "permissions":  [
+                            "b_channel_delete_permanent",
+                            "b_channel_delete_semi_permanent",
+                            "b_channel_delete_temporary",
+                            "b_channel_delete_flag_force"
+                        ],
+        "parameters":  [
+                           "cid",
+                           "force"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/channeldelete.txt"
+    },
+    {
+        "name":  "channeldelperm",
+        "usage":  "channeldelperm cid=123 [permid={permID}...] [permsid={permName}...]",
+        "permissions":  [
+                            "i_group_modify_power",
+                            "i_group_needed_modify_power",
+                            "i_permission_modify_power"
+                        ],
+        "parameters":  [
+                           "cid",
+                           "permid",
+                           "permsid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/channeldelperm.txt"
+    },
+    {
+        "name":  "channeledit",
+        "usage":  "channeledit cid={channelID} [channel_properties...]",
+        "permissions":  [
+                            "i_channel_min_depth",
+                            "i_channel_max_depth",
+                            "b_channel_modify_parent",
+                            "b_channel_modify_make_default",
+                            "b_channel_modify_make_permanent",
+                            "b_channel_modify_make_semi_permanent",
+                            "b_channel_modify_make_temporary",
+                            "b_channel_modify_name",
+                            "b_channel_modify_topic",
+                            "b_channel_modify_description",
+                            "b_channel_modify_password",
+                            "b_channel_modify_banner",
+                            "b_channel_modify_codec",
+                            "b_channel_modify_codec_quality",
+                            "b_channel_create_modify_with_codec_maxquality",
+                            "b_channel_modify_codec_latency_factor",
+                            "b_channel_modify_make_codec_encrypted",
+                            "b_channel_modify_maxclients",
+                            "b_channel_modify_maxfamilyclients",
+                            "b_channel_modify_sortorder",
+                            "b_channel_modify_needed_talk_power",
+                            "i_channel_modify_power",
+                            "i_channel_needed_modify_power"
+                        ],
+        "parameters":  [
+                           "cid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/channeledit.txt"
+    },
+    {
+        "name":  "channelfind",
+        "usage":  "channelfind pattern={channelName}",
+        "permissions":  [
+                            "b_virtualserver_channel_search"
+                        ],
+        "parameters":  [
+                           "pattern"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/channelfind.txt"
+    },
+    {
+        "name":  "channelgroupadd",
+        "usage":  "channelgroupadd name={groupName} [type={groupDbType}]",
+        "permissions":  [
+                            "b_virtualserver_channelgroup_create"
+                        ],
+        "parameters":  [
+                           "name",
+                           "type"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/channelgroupadd.txt"
+    },
+    {
+        "name":  "channelgroupaddperm",
+        "usage":  "channelgroupaddperm [-continueonerror] cgid={groupID} [permid={permID}...] [permsid={permName}...] permvalue={permValue}...",
+        "permissions":  [
+                            "i_group_modify_power",
+                            "i_group_needed_modify_power",
+                            "i_permission_modify_power"
+                        ],
+        "parameters":  [
+                           "cgid",
+                           "permid",
+                           "permsid",
+                           "permvalue"
+                       ],
+        "options":  [
+                        "continueonerror"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/channelgroupaddperm.txt"
+    },
+    {
+        "name":  "channelgroupclientlist",
+        "usage":  "channelgroupclientlist [cid={channelID}] [cldbid={clientDBID}] [cgid={groupID}]",
+        "permissions":  [
+                            "b_virtualserver_channelgroup_client_list"
+                        ],
+        "parameters":  [
+                           "cid",
+                           "cldbid",
+                           "cgid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/channelgroupclientlist.txt"
+    },
+    {
+        "name":  "channelgroupcopy",
+        "usage":  "channelgroupcopy scgid={sourceGroupID} tcgid={targetGroupID} name={groupName} type={groupDbType}",
+        "permissions":  [
+                            "b_virtualserver_channelgroup_create",
+                            "i_group_modify_power",
+                            "i_group_needed_modify_power"
+                        ],
+        "parameters":  [
+                           "scgid",
+                           "tcgid",
+                           "name",
+                           "type"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/channelgroupcopy.txt"
+    },
+    {
+        "name":  "channelgroupdel",
+        "usage":  "channelgroupdel cgid={groupID} force={1|0}",
+        "permissions":  [
+                            "b_virtualserver_channelgroup_delete"
+                        ],
+        "parameters":  [
+                           "cgid",
+                           "force"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/channelgroupdel.txt"
+    },
+    {
+        "name":  "channelgroupdelperm",
+        "usage":  "channelgroupdelperm [-continueonerror] cgid={groupID} [permid={permID}...] [permsid={permName}...]",
+        "permissions":  [
+                            "i_group_modify_power",
+                            "i_group_needed_modify_power",
+                            "i_permission_modify_power"
+                        ],
+        "parameters":  [
+                           "cgid",
+                           "permid",
+                           "permsid"
+                       ],
+        "options":  [
+                        "continueonerror"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/channelgroupdelperm.txt"
+    },
+    {
+        "name":  "channelgrouplist",
+        "usage":  "channelgrouplist",
+        "permissions":  [
+                            "b_virtualserver_channelgroup_list",
+                            "b_serverinstance_modify_templates"
+                        ],
+        "parameters":  [
+
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/channelgrouplist.txt"
+    },
+    {
+        "name":  "channelgrouppermlist",
+        "usage":  "channelgrouppermlist cgid={groupID} [-permsid]",
+        "permissions":  [
+                            "b_virtualserver_channelgroup_permission_list"
+                        ],
+        "parameters":  [
+                           "cgid"
+                       ],
+        "options":  [
+                        "permsid"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/channelgrouppermlist.txt"
+    },
+    {
+        "name":  "channelgrouprename",
+        "usage":  "channelgrouprename cgid={groupID} name={groupName}",
+        "permissions":  [
+                            "i_group_modify_power",
+                            "i_group_needed_modify_power"
+                        ],
+        "parameters":  [
+                           "cgid",
+                           "name"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/channelgrouprename.txt"
+    },
+    {
+        "name":  "channelinfo",
+        "usage":  "channelinfo cid={channelID}",
+        "permissions":  [
+                            "b_channel_info_view"
+                        ],
+        "parameters":  [
+                           "cid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/channelinfo.txt"
+    },
+    {
+        "name":  "channellist",
+        "usage":  "channellist [-topic] [-flags] [-voice] [-limits] [-icon] [-secondsempty] [-banners]",
+        "permissions":  [
+                            "b_virtualserver_channel_list"
+                        ],
+        "parameters":  [
+
+                       ],
+        "options":  [
+                        "topic",
+                        "flags",
+                        "voice",
+                        "limits",
+                        "icon",
+                        "secondsempty",
+                        "banners"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/channellist.txt"
+    },
+    {
+        "name":  "channelmove",
+        "usage":  "channelmove cid={channelID} cpid={channelParentID} [order={channelSortOrder}]",
+        "permissions":  [
+                            "i_channel_min_depth",
+                            "i_channel_max_depth",
+                            "b_channel_modify_parent",
+                            "b_channel_modify_sortorder"
+                        ],
+        "parameters":  [
+                           "cid",
+                           "cpid",
+                           "order"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/channelmove.txt"
+    },
+    {
+        "name":  "channelpermlist",
+        "usage":  "channelpermlist cid={channelID} [-permsid]",
+        "permissions":  [
+                            "b_virtualserver_channel_permission_list"
+                        ],
+        "parameters":  [
+                           "cid"
+                       ],
+        "options":  [
+                        "permsid"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/channelpermlist.txt"
+    },
+    {
+        "name":  "clientaddperm",
+        "usage":  "clientaddperm [-continueonerror] cldbid={clientDBID} [permid={permID}...] [permsid={permName}...] permvalue={permValue}... permskip={1|0}...",
+        "permissions":  [
+                            "i_group_modify_power",
+                            "i_group_needed_modify_power",
+                            "i_permission_modify_power"
+                        ],
+        "parameters":  [
+                           "cldbid",
+                           "permid",
+                           "permsid",
+                           "permvalue",
+                           "permskip"
+                       ],
+        "options":  [
+                        "continueonerror"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/clientaddperm.txt"
+    },
+    {
+        "name":  "clientaddservergroup",
+        "usage":  "clientaddservergroup cldbid={clientDBID} sgid={groupID} clientaddservergroup [-continueonerror] cldbid={clientDBID} sgid={groupID}|sgid={groupID}",
+        "permissions":  [
+                            "i_group_member_add_power",
+                            "i_group_needed_member_add_power"
+                        ],
+        "parameters":  [
+                           "cldbid",
+                           "sgid"
+                       ],
+        "options":  [
+                        "continueonerror"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/clientaddservergroup.txt"
+    },
+    {
+        "name":  "clientdbdelete",
+        "usage":  "clientdbdelete cldbid={clientDBID}",
+        "permissions":  [
+                            "b_client_delete_dbproperties"
+                        ],
+        "parameters":  [
+                           "cldbid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/clientdbdelete.txt"
+    },
+    {
+        "name":  "clientdbedit",
+        "usage":  "clientdbedit cldbid={clientDBID} [client_properties...]",
+        "permissions":  [
+                            "b_client_modify_dbproperties",
+                            "b_client_modify_description",
+                            "b_client_set_talk_power"
+                        ],
+        "parameters":  [
+                           "cldbid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/clientdbedit.txt"
+    },
+    {
+        "name":  "clientdbfind",
+        "usage":  "clientdbfind [-uid] pattern={clientName|clientUID} clientdbfind [-uid] pattern={clientName|clientUID}|pattern={clientName|clientUID}",
+        "permissions":  [
+                            "b_virtualserver_client_dbsearch"
+                        ],
+        "parameters":  [
+                           "pattern"
+                       ],
+        "options":  [
+                        "uid"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/clientdbfind.txt"
+    },
+    {
+        "name":  "clientdbinfo",
+        "usage":  "clientdbinfo cldbid={clientDBID} clientdbinfo cldbid={clientDBID}|cldbid={clientDBID}",
+        "permissions":  [
+                            "b_virtualserver_client_dbinfo"
+                        ],
+        "parameters":  [
+                           "cldbid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/clientdbinfo.txt"
+    },
+    {
+        "name":  "clientdblist",
+        "usage":  "clientdblist [start={offset}] [duration={limit}] [-count]",
+        "permissions":  [
+                            "b_virtualserver_client_dblist"
+                        ],
+        "parameters":  [
+                           "start",
+                           "duration"
+                       ],
+        "options":  [
+                        "count"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/clientdblist.txt"
+    },
+    {
+        "name":  "clientdelperm",
+        "usage":  "clientdelperm cldbid={clientDBID} [permid={permID}...] [permsid={permName}...]",
+        "permissions":  [
+                            "i_group_modify_power",
+                            "i_group_needed_modify_power",
+                            "i_permission_modify_power"
+                        ],
+        "parameters":  [
+                           "cldbid",
+                           "permid",
+                           "permsid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/clientdelperm.txt"
+    },
+    {
+        "name":  "clientdelservergroup",
+        "usage":  "clientdelservergroup cldbid={clientDBID} sgid={groupID} clientdelservergroup [-continueonerror] cldbid={clientDBID} sgid={groupID}|sgid={groupID}",
+        "permissions":  [
+                            "i_group_member_remove_power",
+                            "i_group_needed_member_remove_power"
+                        ],
+        "parameters":  [
+                           "cldbid",
+                           "sgid"
+                       ],
+        "options":  [
+                        "continueonerror"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/clientdelservergroup.txt"
+    },
+    {
+        "name":  "clientedit",
+        "usage":  "clientedit clid={clientID} [client_properties...]",
+        "permissions":  [
+                            "b_client_modify_description",
+                            "b_client_set_talk_power"
+                        ],
+        "parameters":  [
+                           "clid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/clientedit.txt"
+    },
+    {
+        "name":  "clientfind",
+        "usage":  "clientfind pattern={clientName}",
+        "permissions":  [
+                            "b_virtualserver_client_search"
+                        ],
+        "parameters":  [
+                           "pattern"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/clientfind.txt"
+    },
+    {
+        "name":  "clientgetdbidfromuid",
+        "usage":  "clientgetdbidfromuid cluid={clientUID} clientgetdbidfromuid cluid={clientUID}|cluid={clientUID}",
+        "permissions":  [
+
+                        ],
+        "parameters":  [
+                           "cluid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/clientgetdbidfromuid.txt"
+    },
+    {
+        "name":  "clientgetids",
+        "usage":  "clientgetids cluid={clientUID} clientgetids cluid={clientUID}|cluid={clientUID}",
+        "permissions":  [
+
+                        ],
+        "parameters":  [
+                           "cluid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/clientgetids.txt"
+    },
+    {
+        "name":  "clientgetnamefromdbid",
+        "usage":  "clientgetnamefromdbid cldbid={clientDBID} clientgetnamefromdbid cldbid={clientDBID}|cldbid={clientDBID}",
+        "permissions":  [
+
+                        ],
+        "parameters":  [
+                           "cldbid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/clientgetnamefromdbid.txt"
+    },
+    {
+        "name":  "clientgetnamefromuid",
+        "usage":  "clientgetnamefromuid cluid={clientUID} clientgetnamefromuid cluid={clientUID}|cluid={clientUID}",
+        "permissions":  [
+
+                        ],
+        "parameters":  [
+                           "cluid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/clientgetnamefromuid.txt"
+    },
+    {
+        "name":  "clientgetuidfromclid",
+        "usage":  "clientgetuidfromclid clid={clientID} clientgetuidfromclid clid={clientID}|clid={clientID}",
+        "permissions":  [
+
+                        ],
+        "parameters":  [
+                           "clid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/clientgetuidfromclid.txt"
+    },
+    {
+        "name":  "clientinfo",
+        "usage":  "clientinfo clid={clientID} clientinfo clid={clientID}|clid={clientID}",
+        "permissions":  [
+                            "b_client_info_view"
+                        ],
+        "parameters":  [
+                           "clid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/clientinfo.txt"
+    },
+    {
+        "name":  "clientkick",
+        "usage":  "clientkick [-continueonerror] reasonid={4|5} [reasonmsg={text}] clid={clientID}...",
+        "permissions":  [
+                            "i_client_kick_from_server_power",
+                            "i_client_kick_from_channel_power",
+                            "i_client_needed_kick_from_server_power",
+                            "i_client_needed_kick_from_channel_power"
+                        ],
+        "parameters":  [
+                           "reasonid",
+                           "reasonmsg",
+                           "clid"
+                       ],
+        "options":  [
+                        "continueonerror"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/clientkick.txt"
+    },
+    {
+        "name":  "clientlist",
+        "usage":  "clientlist [-uid] [-away] [-voice] [-times] [-groups] [-info] [-country] [-ip] [-badges]",
+        "permissions":  [
+                            "b_virtualserver_client_list",
+                            "i_channel_subscribe_power",
+                            "i_channel_needed_subscribe_power"
+                        ],
+        "parameters":  [
+
+                       ],
+        "options":  [
+                        "uid",
+                        "away",
+                        "voice",
+                        "times",
+                        "groups",
+                        "info",
+                        "country",
+                        "ip",
+                        "badges"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/clientlist.txt"
+    },
+    {
+        "name":  "clientmove",
+        "usage":  "clientmove [-continueonerror] clid={clientID}... cid={channelID} [cpw={channelPassword}]",
+        "permissions":  [
+                            "i_client_move_power",
+                            "i_client_needed_move_power"
+                        ],
+        "parameters":  [
+                           "clid",
+                           "cid",
+                           "cpw"
+                       ],
+        "options":  [
+                        "continueonerror"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/clientmove.txt"
+    },
+    {
+        "name":  "clientpermlist",
+        "usage":  "clientpermlist cldbid={clientDBID} [-permsid]",
+        "permissions":  [
+                            "b_virtualserver_client_permission_list"
+                        ],
+        "parameters":  [
+                           "cldbid"
+                       ],
+        "options":  [
+                        "permsid"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/clientpermlist.txt"
+    },
+    {
+        "name":  "clientpoke",
+        "usage":  "clientpoke clid={clientID} msg={text}",
+        "permissions":  [
+                            "i_client_poke_power",
+                            "i_client_needed_poke_power"
+                        ],
+        "parameters":  [
+                           "clid",
+                           "msg"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/clientpoke.txt"
+    },
+    {
+        "name":  "clientsetserverquerylogin",
+        "usage":  "clientsetserverquerylogin client_login_name={username}",
+        "permissions":  [
+                            "b_client_create_modify_serverquery_login"
+                        ],
+        "parameters":  [
+                           "client_login_name"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/clientsetserverquerylogin.txt"
+    },
+    {
+        "name":  "clientupdate",
+        "usage":  "clientupdate [client_properties...]",
+        "permissions":  [
+
+                        ],
+        "parameters":  [
+
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/clientupdate.txt"
+    },
+    {
+        "name":  "complainadd",
+        "usage":  "complainadd tcldbid={targetClientDBID} message={text}",
+        "permissions":  [
+                            "i_client_complain_power",
+                            "i_client_needed_complain_power"
+                        ],
+        "parameters":  [
+                           "tcldbid",
+                           "message"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/complainadd.txt"
+    },
+    {
+        "name":  "complaindel",
+        "usage":  "complaindel tcldbid={targetClientDBID} fcldbid={fromClientDBID}",
+        "permissions":  [
+                            "b_client_complain_delete",
+                            "b_client_complain_delete_own"
+                        ],
+        "parameters":  [
+                           "tcldbid",
+                           "fcldbid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/complaindel.txt"
+    },
+    {
+        "name":  "complaindelall",
+        "usage":  "complaindelall tcldbid={targetClientDBID}",
+        "permissions":  [
+                            "b_client_complain_delete"
+                        ],
+        "parameters":  [
+                           "tcldbid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/complaindelall.txt"
+    },
+    {
+        "name":  "complainlist",
+        "usage":  "complainlist [tcldbid={targetClientDBID}]",
+        "permissions":  [
+                            "b_client_complain_list"
+                        ],
+        "parameters":  [
+                           "tcldbid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/complainlist.txt"
+    },
+    {
+        "name":  "customdelete",
+        "usage":  "customdelete cldbid={clientDBID} ident={ident}",
+        "permissions":  [
+                            "b_client_delete_dbproperties"
+                        ],
+        "parameters":  [
+                           "cldbid",
+                           "ident"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/customdelete.txt"
+    },
+    {
+        "name":  "custominfo",
+        "usage":  "custominfo cldbid={clientDBID}",
+        "permissions":  [
+
+                        ],
+        "parameters":  [
+                           "cldbid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/custominfo.txt"
+    },
+    {
+        "name":  "customsearch",
+        "usage":  "customsearch ident={ident} pattern={pattern}",
+        "permissions":  [
+
+                        ],
+        "parameters":  [
+                           "ident",
+                           "pattern"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/customsearch.txt"
+    },
+    {
+        "name":  "customset",
+        "usage":  "customset cldbid={clientDBID} ident={ident} value={value}",
+        "permissions":  [
+                            "b_client_modify_dbproperties"
+                        ],
+        "parameters":  [
+                           "cldbid",
+                           "ident",
+                           "value"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/customset.txt"
+    },
+    {
+        "name":  "ftcreatedir",
+        "usage":  "ftcreatedir cid={channelID} cpw={channelPassword} dirname={dirPath}",
+        "permissions":  [
+                            "i_ft_directory_create_power",
+                            "i_ft_needed_file_directory_create_power"
+                        ],
+        "parameters":  [
+                           "cid",
+                           "cpw",
+                           "dirname"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  true,
+        "webQuery":  false,
+        "category":  "file-transfer-control",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/ftcreatedir.txt"
+    },
+    {
+        "name":  "ftdeletefile",
+        "usage":  "ftdeletefile cid={channelID} cpw={channelPassword} name={filePath}...",
+        "permissions":  [
+                            "i_ft_file_delete_power",
+                            "i_ft_needed_file_delete_power"
+                        ],
+        "parameters":  [
+                           "cid",
+                           "cpw",
+                           "name"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  true,
+        "webQuery":  false,
+        "category":  "file-transfer-control",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/ftdeletefile.txt"
+    },
+    {
+        "name":  "ftgetfileinfo",
+        "usage":  "ftgetfileinfo cid={channelID} cpw={channelPassword} name={filePath}...",
+        "permissions":  [
+                            "i_ft_file_browse_power",
+                            "i_ft_needed_file_browse_power"
+                        ],
+        "parameters":  [
+                           "cid",
+                           "cpw",
+                           "name"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  true,
+        "webQuery":  false,
+        "category":  "file-transfer-control",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/ftgetfileinfo.txt"
+    },
+    {
+        "name":  "ftgetfilelist",
+        "usage":  "ftgetfilelist cid={channelID} cpw={channelPassword} path={filePath}",
+        "permissions":  [
+                            "i_ft_file_browse_power",
+                            "i_ft_needed_file_browse_power"
+                        ],
+        "parameters":  [
+                           "cid",
+                           "cpw",
+                           "path"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  true,
+        "webQuery":  false,
+        "category":  "file-transfer-control",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/ftgetfilelist.txt"
+    },
+    {
+        "name":  "ftinitdownload",
+        "usage":  "ftinitdownload clientftfid={clientFileTransferID} name={filePath} cid={channelID} cpw={channelPassword} seekpos={seekPosition} [proto=0-1]",
+        "permissions":  [
+                            "i_ft_file_download_power",
+                            "i_ft_needed_file_",
+                            "i_ft_quota_mb_"
+                        ],
+        "parameters":  [
+                           "clientftfid",
+                           "name",
+                           "cid",
+                           "cpw",
+                           "seekpos",
+                           "proto"
+                       ],
+        "options":  [
+                        "1"
+                    ],
+        "sshOnly":  true,
+        "webQuery":  false,
+        "category":  "file-transfer-control",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/ftinitdownload.txt"
+    },
+    {
+        "name":  "ftinitupload",
+        "usage":  "ftinitupload clientftfid={clientFileTransferID} name={filePath} cid={channelID} cpw={channelPassword} size={fileSize} overwrite={1|0} resume={1|0} [proto=0-1]",
+        "permissions":  [
+                            "i_ft_file_upload_power",
+                            "i_ft_needed_file_",
+                            "i_ft_quota_mb_upload_per_client"
+                        ],
+        "parameters":  [
+                           "clientftfid",
+                           "name",
+                           "cid",
+                           "cpw",
+                           "size",
+                           "overwrite",
+                           "resume",
+                           "proto"
+                       ],
+        "options":  [
+                        "1"
+                    ],
+        "sshOnly":  true,
+        "webQuery":  false,
+        "category":  "file-transfer-control",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/ftinitupload.txt"
+    },
+    {
+        "name":  "ftlist",
+        "usage":  "ftlist",
+        "permissions":  [
+                            "b_ft_transfer_list"
+                        ],
+        "parameters":  [
+
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  true,
+        "webQuery":  false,
+        "category":  "file-transfer-control",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/ftlist.txt"
+    },
+    {
+        "name":  "ftrenamefile",
+        "usage":  "ftrenamefile cid={channelID} cpw={channelPassword} [tcid={targetChannelID}] [tcpw={targetChannelPassword}] oldname={oldFilePath} newname={newFilePath}",
+        "permissions":  [
+                            "i_ft_file_rename_power",
+                            "i_ft_needed_file_rename_power"
+                        ],
+        "parameters":  [
+                           "cid",
+                           "cpw",
+                           "tcid",
+                           "tcpw",
+                           "oldname",
+                           "newname"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  true,
+        "webQuery":  false,
+        "category":  "file-transfer-control",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/ftrenamefile.txt"
+    },
+    {
+        "name":  "ftstop",
+        "usage":  "ftstop serverftfid={serverFileTransferID} delete={1|0}",
+        "permissions":  [
+
+                        ],
+        "parameters":  [
+                           "serverftfid",
+                           "delete"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  true,
+        "webQuery":  false,
+        "category":  "file-transfer-control",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/ftstop.txt"
+    },
+    {
+        "name":  "gm",
+        "usage":  "gm msg={text}",
+        "permissions":  [
+                            "b_serverinstance_textmessage_send"
+                        ],
+        "parameters":  [
+                           "msg"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/gm.txt"
+    },
+    {
+        "name":  "hostinfo",
+        "usage":  "hostinfo",
+        "permissions":  [
+                            "b_serverinstance_info_view"
+                        ],
+        "parameters":  [
+
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/hostinfo.txt"
+    },
+    {
+        "name":  "instanceedit",
+        "usage":  "instanceedit [instance_properties...]",
+        "permissions":  [
+                            "b_serverinstance_modify_settings"
+                        ],
+        "parameters":  [
+
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/instanceedit.txt"
+    },
+    {
+        "name":  "instanceinfo",
+        "usage":  "instanceinfo",
+        "permissions":  [
+                            "b_serverinstance_info_view"
+                        ],
+        "parameters":  [
+
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/instanceinfo.txt"
+    },
+    {
+        "name":  "logadd",
+        "usage":  "logadd loglevel={1-4} logmsg={text}",
+        "permissions":  [
+                            "b_serverinstance_log_add",
+                            "b_virtualserver_log_add"
+                        ],
+        "parameters":  [
+                           "loglevel",
+                           "logmsg"
+                       ],
+        "options":  [
+                        "4"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/logadd.txt"
+    },
+    {
+        "name":  "login",
+        "usage":  "login client_login_name={username} client_login_password={password} login {username} {password}",
+        "permissions":  [
+                            "b_serverquery_login"
+                        ],
+        "parameters":  [
+                           "client_login_name",
+                           "client_login_password"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  true,
+        "webQuery":  false,
+        "category":  "session",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/login.txt"
+    },
+    {
+        "name":  "logout",
+        "usage":  "logout",
+        "permissions":  [
+                            "b_serverquery_login"
+                        ],
+        "parameters":  [
+
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  true,
+        "webQuery":  false,
+        "category":  "session",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/logout.txt"
+    },
+    {
+        "name":  "logview",
+        "usage":  "logview [lines={1-100}] [reverse={1|0}] [instance={1|0}] [begin_pos={n}]",
+        "permissions":  [
+                            "b_serverinstance_log_view",
+                            "b_virtualserver_log_view"
+                        ],
+        "parameters":  [
+                           "lines",
+                           "reverse",
+                           "instance",
+                           "begin_pos"
+                       ],
+        "options":  [
+                        "100"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/logview.txt"
+    },
+    {
+        "name":  "messageadd",
+        "usage":  "messageadd cluid={clientUID} subject={subject} message={text}",
+        "permissions":  [
+
+                        ],
+        "parameters":  [
+                           "cluid",
+                           "subject",
+                           "message"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/messageadd.txt"
+    },
+    {
+        "name":  "messagedel",
+        "usage":  "messagedel msgid={messageID}",
+        "permissions":  [
+
+                        ],
+        "parameters":  [
+                           "msgid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/messagedel.txt"
+    },
+    {
+        "name":  "messageget",
+        "usage":  "messageget msgid={messageID}",
+        "permissions":  [
+
+                        ],
+        "parameters":  [
+                           "msgid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/messageget.txt"
+    },
+    {
+        "name":  "messagelist",
+        "usage":  "messagelist",
+        "permissions":  [
+
+                        ],
+        "parameters":  [
+
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/messagelist.txt"
+    },
+    {
+        "name":  "messageupdateflag",
+        "usage":  "messageupdateflag msgid={messageID} flag={1|0}",
+        "permissions":  [
+
+                        ],
+        "parameters":  [
+                           "msgid",
+                           "flag"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/messageupdateflag.txt"
+    },
+    {
+        "name":  "permfind",
+        "usage":  "permfind [permid={permID}...] [permsid={permName}...]",
+        "permissions":  [
+                            "b_virtualserver_permission_find",
+                            "b_serverinstance_permission_find"
+                        ],
+        "parameters":  [
+                           "permid",
+                           "permsid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/permfind.txt"
+    },
+    {
+        "name":  "permget",
+        "usage":  "permget permid={permID}|permid={permID} permget permsid={permName}|permsid={permName}",
+        "permissions":  [
+                            "b_client_permissionoverview_own"
+                        ],
+        "parameters":  [
+                           "permid",
+                           "permsid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/permget.txt"
+    },
+    {
+        "name":  "permidgetbyname",
+        "usage":  "permidgetbyname permsid={permName}...",
+        "permissions":  [
+                            "b_serverinstance_permission_list"
+                        ],
+        "parameters":  [
+                           "permsid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/permidgetbyname.txt"
+    },
+    {
+        "name":  "permissionlist",
+        "usage":  "permissionlist",
+        "permissions":  [
+                            "b_serverinstance_permission_list"
+                        ],
+        "parameters":  [
+
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/permissionlist.txt"
+    },
+    {
+        "name":  "permoverview",
+        "usage":  "permoverview cid={channelID} cldbid={clientDBID} [permid={permID}...] [permsid={permName}...]",
+        "permissions":  [
+                            "b_client_permissionoverview_view"
+                        ],
+        "parameters":  [
+                           "cid",
+                           "cldbid",
+                           "permid",
+                           "permsid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/permoverview.txt"
+    },
+    {
+        "name":  "permreset",
+        "usage":  "permreset",
+        "permissions":  [
+                            "b_virtualserver_permission_reset"
+                        ],
+        "parameters":  [
+
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/permreset.txt"
+    },
+    {
+        "name":  "privilegekeyadd",
+        "usage":  "privilegekeyadd tokentype={1|0} tokenid1={groupID} tokenid2={channelID} [tokendescription={description}] [tokencustomset={customFieldSet}]",
+        "permissions":  [
+                            "b_virtualserver_token_add",
+                            "i_group_needed_member_add_power",
+                            "i_group_member_add_power"
+                        ],
+        "parameters":  [
+                           "tokentype",
+                           "tokenid1",
+                           "tokenid2",
+                           "tokendescription",
+                           "tokencustomset"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/privilegekeyadd.txt"
+    },
+    {
+        "name":  "privilegekeydelete",
+        "usage":  "privilegekeydelete token={tokenKey}",
+        "permissions":  [
+                            "b_virtualserver_token_delete"
+                        ],
+        "parameters":  [
+                           "token"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/privilegekeydelete.txt"
+    },
+    {
+        "name":  "privilegekeylist",
+        "usage":  "privilegekeylist",
+        "permissions":  [
+                            "b_virtualserver_token_list"
+                        ],
+        "parameters":  [
+
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/privilegekeylist.txt"
+    },
+    {
+        "name":  "privilegekeyuse",
+        "usage":  "privilegekeyuse token={tokenKey}",
+        "permissions":  [
+                            "b_virtualserver_token_use"
+                        ],
+        "parameters":  [
+                           "token"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/privilegekeyuse.txt"
+    },
+    {
+        "name":  "queryloginadd",
+        "usage":  "queryloginadd client_login_name={loginName} queryloginadd client_login_name={loginName} cldbid={clientDBID}",
+        "permissions":  [
+                            "b_serverquery_login_create"
+                        ],
+        "parameters":  [
+                           "client_login_name",
+                           "cldbid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/queryloginadd.txt"
+    },
+    {
+        "name":  "querylogindel",
+        "usage":  "querylogindel cldbid={clientDBID}",
+        "permissions":  [
+                            "b_serverquery_login_delete"
+                        ],
+        "parameters":  [
+                           "cldbid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/querylogindel.txt"
+    },
+    {
+        "name":  "queryloginlist",
+        "usage":  "queryloginlist [pattern={clientLoginName}] [start={offset}] [duration={limit}] [-count]",
+        "permissions":  [
+                            "b_serverquery_login_list"
+                        ],
+        "parameters":  [
+                           "pattern",
+                           "start",
+                           "duration"
+                       ],
+        "options":  [
+                        "count"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/queryloginlist.txt"
+    },
+    {
+        "name":  "quit",
+        "usage":  "quit",
+        "permissions":  [
+
+                        ],
+        "parameters":  [
+
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  true,
+        "webQuery":  false,
+        "category":  "session",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/quit.txt"
+    },
+    {
+        "name":  "sendtextmessage",
+        "usage":  "sendtextmessage targetmode={1-3} target={clientID} msg={text}",
+        "permissions":  [
+                            "i_client_private_textmessage_power",
+                            "i_client_needed_private_textmessage_power",
+                            "b_client_server_textmessage_send",
+                            "b_client_channel_textmessage_send"
+                        ],
+        "parameters":  [
+                           "targetmode",
+                           "target",
+                           "msg"
+                       ],
+        "options":  [
+                        "3"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/sendtextmessage.txt"
+    },
+    {
+        "name":  "servercreate",
+        "usage":  "servercreate virtualserver_name={serverName} [virtualserver_properties...]",
+        "permissions":  [
+                            "b_virtualserver_create"
+                        ],
+        "parameters":  [
+                           "virtualserver_name"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/servercreate.txt"
+    },
+    {
+        "name":  "serverdelete",
+        "usage":  "serverdelete sid={serverID}",
+        "permissions":  [
+                            "b_virtualserver_delete"
+                        ],
+        "parameters":  [
+                           "sid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/serverdelete.txt"
+    },
+    {
+        "name":  "serveredit",
+        "usage":  "serveredit [virtualserver_properties...]",
+        "permissions":  [
+                            "b_virtualserver_modify_name",
+                            "b_virtualserver_modify_welcomemessage",
+                            "b_virtualserver_modify_maxclients",
+                            "b_virtualserver_modify_reserved_slots",
+                            "b_virtualserver_modify_password",
+                            "b_virtualserver_modify_default_servergroup",
+                            "b_virtualserver_modify_default_channelgroup",
+                            "b_virtualserver_modify_default_channeladmingroup",
+                            "b_virtualserver_modify_ft_settings",
+                            "b_virtualserver_modify_ft_quotas",
+                            "b_virtualserver_modify_channel_forced_silence",
+                            "b_virtualserver_modify_complain",
+                            "b_virtualserver_modify_antiflood",
+                            "b_virtualserver_modify_hostmessage",
+                            "b_virtualserver_modify_hostbanner",
+                            "b_virtualserver_modify_hostbutton",
+                            "b_virtualserver_modify_port",
+                            "b_virtualserver_modify_autostart",
+                            "b_virtualserver_modify_needed_identity_security_level",
+                            "b_virtualserver_modify_priority_speaker_dimm_modificator",
+                            "b_virtualserver_modify_log_settings",
+                            "b_virtualserver_modify_icon_id",
+                            "b_virtualserver_modify_weblist",
+                            "b_virtualserver_modify_min_client_version",
+                            "b_virtualserver_modify_codec_encryption_mode"
+                        ],
+        "parameters":  [
+
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/serveredit.txt"
+    },
+    {
+        "name":  "servergroupadd",
+        "usage":  "servergroupadd name={groupName} [type={groupDbType}]",
+        "permissions":  [
+                            "b_virtualserver_servergroup_create"
+                        ],
+        "parameters":  [
+                           "name",
+                           "type"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/servergroupadd.txt"
+    },
+    {
+        "name":  "servergroupaddclient",
+        "usage":  "servergroupaddclient sgid={groupID} cldbid={clientDBID} servergroupaddclient [-continueonerror] sgid={groupID} cldbid={clientDBID}|cldbid={clientDBID}",
+        "permissions":  [
+                            "i_group_member_add_power",
+                            "i_group_needed_member_add_power"
+                        ],
+        "parameters":  [
+                           "sgid",
+                           "cldbid"
+                       ],
+        "options":  [
+                        "continueonerror"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/servergroupaddclient.txt"
+    },
+    {
+        "name":  "servergroupaddperm",
+        "usage":  "servergroupaddperm [-continueonerror] sgid={groupID} [permid={permID}...] [permsid={permName}...] permvalue={permValue}... permnegated={1|0}... permskip={1|0}...",
+        "permissions":  [
+                            "i_group_modify_power",
+                            "i_group_needed_modify_power",
+                            "i_permission_modify_power"
+                        ],
+        "parameters":  [
+                           "sgid",
+                           "permid",
+                           "permsid",
+                           "permvalue",
+                           "permnegated",
+                           "permskip"
+                       ],
+        "options":  [
+                        "continueonerror"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/servergroupaddperm.txt"
+    },
+    {
+        "name":  "servergroupautoaddperm",
+        "usage":  "servergroupautoaddperm sgtype={groupID} [permid={permID}...] [permsid={permName}...] permvalue={permValue}... permnegated={1|0}... permskip={1|0}...",
+        "permissions":  [
+                            "b_permission_modify_power_ignore"
+                        ],
+        "parameters":  [
+                           "sgtype",
+                           "permid",
+                           "permsid",
+                           "permvalue",
+                           "permnegated",
+                           "permskip"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/servergroupautoaddperm.txt"
+    },
+    {
+        "name":  "servergroupautodelperm",
+        "usage":  "servergroupautodelperm sgtype={groupID} [permid={permID}...] [permsid={permName}...]",
+        "permissions":  [
+                            "b_permission_modify_power_ignore"
+                        ],
+        "parameters":  [
+                           "sgtype",
+                           "permid",
+                           "permsid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/servergroupautodelperm.txt"
+    },
+    {
+        "name":  "servergroupclientlist",
+        "usage":  "servergroupclientlist sgid={groupID} [-names]",
+        "permissions":  [
+                            "b_virtualserver_servergroup_client_list"
+                        ],
+        "parameters":  [
+                           "sgid"
+                       ],
+        "options":  [
+                        "names"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/servergroupclientlist.txt"
+    },
+    {
+        "name":  "servergroupcopy",
+        "usage":  "servergroupcopy ssgid={sourceGroupID} tsgid={targetGroupID} name={groupName} type={groupDbType}",
+        "permissions":  [
+                            "b_virtualserver_servergroup_create",
+                            "i_group_modify_power",
+                            "i_group_needed_modify_power"
+                        ],
+        "parameters":  [
+                           "ssgid",
+                           "tsgid",
+                           "name",
+                           "type"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/servergroupcopy.txt"
+    },
+    {
+        "name":  "servergroupdel",
+        "usage":  "servergroupdel sgid={groupID} force={1|0}",
+        "permissions":  [
+                            "b_virtualserver_servergroup_delete"
+                        ],
+        "parameters":  [
+                           "sgid",
+                           "force"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/servergroupdel.txt"
+    },
+    {
+        "name":  "servergroupdelclient",
+        "usage":  "servergroupdelclient sgid={groupID} cldbid={clientDBID} servergroupdelclient [-continueonerror] sgid={groupID} cldbid={clientDBID}|cldbid={clientDBID}",
+        "permissions":  [
+                            "i_group_member_remove_power",
+                            "i_group_needed_member_remove_power"
+                        ],
+        "parameters":  [
+                           "sgid",
+                           "cldbid"
+                       ],
+        "options":  [
+                        "continueonerror"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/servergroupdelclient.txt"
+    },
+    {
+        "name":  "servergroupdelperm",
+        "usage":  "servergroupdelperm [-continueonerror] sgid={groupID} [permid={permID}...] [permsid={permName}...]",
+        "permissions":  [
+                            "i_group_modify_power",
+                            "i_group_needed_modify_power",
+                            "i_permission_modify_power"
+                        ],
+        "parameters":  [
+                           "sgid",
+                           "permid",
+                           "permsid"
+                       ],
+        "options":  [
+                        "continueonerror"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/servergroupdelperm.txt"
+    },
+    {
+        "name":  "servergrouplist",
+        "usage":  "servergrouplist",
+        "permissions":  [
+                            "b_serverinstance_modify_querygroup",
+                            "b_serverinstance_modify_templates",
+                            "b_virtualserver_servergroup_list"
+                        ],
+        "parameters":  [
+
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/servergrouplist.txt"
+    },
+    {
+        "name":  "servergrouppermlist",
+        "usage":  "servergrouppermlist sgid={groupID} [-permsid]",
+        "permissions":  [
+                            "b_virtualserver_servergroup_permission_list"
+                        ],
+        "parameters":  [
+                           "sgid"
+                       ],
+        "options":  [
+                        "permsid"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/servergrouppermlist.txt"
+    },
+    {
+        "name":  "servergrouprename",
+        "usage":  "servergrouprename sgid={groupID} name={groupName}",
+        "permissions":  [
+                            "i_group_modify_power",
+                            "i_group_needed_modify_power"
+                        ],
+        "parameters":  [
+                           "sgid",
+                           "name"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/servergrouprename.txt"
+    },
+    {
+        "name":  "servergroupsbyclientid",
+        "usage":  "servergroupsbyclientid cldbid={clientDBID}",
+        "permissions":  [
+
+                        ],
+        "parameters":  [
+                           "cldbid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/servergroupsbyclientid.txt"
+    },
+    {
+        "name":  "serveridgetbyport",
+        "usage":  "serveridgetbyport virtualserver_port={serverPort}",
+        "permissions":  [
+                            "b_serverinstance_virtualserver_list"
+                        ],
+        "parameters":  [
+                           "virtualserver_port"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/serveridgetbyport.txt"
+    },
+    {
+        "name":  "serverinfo",
+        "usage":  "serverinfo",
+        "permissions":  [
+                            "b_virtualserver_info_view"
+                        ],
+        "parameters":  [
+
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/serverinfo.txt"
+    },
+    {
+        "name":  "serverlist",
+        "usage":  "serverlist [-uid] [-short] [-all] [-onlyoffline]",
+        "permissions":  [
+                            "b_serverinstance_virtualserver_list"
+                        ],
+        "parameters":  [
+
+                       ],
+        "options":  [
+                        "uid",
+                        "short",
+                        "all",
+                        "onlyoffline"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/serverlist.txt"
+    },
+    {
+        "name":  "servernotifyregister",
+        "usage":  "servernotifyregister event={server|channel|textserver|textchannel|textprivate} [id={channelID}]",
+        "permissions":  [
+                            "b_virtualserver_notify_register"
+                        ],
+        "parameters":  [
+                           "event",
+                           "id"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  true,
+        "webQuery":  false,
+        "category":  "event",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/servernotifyregister.txt"
+    },
+    {
+        "name":  "servernotifyunregister",
+        "usage":  "servernotifyunregister",
+        "permissions":  [
+                            "b_virtualserver_notify_unregister"
+                        ],
+        "parameters":  [
+
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  true,
+        "webQuery":  false,
+        "category":  "event",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/servernotifyunregister.txt"
+    },
+    {
+        "name":  "serverprocessstop",
+        "usage":  "serverprocessstop [reasonmsg={text}]",
+        "permissions":  [
+                            "b_serverinstance_stop"
+                        ],
+        "parameters":  [
+                           "reasonmsg"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/serverprocessstop.txt"
+    },
+    {
+        "name":  "serverrequestconnectioninfo",
+        "usage":  "serverrequestconnectioninfo",
+        "permissions":  [
+                            "b_virtualserver_connectioninfo_view"
+                        ],
+        "parameters":  [
+
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/serverrequestconnectioninfo.txt"
+    },
+    {
+        "name":  "serversnapshotcreate",
+        "usage":  "serversnapshotcreate [password=secret]",
+        "permissions":  [
+                            "b_virtualserver_snapshot_create"
+                        ],
+        "parameters":  [
+                           "password"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/serversnapshotcreate.txt"
+    },
+    {
+        "name":  "serversnapshotdeploy",
+        "usage":  "serversnapshotdeploy [-mapping] [-keepfiles] [password=secret] virtualserver_snapshot",
+        "permissions":  [
+                            "b_virtualserver_snapshot_deploy"
+                        ],
+        "parameters":  [
+                           "password"
+                       ],
+        "options":  [
+                        "mapping",
+                        "keepfiles"
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/serversnapshotdeploy.txt"
+    },
+    {
+        "name":  "serverstart",
+        "usage":  "serverstart sid={serverID}",
+        "permissions":  [
+                            "b_virtualserver_start_any",
+                            "b_virtualserver_start"
+                        ],
+        "parameters":  [
+                           "sid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/serverstart.txt"
+    },
+    {
+        "name":  "serverstop",
+        "usage":  "serverstop sid={serverID} [reasonmsg={text}]",
+        "permissions":  [
+                            "b_virtualserver_stop_any",
+                            "b_virtualserver_stop"
+                        ],
+        "parameters":  [
+                           "sid",
+                           "reasonmsg"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/serverstop.txt"
+    },
+    {
+        "name":  "servertemppasswordadd",
+        "usage":  "servertemppasswordadd pw={password} desc={description} duration={seconds} tcid={channelID} tcpw={channelPW}",
+        "permissions":  [
+                            "b_virtualserver_modify_password"
+                        ],
+        "parameters":  [
+                           "pw",
+                           "desc",
+                           "duration",
+                           "tcid",
+                           "tcpw"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/servertemppasswordadd.txt"
+    },
+    {
+        "name":  "servertemppassworddel",
+        "usage":  "servertemppassworddel pw={password}",
+        "permissions":  [
+                            "b_virtualserver_modify_password"
+                        ],
+        "parameters":  [
+                           "pw"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/servertemppassworddel.txt"
+    },
+    {
+        "name":  "servertemppasswordlist",
+        "usage":  "servertemppasswordlist",
+        "permissions":  [
+                            "b_virtualserver_modify_password"
+                        ],
+        "parameters":  [
+
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/servertemppasswordlist.txt"
+    },
+    {
+        "name":  "setclientchannelgroup",
+        "usage":  "setclientchannelgroup cgid={groupID} cid={channelID} cldbid={clientDBID}",
+        "permissions":  [
+                            "i_group_member_add_power",
+                            "i_group_needed_member_add_power",
+                            "i_group_member_remove_power",
+                            "i_group_needed_member_remove_power"
+                        ],
+        "parameters":  [
+                           "cgid",
+                           "cid",
+                           "cldbid"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/setclientchannelgroup.txt"
+    },
+    {
+        "name":  "tokenadd",
+        "usage":  "tokenadd tokentype={1|0} tokenid1={groupID} tokenid2={channelID} [tokendescription={description}] [tokencustomset={customFieldSet}]",
+        "permissions":  [
+
+                        ],
+        "parameters":  [
+                           "tokentype",
+                           "tokenid1",
+                           "tokenid2",
+                           "tokendescription",
+                           "tokencustomset"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  "privilegekeyadd",
+        "source":  "serverquerydocs/tokenadd.txt"
+    },
+    {
+        "name":  "tokendelete",
+        "usage":  "tokendelete token={tokenKey}",
+        "permissions":  [
+
+                        ],
+        "parameters":  [
+                           "token"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  "privilegekeydelete",
+        "source":  "serverquerydocs/tokendelete.txt"
+    },
+    {
+        "name":  "tokenlist",
+        "usage":  "tokenlist",
+        "permissions":  [
+
+                        ],
+        "parameters":  [
+
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  "privilegekeylist",
+        "source":  "serverquerydocs/tokenlist.txt"
+    },
+    {
+        "name":  "tokenuse",
+        "usage":  "tokenuse token={tokenKey}",
+        "permissions":  [
+
+                        ],
+        "parameters":  [
+                           "token"
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  "privilegekeyuse",
+        "source":  "serverquerydocs/tokenuse.txt"
+    },
+    {
+        "name":  "use",
+        "usage":  "use [sid={serverID}] [port={serverPort}] [-virtual] [client_nickname={nickname}] use {serverID} [-virtual] [client_nickname={nickname}]",
+        "permissions":  [
+                            "b_virtualserver_select"
+                        ],
+        "parameters":  [
+                           "sid",
+                           "port",
+                           "client_nickname"
+                       ],
+        "options":  [
+                        "virtual"
+                    ],
+        "sshOnly":  true,
+        "webQuery":  false,
+        "category":  "session",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/use.txt"
+    },
+    {
+        "name":  "version",
+        "usage":  "version",
+        "permissions":  [
+
+                        ],
+        "parameters":  [
+
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/version.txt"
+    },
+    {
+        "name":  "whoami",
+        "usage":  "whoami",
+        "permissions":  [
+
+                        ],
+        "parameters":  [
+
+                       ],
+        "options":  [
+
+                    ],
+        "sshOnly":  false,
+        "webQuery":  true,
+        "category":  "query",
+        "aliasOf":  null,
+        "source":  "serverquerydocs/whoami.txt"
+    }
+]

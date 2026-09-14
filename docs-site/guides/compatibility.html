@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Compatibility — TS3ServerBot Query</title>
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-depth="1" data-page="guides/compatibility">
+<header>
+    <div class="brand-block">
+        <button type="button" class="menu-toggle" aria-label="Open navigation">Menu</button>
+        <p class="brand">TS3ServerBot Query <span>TS3ServerBot.com</span></p>
+        <p class="meta">Developer docs · TeamSpeak 3.13.8 + 6.0.0-beta12.1 · SSH + WebQuery</p>
+    </div>
+    <form class="search-form" action="../search.html" method="get" role="search">
+        <label class="sr-only" for="docs-search">Search documentation</label>
+        <input id="docs-search" class="search-input" type="search" name="q" placeholder="Search commands, methods, args…" autocomplete="off" spellcheck="false">
+        <kbd>/</kbd>
+        <div class="search-results" hidden></div>
+    </form>
+</header>
+<div class="layout">
+    <nav><p class="nav-group">Guides</p><ul><li><a href="../index.html">Home</a></li><li><a href="installation.html">Installation</a></li><li><a href="first-connection.html">First connection</a></li><li><a href="ssh.html">SSH</a></li><li><a href="webquery.html">WebQuery</a></li><li><a href="architecture.html">Architecture</a></li><li><a href="not-supported.html">Not supported</a></li><li><a href="errors.html">Errors</a></li><li><a href="troubleshooting.html">Troubleshooting</a></li><li><a href="security.html">Security</a></li><li class="active"><a href="compatibility.html">Compatibility</a></li><li><a href="examples.html">Examples</a></li></ul><p class="nav-group">Reference</p><ul><li><a href="../reference/configuration.html">Configuration</a></li><li><a href="../reference/operations.html">Operations</a></li><li><a href="../reference/commands.html">Command matrix</a></li><li><a href="../api.html">API reference</a></li></ul><p class="nav-group">TeamSpeak 6</p><ul><li><a href="../reference/teamspeak6-commands.html">TS6-only commands</a></li></ul></nav>
+    <main>
+        <h1 id="compatibility">Compatibility</h1><p>The library talks to TeamSpeak through <strong>Query</strong>, not the voice client protocol.</p><div class="table-wrap"><table><thead><tr><th>Component</th><th>Supported</th></tr></thead><tbody><tr><td>TeamSpeak 3 Server</td><td>3.13.8</td></tr><tr><td>TeamSpeak 6 Server</td><td>6.0.0-beta12.1</td></tr><tr><td>PHP</td><td>8.1+</td></tr><tr><td>Transports</td><td>SSH (10022), WebQuery HTTP (10080)</td></tr><tr><td>Raw Query 10011</td><td>Not supported</td></tr></tbody></table></div><p>Command lists ship in this package as JSON catalogs for those two server versions. The published Composer package does not include TeamSpeak server binaries.</p><h2 id="how-teamspeak-6-is-supported">How TeamSpeak 6 is supported</h2><p>Set the server family when you connect:</p><pre><code>use TS3ServerBot\Config\ServerFamily;
+
+$config = new ClientConfig(
+    host: &#039;127.0.0.1&#039;,
+    transport: Transport::WebQuery,
+    apiKey: &#039;your-api-key&#039;,
+    virtualServerId: 1,
+    serverFamily: ServerFamily::TeamSpeak6,
+);</code></pre><p>On <code>ServerFamily::TeamSpeak3</code> (the default), unknown command names are rejected locally. On <code>ServerFamily::TeamSpeak6</code>, names in the 6.0.0-beta12.1 catalog get WebQuery/option checks from that version’s Query help. Names <strong>not</strong> in that catalog are still sent (a newer beta may add commands before the catalog is regenerated).</p><p>Nine commands exist only on 6.0.0-beta12.1. See <a href="../reference/teamspeak6-commands.html">TeamSpeak 6-only commands</a>.</p><p>WebQuery still does not support <code>ft*</code>, <code>help</code>, <code>login</code>, <code>logout</code>, <code>quit</code>, <code>servernotifyregister</code>, <code>servernotifyunregister</code>, or <code>use</code> (same list in TeamSpeak 3.13.8 and 6.0.0-beta12.1 WebQuery docs).</p>
+    </main>
+</div>
+<script src="../assets/search-index.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

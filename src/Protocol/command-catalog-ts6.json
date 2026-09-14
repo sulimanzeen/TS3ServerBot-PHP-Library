@@ -1,0 +1,2898 @@
+[
+    {
+        "name": "apikeyadd",
+        "usage": "apikeyadd scope={manage|write|read} [lifetime={days}] [cldbid={clientDBID}]",
+        "permissions": [
+            "b_virtualserver_apikey_add",
+            "b_virtualserver_apikey_manage"
+        ],
+        "parameters": [
+            "scope",
+            "lifetime",
+            "cldbid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/apikeyadd.txt",
+        "description": "Creates a new apikey using the specified scope, for the invoking user. The default lifetime of a token is 14 days, a zero lifetime means no expiration. It is possible to create apikeys for other users using `b_virtualserver_apikey_manage.`"
+    },
+    {
+        "name": "apikeydel",
+        "usage": "apikeydel id={ID}",
+        "permissions": [
+            "b_virtualserver_apikey_manage"
+        ],
+        "parameters": [
+            "id"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/apikeydel.txt",
+        "description": "Delete an apikey. Any apikey owned by the current user can always be deleted. Deleting apikeys from another user requires `b_virtualserver_apikey_manage`."
+    },
+    {
+        "name": "apikeylist",
+        "usage": "apikeylist [cldbid={clientDBID|*}] [start={offset}] [duration={limit}] [-count]",
+        "permissions": [
+            "b_virtualserver_apikey_manage"
+        ],
+        "parameters": [
+            "cldbid",
+            "start",
+            "duration"
+        ],
+        "options": [
+            "count"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/apikeylist.txt",
+        "description": "Lists all apikeys owned by the user, or of all users using `cldbid`=`*.` Usage of `cldbid`=... requires `b_virtualserver_apikey_manage`."
+    },
+    {
+        "name": "authenticationtoken",
+        "usage": "authenticationtoken duration={duration}",
+        "permissions": [],
+        "parameters": [
+            "duration"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/authenticationtoken.txt",
+        "description": "This command gives a token which can be used by other services or TeamSpeak commands as proof that his server identifies you as a user. An example of such a command is permget with the forauthenticationtoken parameter. The token returned is a JWT signed with the identity of the server."
+    },
+    {
+        "name": "banadd",
+        "usage": "banadd [ip={regexp}] [name={regexp}] [uid={clientUID}] [mytsid=({mytsid}|empty)] [time={timeInSeconds}] [banreason={text}] [lastnickname={nickname}]",
+        "permissions": [
+            "b_client_ban_create"
+        ],
+        "parameters": [
+            "ip",
+            "name",
+            "uid",
+            "mytsid",
+            "time",
+            "banreason",
+            "lastnickname"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/banadd.txt",
+        "description": "Adds a new ban rule on the selected virtual server. All parameters are optional but at least one of the following must be set: `ip`, `name`, `uid`, or `mytsid`."
+    },
+    {
+        "name": "banclient",
+        "usage": "banclient [-continueonerror] [time={timeInSeconds}] [banreason={text}] clid={clientID}...",
+        "permissions": [
+            "i_client_ban_power",
+            "i_client_needed_ban_power"
+        ],
+        "parameters": [
+            "time",
+            "banreason",
+            "clid"
+        ],
+        "options": [
+            "continueonerror"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/banclient.txt",
+        "description": "Bans one or more clients specified with the given client ids from the server. Please note that this will create two or three separate ban rules for the each of the targeted clients IP address, his unique identifier and, if available, the mytsid. Specifying -continueonerror will ignore certain errors when processing."
+    },
+    {
+        "name": "bandel",
+        "usage": "bandel banid={banID}",
+        "permissions": [
+            "b_client_ban_delete",
+            "b_client_ban_delete_own"
+        ],
+        "parameters": [
+            "banid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/bandel.txt",
+        "description": "Deletes the ban rule with ID banid from the server."
+    },
+    {
+        "name": "bandelall",
+        "usage": "bandelall",
+        "permissions": [
+            "b_client_ban_delete"
+        ],
+        "parameters": [],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/bandelall.txt",
+        "description": "Deletes all active ban rules from the server."
+    },
+    {
+        "name": "banfind",
+        "usage": "banfind [ip={ip}] [name={name}] [uid={clientUID}] [mytsid=(mytsid)]",
+        "permissions": [
+            "b_client_ban_list"
+        ],
+        "parameters": [
+            "ip",
+            "name",
+            "uid",
+            "mytsid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/banfind.txt",
+        "description": "Displays a list of matching bans on the selected virtual server. Optional but at least one of the following must be set: `ip`, `name`, `uid`, or `mytsid`."
+    },
+    {
+        "name": "banlist",
+        "usage": "banlist [start={offset}] [duration={limit}] [-count]",
+        "permissions": [
+            "b_client_ban_list"
+        ],
+        "parameters": [
+            "start",
+            "duration"
+        ],
+        "options": [
+            "count"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/banlist.txt",
+        "description": "Displays a list of active bans on the selected virtual server. If provided, the `duration` argument is capped at 200."
+    },
+    {
+        "name": "bindinglist",
+        "usage": "bindinglist [subsystem={voice|query|filetransfer}]",
+        "permissions": [
+            "b_serverinstance_binding_list"
+        ],
+        "parameters": [
+            "subsystem"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/bindinglist.txt",
+        "description": "Displays a list of IP addresses used by the server instance on multi-homed machines. If no subsystem is specified, `voice` is used by default."
+    },
+    {
+        "name": "channeladdperm",
+        "usage": "channeladdperm [-continueonerror] cid={channelID} [permid={permID}...] [permsid={permName}...] permvalue={permValue}...",
+        "permissions": [
+            "i_group_modify_power",
+            "i_group_needed_modify_power",
+            "i_permission_modify_power"
+        ],
+        "parameters": [
+            "cid",
+            "permid",
+            "permsid",
+            "permvalue"
+        ],
+        "options": [
+            "continueonerror"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/channeladdperm.txt",
+        "description": "Adds a set of specified permissions to a channel. Multiple permissions can be added by providing the two parameters of each permission. A permission can be specified by `permid` or `permsid`."
+    },
+    {
+        "name": "channelclientaddperm",
+        "usage": "channelclientaddperm [-continueonerror] cid={channelID} cldbid={clientDBID} [permid={permID}...] [permsid={permName}...] permvalue={permValue}...",
+        "permissions": [
+            "i_group_modify_power",
+            "i_group_needed_modify_power",
+            "i_permission_modify_power"
+        ],
+        "parameters": [
+            "cid",
+            "cldbid",
+            "permid",
+            "permsid",
+            "permvalue"
+        ],
+        "options": [
+            "continueonerror"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/channelclientaddperm.txt",
+        "description": "Adds a set of specified permissions to a client in a specific channel. Multiple permissions can be added by providing the three parameters of each permission. A permission can be specified by permid or permsid."
+    },
+    {
+        "name": "channelclientdelperm",
+        "usage": "channelclientdelperm cid={channelID} cldbid={clientDBID} [permid={permID}...] [permsid={permName}...]",
+        "permissions": [
+            "i_group_modify_power",
+            "i_group_needed_modify_power",
+            "i_permission_modify_power"
+        ],
+        "parameters": [
+            "cid",
+            "cldbid",
+            "permid",
+            "permsid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/channelclientdelperm.txt",
+        "description": "Removes a set of specified permissions from a client in a specific channel. Multiple permissions can be removed at once. A permission can be specified by permid or permsid."
+    },
+    {
+        "name": "channelclientpermlist",
+        "usage": "channelclientpermlist cid={channelID} cldbid={clientDBID} [-permsid]",
+        "permissions": [
+            "b_virtualserver_channelclient_permission_list"
+        ],
+        "parameters": [
+            "cid",
+            "cldbid"
+        ],
+        "options": [
+            "permsid"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/channelclientpermlist.txt",
+        "description": "Displays a list of permissions defined for a client in a specific channel."
+    },
+    {
+        "name": "channelcreate",
+        "usage": "channelcreate channel_name={channelName} [channel_properties...]",
+        "permissions": [
+            "i_channel_min_depth",
+            "i_channel_max_depth",
+            "b_channel_create_child",
+            "b_channel_create_permanent",
+            "b_channel_create_semi_permanent",
+            "b_channel_create_temporary",
+            "b_channel_create_with_topic",
+            "b_channel_create_with_description",
+            "b_channel_create_with_password",
+            "b_channel_create_with_banner",
+            "i_channel_create_modify_with_codec_maxquality",
+            "i_channel_create_modify_with_codec_latency_factor_min",
+            "b_channel_create_with_maxclients",
+            "b_channel_create_with_maxfamilyclients",
+            "b_channel_create_with_sortorder",
+            "b_channel_create_with_default",
+            "b_channel_create_with_needed_talk_power"
+        ],
+        "parameters": [
+            "channel_name"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/channelcreate.txt",
+        "description": "Creates a new channel using the given properties and displays its ID. Note that this command accepts multiple properties which means that you're able to specifiy all settings of the new channel at once. For detailed information, see Channel Properties."
+    },
+    {
+        "name": "channeldelete",
+        "usage": "channeldelete cid={channelID} force={1|0}",
+        "permissions": [
+            "b_channel_delete_permanent",
+            "b_channel_delete_semi_permanent",
+            "b_channel_delete_temporary",
+            "b_channel_delete_flag_force"
+        ],
+        "parameters": [
+            "cid",
+            "force"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/channeldelete.txt",
+        "description": "Deletes an existing channel by ID. If force is set to 1, the channel will be deleted even if there are clients within. The clients will be kicked to the default channel with an appropriate reason message."
+    },
+    {
+        "name": "channeldelperm",
+        "usage": "channeldelperm cid=123 [permid={permID}...] [permsid={permName}...]",
+        "permissions": [
+            "i_group_modify_power",
+            "i_group_needed_modify_power",
+            "i_permission_modify_power"
+        ],
+        "parameters": [
+            "permid",
+            "permsid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/channeldelperm.txt",
+        "description": "Removes a set of specified permissions from a channel. Multiple permissions can be removed at once. A permission can be specified by permid or permsid."
+    },
+    {
+        "name": "channeledit",
+        "usage": "channeledit cid={channelID} [channel_properties...]",
+        "permissions": [
+            "i_channel_min_depth",
+            "i_channel_max_depth",
+            "b_channel_modify_parent",
+            "b_channel_modify_make_default",
+            "b_channel_modify_make_permanent",
+            "b_channel_modify_make_semi_permanent",
+            "b_channel_modify_make_temporary",
+            "b_channel_modify_name",
+            "b_channel_modify_topic",
+            "b_channel_modify_description",
+            "b_channel_modify_password",
+            "b_channel_modify_banner",
+            "b_channel_modify_codec",
+            "b_channel_modify_codec_quality",
+            "b_channel_create_modify_with_codec_maxquality",
+            "b_channel_modify_codec_latency_factor",
+            "b_channel_modify_make_codec_encrypted",
+            "b_channel_modify_maxclients",
+            "b_channel_modify_maxfamilyclients",
+            "b_channel_modify_sortorder",
+            "b_channel_modify_needed_talk_power",
+            "i_channel_modify_power",
+            "i_channel_needed_modify_power"
+        ],
+        "parameters": [
+            "cid",
+            "cpid",
+            "channel_name",
+            "channel_topic",
+            "channel_description",
+            "channel_password",
+            "channel_codec",
+            "channel_codec_quality",
+            "channel_maxclients",
+            "channel_maxfamilyclients",
+            "channel_order",
+            "channel_flag_permanent",
+            "channel_flag_semi_permanent",
+            "channel_flag_default",
+            "channel_codec_is_unencrypted",
+            "channel_delete_delay",
+            "channel_flag_maxclients_unlimited",
+            "channel_flag_maxfamilyclients_unlimited",
+            "channel_flag_maxfamilyclients_inherited",
+            "channel_needed_talk_power",
+            "channel_name_phonetic",
+            "channel_icon_id",
+            "channel_banner_gfx_url",
+            "channel_banner_mode"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/channeledit.txt",
+        "description": "Changes a channels configuration using given properties. Note that this command accepts multiple properties which means that you're able to change all settings of the channel specified with cid at once. For detailed information, see Channel Properties."
+    },
+    {
+        "name": "channelfind",
+        "usage": "channelfind pattern={channelName}",
+        "permissions": [
+            "b_virtualserver_channel_search"
+        ],
+        "parameters": [
+            "pattern",
+            "property"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/channelfind.txt",
+        "description": "Displays a list of channels matching a given name pattern."
+    },
+    {
+        "name": "channelgroupadd",
+        "usage": "channelgroupadd name={groupName} [type={groupDbType}]",
+        "permissions": [
+            "b_virtualserver_channelgroup_create"
+        ],
+        "parameters": [
+            "name",
+            "type"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/channelgroupadd.txt",
+        "description": "Creates a new channel group using a given name and displays its ID. The optional type parameter can be used to create template groups. For detailed information, see Definitions."
+    },
+    {
+        "name": "channelgroupaddperm",
+        "usage": "channelgroupaddperm [-continueonerror] cgid={groupID} [permid={permID}...] [permsid={permName}...] permvalue={permValue}...",
+        "permissions": [
+            "i_group_modify_power",
+            "i_group_needed_modify_power",
+            "i_permission_modify_power"
+        ],
+        "parameters": [
+            "cgid",
+            "permid",
+            "permsid",
+            "permvalue"
+        ],
+        "options": [
+            "continueonerror"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/channelgroupaddperm.txt",
+        "description": "Adds a set of specified permissions to a channel group. Multiple permissions can be added by providing the two parameters of each permission. A permission can be specified by permid or permsid."
+    },
+    {
+        "name": "channelgroupclientlist",
+        "usage": "channelgroupclientlist [cid={channelID}] [cldbid={clientDBID}] [cgid={groupID}]",
+        "permissions": [
+            "b_virtualserver_channelgroup_client_list"
+        ],
+        "parameters": [
+            "cid",
+            "cldbid",
+            "cgid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/channelgroupclientlist.txt",
+        "description": "Displays all the client and/or channel IDs currently assigned to channel groups. All three parameters are optional so you're free to choose the most suitable combination for your requirements."
+    },
+    {
+        "name": "channelgroupcopy",
+        "usage": "channelgroupcopy scgid={sourceGroupID} tcgid={targetGroupID} name={groupName} type={groupDbType}",
+        "permissions": [
+            "b_virtualserver_channelgroup_create",
+            "i_group_modify_power",
+            "i_group_needed_modify_power"
+        ],
+        "parameters": [
+            "scgid",
+            "tcgid",
+            "name",
+            "type"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/channelgroupcopy.txt",
+        "description": "Creates a copy of the channel group specified with scgid. If tcgid is set to 0, the server will create a new group. To overwrite an existing group, simply set tcgid to the ID of a designated target group. If a target group is set, the name parameter will be ignored. The type parameter can be used to create template groups. For detailed information, see Definitions."
+    },
+    {
+        "name": "channelgroupdel",
+        "usage": "channelgroupdel cgid={groupID} force={1|0}",
+        "permissions": [
+            "b_virtualserver_channelgroup_delete"
+        ],
+        "parameters": [
+            "cgid",
+            "force"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/channelgroupdel.txt",
+        "description": "Deletes a channel group by ID. If force is set to 1, the channel group will be deleted even if there are clients within."
+    },
+    {
+        "name": "channelgroupdelperm",
+        "usage": "channelgroupdelperm [-continueonerror] cgid={groupID} [permid={permID}...] [permsid={permName}...]",
+        "permissions": [
+            "i_group_modify_power",
+            "i_group_needed_modify_power",
+            "i_permission_modify_power"
+        ],
+        "parameters": [
+            "cgid",
+            "permid",
+            "permsid"
+        ],
+        "options": [
+            "continueonerror"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/channelgroupdelperm.txt",
+        "description": "Removes a set of specified permissions from the channel group. Multiple permissions can be removed at once. A permission can be specified by permid or permsid."
+    },
+    {
+        "name": "channelgrouplist",
+        "usage": "channelgrouplist",
+        "permissions": [
+            "b_virtualserver_channelgroup_list",
+            "b_serverinstance_modify_templates"
+        ],
+        "parameters": [],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/channelgrouplist.txt",
+        "description": "Displays a list of channel groups available on the selected virtual server."
+    },
+    {
+        "name": "channelgrouppermlist",
+        "usage": "channelgrouppermlist cgid={groupID} [-permsid]",
+        "permissions": [
+            "b_virtualserver_channelgroup_permission_list"
+        ],
+        "parameters": [
+            "cgid"
+        ],
+        "options": [
+            "permsid"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/channelgrouppermlist.txt",
+        "description": "Displays a list of permissions assigned to the channel group specified with cgid. If the -permsid option is specified, the output will contain the permission names instead of the internal IDs."
+    },
+    {
+        "name": "channelgrouprename",
+        "usage": "channelgrouprename cgid={groupID} name={groupName}",
+        "permissions": [
+            "i_group_modify_power",
+            "i_group_needed_modify_power"
+        ],
+        "parameters": [
+            "cgid",
+            "name"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/channelgrouprename.txt",
+        "description": "Changes the name of a specified channel group."
+    },
+    {
+        "name": "channelinfo",
+        "usage": "channelinfo cid={channelID}",
+        "permissions": [
+            "b_channel_info_view"
+        ],
+        "parameters": [
+            "cid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/channelinfo.txt",
+        "description": "Displays detailed configuration information about a channel including ID, topic, description, etc. For detailed information, see Channel Properties."
+    },
+    {
+        "name": "channellist",
+        "usage": "channellist [-topic] [-flags] [-voice] [-limits] [-icon] [-secondsempty] [-banners]",
+        "permissions": [
+            "b_virtualserver_channel_list"
+        ],
+        "parameters": [],
+        "options": [
+            "topic",
+            "flags",
+            "voice",
+            "limits",
+            "icon",
+            "secondsempty",
+            "banners"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/channellist.txt",
+        "description": "Displays a list of channels created on a virtual server including their ID, order, name, etc. The output can be modified using several command options."
+    },
+    {
+        "name": "channelmove",
+        "usage": "channelmove cid={channelID} cpid={channelParentID} [order={channelSortOrder}]",
+        "permissions": [
+            "i_channel_min_depth",
+            "i_channel_max_depth",
+            "b_channel_modify_parent",
+            "b_channel_modify_sortorder"
+        ],
+        "parameters": [
+            "cid",
+            "cpid",
+            "order"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/channelmove.txt",
+        "description": "Moves a channel to a new parent channel with the ID cpid. If order is specified, the channel will be sorted right under the channel with the specified ID. If order is set to 0, the channel will be sorted right below the new parent."
+    },
+    {
+        "name": "channelpermlist",
+        "usage": "channelpermlist cid={channelID} [-permsid]",
+        "permissions": [
+            "b_virtualserver_channel_permission_list"
+        ],
+        "parameters": [
+            "cid"
+        ],
+        "options": [
+            "permsid"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/channelpermlist.txt",
+        "description": "Displays a list of permissions defined for a channel."
+    },
+    {
+        "name": "chatlogintoken",
+        "usage": "chatlogintoken",
+        "permissions": [],
+        "parameters": [],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/chatlogintoken.txt",
+        "description": "When the TeamSpeak server is configured to use Matrix servers for chat, this command returns a JSON Web Token that can be used to login to the Matrix server. Currently only the Synapse Matrix server is supported."
+    },
+    {
+        "name": "clientaddperm",
+        "usage": "clientaddperm [-continueonerror] cldbid={clientDBID} [permid={permID}...] [permsid={permName}...] permvalue={permValue}... permskip={1|0}...",
+        "permissions": [
+            "i_group_modify_power",
+            "i_group_needed_modify_power",
+            "i_permission_modify_power"
+        ],
+        "parameters": [
+            "cldbid",
+            "permid",
+            "permsid",
+            "permvalue",
+            "permskip"
+        ],
+        "options": [
+            "continueonerror"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/clientaddperm.txt",
+        "description": "Adds a set of specified permissions to a client. Multiple permissions can be added by providing the three parameters of each permission. A permission can be specified by `permid` or `permsid`."
+    },
+    {
+        "name": "clientaddservergroup",
+        "usage": "clientaddservergroup cldbid={clientDBID} sgid={groupID} clientaddservergroup [-continueonerror] cldbid={clientDBID} sgid={groupID}|sgid={groupID}",
+        "permissions": [
+            "i_group_member_add_power",
+            "i_group_needed_member_add_power"
+        ],
+        "parameters": [
+            "cldbid",
+            "sgid"
+        ],
+        "options": [
+            "continueonerror"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/clientaddservergroup.txt",
+        "description": "Adds a client to one or more server groups specified with `sgid`. Please note that a client cannot be added to default groups or template groups."
+    },
+    {
+        "name": "clientdbdelete",
+        "usage": "clientdbdelete cldbid={clientDBID}",
+        "permissions": [
+            "b_client_delete_dbproperties"
+        ],
+        "parameters": [
+            "cldbid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/clientdbdelete.txt",
+        "description": "Deletes a clients properties from the database."
+    },
+    {
+        "name": "clientdbedit",
+        "usage": "clientdbedit cldbid={clientDBID} [client_properties...]",
+        "permissions": [
+            "b_client_modify_dbproperties",
+            "b_client_modify_description",
+            "b_client_set_talk_power"
+        ],
+        "parameters": [
+            "cldbid",
+            "client_description"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/clientdbedit.txt",
+        "description": "Changes a clients settings using given properties. For detailed information, see Client Properties."
+    },
+    {
+        "name": "clientdbfind",
+        "usage": "clientdbfind [-uid] pattern={clientName|clientUID} clientdbfind [-uid] pattern={clientName|clientUID}|pattern={clientName|clientUID}",
+        "permissions": [
+            "b_virtualserver_client_dbsearch"
+        ],
+        "parameters": [
+            "pattern"
+        ],
+        "options": [
+            "uid"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/clientdbfind.txt",
+        "description": "Displays a list of client database IDs matching a given pattern. You can either search for a clients last known nickname or his unique identity by using the -uid option. The pattern parameter can include regular characters and SQL wildcard characters (e.g. %)."
+    },
+    {
+        "name": "clientdbinfo",
+        "usage": "clientdbinfo cldbid={clientDBID} clientdbinfo cldbid={clientDBID}|cldbid={clientDBID}",
+        "permissions": [
+            "b_virtualserver_client_dbinfo"
+        ],
+        "parameters": [
+            "cldbid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/clientdbinfo.txt",
+        "description": "Displays detailed database information about a client including unique ID, creation date, etc."
+    },
+    {
+        "name": "clientdblist",
+        "usage": "clientdblist [start={offset}] [duration={limit}] [-count] [-homebaseonly]",
+        "permissions": [
+            "b_virtualserver_client_dblist",
+            "b_virtualserver_homebase_list",
+            "b_serverquery_login_list",
+            "b_client_remoteaddress_view"
+        ],
+        "parameters": [
+            "start",
+            "duration"
+        ],
+        "options": [
+            "count",
+            "homebaseonly"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/clientdblist.txt",
+        "description": "Displays a list of client identities known by the server including their database ID, last nickname, etc."
+    },
+    {
+        "name": "clientdelperm",
+        "usage": "clientdelperm cldbid={clientDBID} [permid={permID}...] [permsid={permName}...]",
+        "permissions": [
+            "i_group_modify_power",
+            "i_group_needed_modify_power",
+            "i_permission_modify_power"
+        ],
+        "parameters": [
+            "cldbid",
+            "permid",
+            "permsid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/clientdelperm.txt",
+        "description": "Removes a set of specified permissions from a client. Multiple permissions can be removed at once. A permission can be specified by permid or permsid."
+    },
+    {
+        "name": "clientdelservergroup",
+        "usage": "clientdelservergroup cldbid={clientDBID} sgid={groupID} clientdelservergroup [-continueonerror] cldbid={clientDBID} sgid={groupID}|sgid={groupID}",
+        "permissions": [
+            "i_group_member_remove_power",
+            "i_group_needed_member_remove_power"
+        ],
+        "parameters": [
+            "cldbid",
+            "sgid"
+        ],
+        "options": [
+            "continueonerror"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/clientdelservergroup.txt",
+        "description": "Removes the client specified with `cldbid` from one or more the server groups specified with `sgid`."
+    },
+    {
+        "name": "clientedit",
+        "usage": "clientedit clid={clientID} [client_properties...]",
+        "permissions": [
+            "b_client_modify_description",
+            "b_client_set_talk_power"
+        ],
+        "parameters": [
+            "clid",
+            "client_nickname",
+            "client_is_talker",
+            "client_description",
+            "client_icon_id"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/clientedit.txt",
+        "description": "Changes a clients settings using given properties. For detailed information, see Client Properties."
+    },
+    {
+        "name": "clientfind",
+        "usage": "clientfind pattern={clientName}",
+        "permissions": [
+            "b_virtualserver_client_search"
+        ],
+        "parameters": [
+            "pattern",
+            "property"
+        ],
+        "options": [
+            "chuid"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/clientfind.txt",
+        "description": "Displays a list of clients matching a given name pattern."
+    },
+    {
+        "name": "clientgetdbidfromuid",
+        "usage": "clientgetdbidfromuid cluid={clientUID} clientgetdbidfromuid cluid={clientUID}|cluid={clientUID}",
+        "permissions": [],
+        "parameters": [
+            "cluid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/clientgetdbidfromuid.txt",
+        "description": "Displays the database ID matching the unique identifier specified by `cluid`."
+    },
+    {
+        "name": "clientgetids",
+        "usage": "clientgetids cluid={clientUID} clientgetids cluid={clientUID}|cluid={clientUID}",
+        "permissions": [],
+        "parameters": [
+            "cluid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/clientgetids.txt",
+        "description": "Displays all client IDs matching the unique identifier specified by `cluid`."
+    },
+    {
+        "name": "clientgetnamefromdbid",
+        "usage": "clientgetnamefromdbid cldbid={clientDBID} clientgetnamefromdbid cldbid={clientDBID}|cldbid={clientDBID}",
+        "permissions": [],
+        "parameters": [
+            "cldbid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/clientgetnamefromdbid.txt",
+        "description": "Displays the unique identifier and nickname matching the database ID specified by `cldbid`."
+    },
+    {
+        "name": "clientgetnamefromuid",
+        "usage": "clientgetnamefromuid cluid={clientUID} clientgetnamefromuid cluid={clientUID}|cluid={clientUID}",
+        "permissions": [],
+        "parameters": [
+            "cluid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/clientgetnamefromuid.txt",
+        "description": "Displays the database ID and nickname matching the unique identifier specified by `cluid`."
+    },
+    {
+        "name": "clientgetuidfromclid",
+        "usage": "clientgetuidfromclid clid={clientID} clientgetuidfromclid clid={clientID}|clid={clientID}",
+        "permissions": [],
+        "parameters": [
+            "clid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/clientgetuidfromclid.txt",
+        "description": "Displays the unique identifier matching the clientID specified by `clid`."
+    },
+    {
+        "name": "clientinfo",
+        "usage": "clientinfo clid={clientID} clientinfo clid={clientID}|clid={clientID}",
+        "permissions": [
+            "b_client_info_view"
+        ],
+        "parameters": [
+            "clid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/clientinfo.txt",
+        "description": "Displays detailed configuration information about a client including unique ID, nickname, client version, etc."
+    },
+    {
+        "name": "clientkick",
+        "usage": "clientkick [-continueonerror] reasonid={4|5} [reasonmsg={text}] clid={clientID}...",
+        "permissions": [
+            "i_client_kick_from_server_power",
+            "i_client_kick_from_channel_power",
+            "i_client_needed_kick_from_server_power",
+            "i_client_needed_kick_from_channel_power"
+        ],
+        "parameters": [
+            "reasonid",
+            "reasonmsg",
+            "clid"
+        ],
+        "options": [
+            "continueonerror"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/clientkick.txt",
+        "description": "Kicks one or more clients specified with clid from their currently joined channel (`reasonid`=`4`) or from the server (`reasonid`=`5`), depending on reasonid. The reasonmsg parameter specifies a text message sent to the kicked clients. This parameter is optional and may only have a maximum of 40 characters. For detailed information, see Definitions. Processing stops on the first failed kick, unless you specify -continueonerror."
+    },
+    {
+        "name": "clientlist",
+        "usage": "clientlist [-uid] [-away] [-voice] [-times] [-groups] [-info] [-icon] [-country] [-ip] [-badges]",
+        "permissions": [
+            "b_virtualserver_client_list",
+            "i_channel_subscribe_power",
+            "i_channel_needed_subscribe_power"
+        ],
+        "parameters": [],
+        "options": [
+            "uid",
+            "away",
+            "voice",
+            "times",
+            "groups",
+            "info",
+            "icon",
+            "country",
+            "ip",
+            "badges"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/clientlist.txt",
+        "description": "Displays a list of clients online on a virtual server including their ID, nickname, status flags, etc. The output can be modified using several command options. Please note that the output will only contain clients which are currently in channels you're able to subscribe to."
+    },
+    {
+        "name": "clientmove",
+        "usage": "clientmove [-continueonerror] clid={clientID}... cid={channelID} [cpw={channelPassword}]",
+        "permissions": [
+            "i_client_move_power",
+            "i_client_needed_move_power"
+        ],
+        "parameters": [
+            "clid",
+            "cid",
+            "cpw"
+        ],
+        "options": [
+            "continueonerror"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/clientmove.txt",
+        "description": "Moves one or more clients specified with ``[ clid ]`` to the channel with ID `cid`. If the target channel has a password, it needs to be specified with `cpw`. If the channel has no password, the parameter can be omitted. The `-continueonerror` parameter will cause some errors to be ignored (for example, clients that could not be moved)."
+    },
+    {
+        "name": "clientpermlist",
+        "usage": "clientpermlist cldbid={clientDBID} [-permsid]",
+        "permissions": [
+            "b_virtualserver_client_permission_list"
+        ],
+        "parameters": [
+            "cldbid"
+        ],
+        "options": [
+            "permsid"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/clientpermlist.txt",
+        "description": "Displays a list of permissions defined for a client."
+    },
+    {
+        "name": "clientpoke",
+        "usage": "clientpoke clid={clientID} msg={text}",
+        "permissions": [
+            "i_client_poke_power",
+            "i_client_needed_poke_power"
+        ],
+        "parameters": [
+            "clid",
+            "msg"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/clientpoke.txt",
+        "description": "Sends a poke message to the client specified with clid."
+    },
+    {
+        "name": "clientsetserverquerylogin",
+        "usage": "clientsetserverquerylogin client_login_name={username}",
+        "permissions": [
+            "b_client_create_modify_serverquery_login"
+        ],
+        "parameters": [
+            "client_login_name"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/clientsetserverquerylogin.txt",
+        "description": "Updates your own ServerQuery login credentials using a specified username. The password will be auto-generated."
+    },
+    {
+        "name": "clientupdate",
+        "usage": "clientupdate [client_properties...]",
+        "permissions": [],
+        "parameters": [],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/clientupdate.txt",
+        "description": "Change your ServerQuery clients settings using given properties. For detailed information, see Client Properties."
+    },
+    {
+        "name": "complainadd",
+        "usage": "complainadd tcldbid={targetClientDBID} message={text}",
+        "permissions": [
+            "i_client_complain_power",
+            "i_client_needed_complain_power"
+        ],
+        "parameters": [
+            "tcldbid",
+            "message"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/complainadd.txt",
+        "description": "Submits a complaint about a connected client with database ID `tcldbid` to the server."
+    },
+    {
+        "name": "complaindel",
+        "usage": "complaindel tcldbid={targetClientDBID} fcldbid={fromClientDBID}",
+        "permissions": [
+            "b_client_complain_delete",
+            "b_client_complain_delete_own"
+        ],
+        "parameters": [
+            "tcldbid",
+            "fcldbid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/complaindel.txt",
+        "description": "Deletes the complaint about the client with ID `tcldbid` submitted by the client with ID `fcldbid` from the server."
+    },
+    {
+        "name": "complaindelall",
+        "usage": "complaindelall tcldbid={targetClientDBID}",
+        "permissions": [
+            "b_client_complain_delete"
+        ],
+        "parameters": [
+            "tcldbid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/complaindelall.txt",
+        "description": "Deletes all complaints about the client with database ID `tcldbid` from the server."
+    },
+    {
+        "name": "complainlist",
+        "usage": "complainlist [tcldbid={targetClientDBID}]",
+        "permissions": [
+            "b_client_complain_list"
+        ],
+        "parameters": [
+            "tcldbid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/complainlist.txt",
+        "description": "Displays a list of complaints on the selected virtual server. If `tcldbid` is specified, only complaints about the targeted client will be shown."
+    },
+    {
+        "name": "customdelete",
+        "usage": "customdelete cldbid={clientDBID} ident={ident}",
+        "permissions": [
+            "b_client_delete_dbproperties"
+        ],
+        "parameters": [
+            "cldbid",
+            "ident"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/customdelete.txt",
+        "description": "Removes a custom property from a client specified by the cldbid."
+    },
+    {
+        "name": "custominfo",
+        "usage": "custominfo cldbid={clientDBID}",
+        "permissions": [],
+        "parameters": [
+            "cldbid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/custominfo.txt",
+        "description": "Displays a list of custom properties for the client specified with cldbid."
+    },
+    {
+        "name": "customsearch",
+        "usage": "customsearch ident={ident} pattern={pattern}",
+        "permissions": [],
+        "parameters": [
+            "ident",
+            "pattern"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/customsearch.txt",
+        "description": "Searches for custom client properties specified by ident and value. The value parameter can include regular characters and SQL wildcard characters (e.g. %)."
+    },
+    {
+        "name": "customset",
+        "usage": "customset cldbid={clientDBID} ident={ident} value={value}",
+        "permissions": [
+            "b_client_modify_dbproperties"
+        ],
+        "parameters": [
+            "cldbid",
+            "ident",
+            "value"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/customset.txt",
+        "description": "Creates or updates a custom property for client specified by the cldbid. Ident and value can be any value, and are the key value pair of the custom property."
+    },
+    {
+        "name": "ftcreatedir",
+        "usage": "ftcreatedir cid={channelID} cpw={channelPassword} dirname={dirPath}",
+        "permissions": [
+            "i_ft_directory_create_power",
+            "i_ft_needed_file_directory_create_power"
+        ],
+        "parameters": [
+            "cid",
+            "cpw",
+            "dirname"
+        ],
+        "options": [],
+        "sshOnly": true,
+        "webQuery": false,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/ftcreatedir.txt",
+        "description": "Creates new directory in a channels file repository."
+    },
+    {
+        "name": "ftdeletefile",
+        "usage": "ftdeletefile cid={channelID} cpw={channelPassword} name={filePath}...",
+        "permissions": [
+            "i_ft_file_delete_power",
+            "i_ft_needed_file_delete_power"
+        ],
+        "parameters": [
+            "cid",
+            "cpw",
+            "name"
+        ],
+        "options": [],
+        "sshOnly": true,
+        "webQuery": false,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/ftdeletefile.txt",
+        "description": "Deletes one or more files stored in a channels file repository."
+    },
+    {
+        "name": "ftgetchannelfilehttptoken",
+        "usage": "ftgetchannelfilehttptoken cid={channelID}|scid={special channelID}",
+        "permissions": [],
+        "parameters": [
+            "cid",
+            "scid"
+        ],
+        "options": [],
+        "sshOnly": true,
+        "webQuery": false,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/ftgetchannelfilehttptoken.txt",
+        "description": "When the TeamSpeak server is configured for HTTP file transfer, this command returns a JSON Web Token to use for authentication to a HTTP TeamSpeak filetransfer server."
+    },
+    {
+        "name": "ftgetfileinfo",
+        "usage": "ftgetfileinfo cid={channelID} cpw={channelPassword} name={filePath}...",
+        "permissions": [
+            "i_ft_file_browse_power",
+            "i_ft_needed_file_browse_power"
+        ],
+        "parameters": [
+            "cid",
+            "cpw",
+            "name"
+        ],
+        "options": [],
+        "sshOnly": true,
+        "webQuery": false,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/ftgetfileinfo.txt",
+        "description": "Displays detailed information about one or more specified files stored in a channels file repository."
+    },
+    {
+        "name": "ftgetfilelist",
+        "usage": "ftgetfilelist cid={channelID} cpw={channelPassword} path={filePath}",
+        "permissions": [
+            "i_ft_file_browse_power",
+            "i_ft_needed_file_browse_power"
+        ],
+        "parameters": [
+            "cid",
+            "cpw",
+            "path"
+        ],
+        "options": [],
+        "sshOnly": true,
+        "webQuery": false,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/ftgetfilelist.txt",
+        "description": "Displays a list of files and directories stored in the specified channels file repository."
+    },
+    {
+        "name": "ftinitdownload",
+        "usage": "ftinitdownload clientftfid={clientFileTransferID} name={filePath} cid={channelID} cpw={channelPassword} seekpos={seekPosition} [proto=0-1]",
+        "permissions": [
+            "i_ft_file_download_power",
+            "i_ft_needed_file_",
+            "i_ft_quota_mb_"
+        ],
+        "parameters": [
+            "clientftfid",
+            "name",
+            "cid",
+            "cpw",
+            "seekpos"
+        ],
+        "options": [],
+        "sshOnly": true,
+        "webQuery": false,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/ftinitdownload.txt",
+        "description": "Initializes a file transfer download. clientftfid is an arbitrary ID to identify the file transfer on client-side. On success, the server generates a new ftkey which is required to start downloading the file through TeamSpeak 6's file transfer interface. Since version 3.0.13 there is an optional proto parameter. The client can request a protocol version with it. Currently only 0 and 1 are supported which only differ in the way they handle some timings. The server will reply which protocol version it will support. The server will reply with an ip parameter if it determines the filetransfer subsystem is not reachable by the ip that is currently being used for the query connection."
+    },
+    {
+        "name": "ftinitupload",
+        "usage": "ftinitupload clientftfid={clientFileTransferID} name={filePath} cid={channelID} cpw={channelPassword} size={fileSize} overwrite={1|0} resume={1|0} [proto=0-1]",
+        "permissions": [
+            "i_ft_file_upload_power",
+            "i_ft_needed_file_",
+            "i_ft_quota_mb_upload_per_client"
+        ],
+        "parameters": [
+            "clientftfid",
+            "name",
+            "cid",
+            "cpw",
+            "size",
+            "overwrite",
+            "resume"
+        ],
+        "options": [],
+        "sshOnly": true,
+        "webQuery": false,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/ftinitupload.txt",
+        "description": "Initializes a file transfer upload. clientftfid is an arbitrary ID to identify the file transfer on client-side. On success, the server generates a new ftkey which is required to start uploading the file through TeamSpeak 3's file transfer interface. Since version 3.0.13 there is an optional proto parameter. The client can request a protocol version with it. Currently only 0 and 1 are supported which only differ in the way they handle some timings. The server will reply which protocol version it will support. The server will reply with an ip parameter if it determines the filetransfer subsystem is not reachable by the ip that is currently being used for the query connection."
+    },
+    {
+        "name": "ftlist",
+        "usage": "ftlist",
+        "permissions": [
+            "b_ft_transfer_list"
+        ],
+        "parameters": [],
+        "options": [],
+        "sshOnly": true,
+        "webQuery": false,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/ftlist.txt",
+        "description": "Displays a list of running file transfers on the selected virtual server. The output contains the path to which a file is uploaded to, the current transfer rate in bytes per second, etc."
+    },
+    {
+        "name": "ftrenamefile",
+        "usage": "ftrenamefile cid={channelID} cpw={channelPassword} [tcid={targetChannelID}] [tcpw={targetChannelPassword}] oldname={oldFilePath} newname={newFilePath}",
+        "permissions": [
+            "i_ft_file_rename_power",
+            "i_ft_needed_file_rename_power"
+        ],
+        "parameters": [
+            "cid",
+            "cpw",
+            "tcid",
+            "tcpw",
+            "oldname",
+            "newname"
+        ],
+        "options": [],
+        "sshOnly": true,
+        "webQuery": false,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/ftrenamefile.txt",
+        "description": "Renames a file in a channels file repository. If the two parameters tcid and tcpw are specified, the file will be moved into another channels file repository."
+    },
+    {
+        "name": "ftstop",
+        "usage": "ftstop serverftfid={serverFileTransferID} delete={1|0}",
+        "permissions": [],
+        "parameters": [
+            "serverftfid",
+            "delete"
+        ],
+        "options": [],
+        "sshOnly": true,
+        "webQuery": false,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/ftstop.txt",
+        "description": "Stops the running file transfer with server-side ID serverftfid."
+    },
+    {
+        "name": "gm",
+        "usage": "gm msg={text}",
+        "permissions": [
+            "b_serverinstance_textmessage_send"
+        ],
+        "parameters": [
+            "msg"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/gm.txt",
+        "description": "Sends a text message to all clients on all virtual servers in the TeamSpeak 6 Server instance."
+    },
+    {
+        "name": "help",
+        "usage": "help [command]",
+        "permissions": [],
+        "parameters": [],
+        "options": [],
+        "sshOnly": true,
+        "webQuery": false,
+        "category": "session",
+        "aliasOf": null,
+        "source": "serverquerydocs/help.txt",
+        "description": "Shows ServerQuery command help. SSH only."
+    },
+    {
+        "name": "homebasedel",
+        "usage": "homebasedel [cldbid={clientDBID}]",
+        "permissions": [
+            "b_virtualserver_homebase_manage"
+        ],
+        "parameters": [
+            "cldbid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/homebasedel.txt",
+        "description": "Unset this server as the matrix homebase server for the calling client, or the client specified with cldbid if given."
+    },
+    {
+        "name": "homebaseisset",
+        "usage": "homebaseisset [cldbid={clientDBID}]",
+        "permissions": [
+            "b_virtualserver_homebase_manage"
+        ],
+        "parameters": [
+            "cldbid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/homebaseisset.txt",
+        "description": "Check if this server is set as the matrix homebase server for the calling client, or the client specified with cldbid if given."
+    },
+    {
+        "name": "homebaselist",
+        "usage": "homebaselist [return_code={return_code}]",
+        "permissions": [
+            "b_virtualserver_homebase_list"
+        ],
+        "parameters": [
+            "return_code"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/homebaselist.txt",
+        "description": "List all users that have set this server as their matrix homebase."
+    },
+    {
+        "name": "homebaseset",
+        "usage": "homebaseset [cldbid={clientDBID}]",
+        "permissions": [
+            "b_virtualserver_homebase_set",
+            "b_virtualserver_homebase_manage"
+        ],
+        "parameters": [
+            "cldbid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/homebaseset.txt",
+        "description": "Sets this server as the matrix homebase server for the calling client, or the client specified with cldbid if given."
+    },
+    {
+        "name": "hostinfo",
+        "usage": "hostinfo",
+        "permissions": [
+            "b_serverinstance_info_view"
+        ],
+        "parameters": [],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/hostinfo.txt",
+        "description": "Displays detailed connection information about the server instance including uptime, number of virtual servers online, traffic information, etc. For detailed information, see Server Instance Properties."
+    },
+    {
+        "name": "instanceedit",
+        "usage": "instanceedit [instance_properties...]",
+        "permissions": [
+            "b_serverinstance_modify_settings"
+        ],
+        "parameters": [],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/instanceedit.txt",
+        "description": "Changes the server instance configuration using given properties. For detailed information, see Server Instance Properties."
+    },
+    {
+        "name": "instanceinfo",
+        "usage": "instanceinfo",
+        "permissions": [
+            "b_serverinstance_info_view"
+        ],
+        "parameters": [],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/instanceinfo.txt",
+        "description": "Displays the server instance configuration including database revision number, the file transfer port, default group IDs, etc. For detailed information, see Server Instance Properties."
+    },
+    {
+        "name": "licensesignmessage",
+        "usage": "licensesignmessage message={message}",
+        "permissions": [
+            "b_serverinstance_licensesign_message"
+        ],
+        "parameters": [
+            "message"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/licensesignmessage.txt",
+        "description": "Signs the message with the private key of your license. This can prove that you own this license. Does not work for servers that have no license or use the default license."
+    },
+    {
+        "name": "logadd",
+        "usage": "logadd loglevel={1-4} logmsg={text}",
+        "permissions": [
+            "b_serverinstance_log_add",
+            "b_virtualserver_log_add"
+        ],
+        "parameters": [
+            "loglevel",
+            "logmsg"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/logadd.txt",
+        "description": "Writes a custom entry into the servers log. Depending on your permissions, you'll be able to add entries into the server instance log and/or your virtual servers log. The loglevel parameter specifies the type of the entry. For detailed information, see Definitions."
+    },
+    {
+        "name": "login",
+        "usage": "login client_login_name={username} client_login_password={password} login {username} {password}",
+        "permissions": [
+            "b_serverquery_login"
+        ],
+        "parameters": [
+            "client_login_name",
+            "client_login_password"
+        ],
+        "options": [],
+        "sshOnly": true,
+        "webQuery": false,
+        "category": "session",
+        "aliasOf": null,
+        "source": "serverquerydocs/login.txt",
+        "description": "Authenticates with the TeamSpeak 6 Server instance using given ServerQuery login credentials."
+    },
+    {
+        "name": "logout",
+        "usage": "logout",
+        "permissions": [
+            "b_serverquery_login"
+        ],
+        "parameters": [],
+        "options": [],
+        "sshOnly": true,
+        "webQuery": false,
+        "category": "session",
+        "aliasOf": null,
+        "source": "serverquerydocs/logout.txt",
+        "description": "Deselects the active virtual server and logs out from the server instance."
+    },
+    {
+        "name": "logview",
+        "usage": "logview [lines={1-100}] [reverse={1|0}] [instance={1|0}] [begin_pos={n}]",
+        "permissions": [
+            "b_serverinstance_log_view",
+            "b_virtualserver_log_view"
+        ],
+        "parameters": [
+            "lines",
+            "reverse",
+            "instance",
+            "begin_pos"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/logview.txt",
+        "description": "Displays a specified number of entries from the servers log. If instance is set to 1, the server will return lines from the master logfile (ts3server_0.log) instead of the selected virtual server logfile."
+    },
+    {
+        "name": "messageadd",
+        "usage": "messageadd cluid={clientUID} subject={subject} message={text}",
+        "permissions": [],
+        "parameters": [
+            "cluid",
+            "subject",
+            "message"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/messageadd.txt",
+        "description": "Sends an offline message to the client specified by `cluid`."
+    },
+    {
+        "name": "messagedel",
+        "usage": "messagedel msgid={messageID}",
+        "permissions": [],
+        "parameters": [
+            "msgid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/messagedel.txt",
+        "description": "Deletes an existing offline message with ID `msgid` from your inbox."
+    },
+    {
+        "name": "messageget",
+        "usage": "messageget msgid={messageID}",
+        "permissions": [],
+        "parameters": [
+            "msgid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/messageget.txt",
+        "description": "Displays an existing offline message with ID `msgid` from your inbox. Please note that this does not automatically set the flag_read property of the message."
+    },
+    {
+        "name": "messagelist",
+        "usage": "messagelist",
+        "permissions": [],
+        "parameters": [],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/messagelist.txt",
+        "description": "Displays a list of offline messages you've received. The output contains the senders unique identifier, the messages subject, etc."
+    },
+    {
+        "name": "messageupdateflag",
+        "usage": "messageupdateflag msgid={messageID} flag={1|0}",
+        "permissions": [],
+        "parameters": [
+            "msgid",
+            "flag"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/messageupdateflag.txt",
+        "description": "Updates the flag_read property of the offline message specified with `msgid`. If flag is set to `1`, the message will be marked as read."
+    },
+    {
+        "name": "permfind",
+        "usage": "permfind [permid={permID}...] [permsid={permName}...]",
+        "permissions": [
+            "b_virtualserver_permission_find",
+            "b_serverinstance_permission_find"
+        ],
+        "parameters": [
+            "permid",
+            "permsid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/permfind.txt",
+        "description": "Displays detailed information about all assignments of the permission specified with `permid`. The output is similar to `permoverview` which includes the type and the ID of the client, channel or group associated with the permission. A permission can be specified by `permid` or `permsid`."
+    },
+    {
+        "name": "permget",
+        "usage": "permget permid={permID}|permid={permID} permget permsid={permName}|permsid={permName} permget [forauthenticationtoken={token}] [cid={channelID}] permsid={permName}|permsid={permName}",
+        "permissions": [
+            "b_client_permissionoverview_own"
+        ],
+        "parameters": [
+            "permid",
+            "permsid",
+            "forauthenticationtoken",
+            "cid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/permget.txt",
+        "description": "Displays the current value of the permission specified with `permid` or `permsid` for your own connection. This can be useful when you need to check your own privileges. When the forauthenticationtoken parameter is used, the priviliges of the user identified by the token are displayed. This token is generated by the authenticationtoken command (by the other user)."
+    },
+    {
+        "name": "permidgetbyname",
+        "usage": "permidgetbyname permsid={permName}...",
+        "permissions": [
+            "b_serverinstance_permission_list"
+        ],
+        "parameters": [
+            "permsid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/permidgetbyname.txt",
+        "description": "Displays the database ID of one or more permissions specified by `permsid`."
+    },
+    {
+        "name": "permissionlist",
+        "usage": "permissionlist",
+        "permissions": [
+            "b_serverinstance_permission_list"
+        ],
+        "parameters": [],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/permissionlist.txt",
+        "description": "Displays a list of permissions available on the server instance including ID, name and description."
+    },
+    {
+        "name": "permoverview",
+        "usage": "permoverview cid={channelID} cldbid={clientDBID} [permid={permID}...] [permsid={permName}...]",
+        "permissions": [
+            "b_client_permissionoverview_view"
+        ],
+        "parameters": [
+            "cid",
+            "cldbid",
+            "permid",
+            "permsid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/permoverview.txt",
+        "description": "Displays all permissions assigned to a client for the channel specified with `cid`. If `permid` is set to `0`, all permissions will be displayed. A permission can be specified by `permid` or `permsid`."
+    },
+    {
+        "name": "permreset",
+        "usage": "permreset",
+        "permissions": [
+            "b_virtualserver_permission_reset"
+        ],
+        "parameters": [],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/permreset.txt",
+        "description": "Restores the default permission settings on the selected virtual server and creates a new initial administrator token. Please note that in case of an error during the permreset call - e.g. when the database has been modified or corrupted - the virtual server will be deleted from the database."
+    },
+    {
+        "name": "privilegekeyadd",
+        "usage": "privilegekeyadd tokentype={1|0} tokenid1={groupID} tokenid2={channelID} [tokendescription={description}] [tokencustomset={customFieldSet}]",
+        "permissions": [
+            "b_virtualserver_token_add",
+            "i_group_needed_member_add_power",
+            "i_group_member_add_power"
+        ],
+        "parameters": [
+            "tokentype",
+            "tokenid1",
+            "tokenid2",
+            "tokendescription",
+            "tokencustomset"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/privilegekeyadd.txt",
+        "description": "Create a new token. If `tokentype` is set to 0, the ID specified with `tokenid1` will be a server group ID. Otherwise, `tokenid1` is used as a channel group ID and you need to provide a valid channel ID using `tokenid2`. The `tokencustomset` parameter allows you to specify a set of custom client properties. This feature can be used when generating tokens to combine a website account database with a TeamSpeak user. The syntax of the value needs to be escaped using the ServerQuery escape patterns and has to follow the general syntax of: ident=ident1 value=value1|ident=ident2 value=value2|ident=ident3 value=value3"
+    },
+    {
+        "name": "privilegekeydelete",
+        "usage": "privilegekeydelete token={tokenKey}",
+        "permissions": [
+            "b_virtualserver_token_delete"
+        ],
+        "parameters": [
+            "token"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/privilegekeydelete.txt",
+        "description": "Deletes an existing token matching the token key specified with `token`."
+    },
+    {
+        "name": "privilegekeylist",
+        "usage": "privilegekeylist",
+        "permissions": [
+            "b_virtualserver_token_list"
+        ],
+        "parameters": [],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/privilegekeylist.txt",
+        "description": "Displays a list of privilege keys available including their type and group IDs. Tokens can be used to gain access to specified server or channel groups. A privilege key is similar to a client with administrator privileges that adds you to a certain permission group, but without the necessity of a such a client with administrator privileges to actually exist. It is a long (random looking) string that can be used as a ticket into a specific server group."
+    },
+    {
+        "name": "privilegekeyuse",
+        "usage": "privilegekeyuse token={tokenKey}",
+        "permissions": [
+            "b_virtualserver_token_use"
+        ],
+        "parameters": [
+            "token"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/privilegekeyuse.txt",
+        "description": "Use a token key to gain access to a server or channel group. Please note that the server will automatically delete the token after it has been used."
+    },
+    {
+        "name": "queryloginadd",
+        "usage": "queryloginadd client_login_name={loginName} queryloginadd client_login_name={loginName} cldbid={clientDBID}",
+        "permissions": [
+            "b_serverquery_login_create"
+        ],
+        "parameters": [
+            "client_login_name",
+            "cldbid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/queryloginadd.txt",
+        "description": "Adds a new query client login, or enables query login for existing clients. When no virtual server has been selected, the command will create global query logins. Otherwise the command enables query login for existing client, and cldbid must be specified."
+    },
+    {
+        "name": "querylogindel",
+        "usage": "querylogindel cldbid={clientDBID}",
+        "permissions": [
+            "b_serverquery_login_delete"
+        ],
+        "parameters": [
+            "cldbid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/querylogindel.txt",
+        "description": "Deletes an existing server query login on selected server. When no virtual server has been selected, deletes global query logins instead."
+    },
+    {
+        "name": "queryloginlist",
+        "usage": "queryloginlist [pattern={clientLoginName}] [start={offset}] [duration={limit}] [-count]",
+        "permissions": [
+            "b_serverquery_login_list"
+        ],
+        "parameters": [
+            "pattern",
+            "start",
+            "duration"
+        ],
+        "options": [
+            "count"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/queryloginlist.txt",
+        "description": "List existing query client logins. The pattern parameter can include regular characters and SQL wildcard characters (e.g. %). Only displays query logins of the selected virtual server, or all query logins when no virtual server have been selected."
+    },
+    {
+        "name": "quit",
+        "usage": "quit",
+        "permissions": [],
+        "parameters": [],
+        "options": [],
+        "sshOnly": true,
+        "webQuery": false,
+        "category": "session",
+        "aliasOf": null,
+        "source": "serverquerydocs/quit.txt",
+        "description": "Closes the ServerQuery connection to the TeamSpeak 6 Server instance."
+    },
+    {
+        "name": "sendtextmessage",
+        "usage": "sendtextmessage targetmode={1-3} target={clientID} msg={text}",
+        "permissions": [
+            "i_client_private_textmessage_power",
+            "i_client_needed_private_textmessage_power",
+            "b_client_server_textmessage_send",
+            "b_client_channel_textmessage_send"
+        ],
+        "parameters": [
+            "targetmode",
+            "target",
+            "msg"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/sendtextmessage.txt",
+        "description": "Sends a text message to a specified target. If `targetmode` is set to `1`, a message is sent to the client with the ID specified by `target`. If `targetmode` is set to `2` or `3`, the target parameter will be ignored and a message is sent to the current channel or server respectively."
+    },
+    {
+        "name": "servercreate",
+        "usage": "servercreate virtualserver_name={serverName} [virtualserver_properties...]",
+        "permissions": [
+            "b_virtualserver_create"
+        ],
+        "parameters": [
+            "virtualserver_name",
+            "virtualserver_welcomemessage",
+            "virtualserver_password",
+            "virtualserver_codec_encryption_mode",
+            "virtualserver_encryption_ciphers",
+            "virtualserver_hostmessage",
+            "virtualserver_hostmessage_mode",
+            "virtualserver_default_server_group",
+            "virtualserver_default_channel_group",
+            "virtualserver_hostbanner_url",
+            "virtualserver_hostbanner_gfx_url",
+            "virtualserver_hostbanner_gfx_interval",
+            "virtualserver_weblist_enabled",
+            "virtualserver_maxclients",
+            "virtualserver_port",
+            "virtualserver_machine_id",
+            "virtualserver_autostart"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/servercreate.txt",
+        "description": "Creates a new virtual server using the given properties and displays its ID, port and initial administrator privilege key. If `virtualserver_port` is not specified, the server will test for the first unused UDP port. The first virtual server will be running on UDP port 9987 by default. Subsequently started virtual servers will be running on increasing UDP port numbers. For detailed information, see Virtual Server Properties."
+    },
+    {
+        "name": "serverdelete",
+        "usage": "serverdelete sid={serverID}",
+        "permissions": [
+            "b_virtualserver_delete"
+        ],
+        "parameters": [
+            "sid"
+        ],
+        "options": [
+            "noevent"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/serverdelete.txt",
+        "description": "Deletes the virtual server specified with `sid`. Please note that only virtual servers in a stopped state can be deleted."
+    },
+    {
+        "name": "serveredit",
+        "usage": "serveredit [virtualserver_properties...]",
+        "permissions": [
+            "b_virtualserver_modify_name",
+            "b_virtualserver_modify_welcomemessage",
+            "b_virtualserver_modify_maxclients",
+            "b_virtualserver_modify_reserved_slots",
+            "b_virtualserver_modify_password",
+            "b_virtualserver_modify_default_servergroup",
+            "b_virtualserver_modify_default_channelgroup",
+            "b_virtualserver_modify_default_channeladmingroup",
+            "b_virtualserver_modify_ft_settings",
+            "b_virtualserver_modify_ft_quotas",
+            "b_virtualserver_modify_channel_forced_silence",
+            "b_virtualserver_modify_complain",
+            "b_virtualserver_modify_antiflood",
+            "b_virtualserver_modify_hostmessage",
+            "b_virtualserver_modify_hostbanner",
+            "b_virtualserver_modify_hostbutton",
+            "b_virtualserver_modify_port",
+            "b_virtualserver_modify_autostart",
+            "b_virtualserver_modify_needed_identity_security_level",
+            "b_virtualserver_modify_priority_speaker_dimm_modificator",
+            "b_virtualserver_modify_log_settings",
+            "b_virtualserver_modify_icon_id",
+            "b_virtualserver_modify_weblist",
+            "b_virtualserver_modify_min_client_version",
+            "b_virtualserver_modify_codec_encryption_mode"
+        ],
+        "parameters": [
+            "virtualserver_port",
+            "virtualserver_autostart",
+            "virtualserver_status",
+            "virtualserver_log_client",
+            "virtualserver_log_query",
+            "virtualserver_log_channel",
+            "virtualserver_log_permissions",
+            "virtualserver_log_server",
+            "virtualserver_log_filetransfer",
+            "virtualserver_min_client_version",
+            "virtualserver_min_android_version",
+            "virtualserver_min_ios_version",
+            "virtualserver_needed_identity_security_level",
+            "virtualserver_name_phonetic",
+            "virtualserver_icon_id",
+            "virtualserver_reserved_slots",
+            "virtualserver_weblist_enabled",
+            "virtualserver_codec_encryption_mode",
+            "virtualserver_maxclients",
+            "virtualserver_welcomemessage",
+            "virtualserver_password",
+            "virtualserver_hostmessage",
+            "virtualserver_hostmessage_mode",
+            "virtualserver_default_server_group",
+            "virtualserver_default_channel_group",
+            "virtualserver_default_channel_admin_group",
+            "virtualserver_max_download_total_bandwidth",
+            "virtualserver_max_upload_total_bandwidth",
+            "virtualserver_download_quota",
+            "virtualserver_upload_quota",
+            "virtualserver_hostbanner_mode",
+            "virtualserver_hostbanner_url",
+            "virtualserver_hostbanner_gfx_url",
+            "virtualserver_hostbanner_gfx_interval",
+            "virtualserver_complain_autoban_count",
+            "virtualserver_complain_autoban_time",
+            "virtualserver_complain_remove_time",
+            "virtualserver_min_clients_in_channel_before_forced_silence",
+            "virtualserver_priority_speaker_dimm_modificator",
+            "virtualserver_antiflood_points_tick_reduce",
+            "virtualserver_antiflood_points_needed_command_block",
+            "virtualserver_antiflood_points_needed_plugin_block",
+            "virtualserver_antiflood_points_needed_ip_block",
+            "virtualserver_hostbutton_tooltip",
+            "virtualserver_hostbutton_gfx_url",
+            "virtualserver_hostbutton_url"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/serveredit.txt",
+        "description": "Changes the selected virtual servers configuration using given properties. Note that this command accepts multiple properties which means that you're able to change all settings of the selected virtual server at once. For detailed information, see Virtual Server Properties."
+    },
+    {
+        "name": "servergroupadd",
+        "usage": "servergroupadd name={groupName} [type={groupDbType}]",
+        "permissions": [
+            "b_virtualserver_servergroup_create"
+        ],
+        "parameters": [
+            "name",
+            "type"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/servergroupadd.txt",
+        "description": "Creates a new server group using the name specified with name and displays its ID. The optional type parameter can be used to create ServerQuery groups and template groups. For detailed information, see Definitions."
+    },
+    {
+        "name": "servergroupaddclient",
+        "usage": "servergroupaddclient sgid={groupID} cldbid={clientDBID} servergroupaddclient [-continueonerror] sgid={groupID} cldbid={clientDBID}|cldbid={clientDBID}",
+        "permissions": [
+            "i_group_member_add_power",
+            "i_group_needed_member_add_power"
+        ],
+        "parameters": [
+            "sgid",
+            "cldbid"
+        ],
+        "options": [
+            "continueonerror"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/servergroupaddclient.txt",
+        "description": "Adds one or more clients to the server group specified with `sgid`. Please note that a client cannot be added to default groups or template groups."
+    },
+    {
+        "name": "servergroupaddperm",
+        "usage": "servergroupaddperm [-continueonerror] sgid={groupID} [permid={permID}...] [permsid={permName}...] permvalue={permValue}... permnegated={1|0}... permskip={1|0}...",
+        "permissions": [
+            "i_group_modify_power",
+            "i_group_needed_modify_power",
+            "i_permission_modify_power"
+        ],
+        "parameters": [
+            "sgid",
+            "permid",
+            "permsid",
+            "permvalue",
+            "permnegated",
+            "permskip"
+        ],
+        "options": [
+            "continueonerror"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/servergroupaddperm.txt",
+        "description": "Adds a set of specified permissions to the server group specified with `sgid`. Multiple permissions can be added by providing the four parameters of each permission. A permission can be specified by `permid` or `permsid`."
+    },
+    {
+        "name": "servergroupautoaddperm",
+        "usage": "servergroupautoaddperm sgtype={groupID} [permid={permID}...] [permsid={permName}...] permvalue={permValue}... permnegated={1|0}... permskip={1|0}...",
+        "permissions": [
+            "b_permission_modify_power_ignore"
+        ],
+        "parameters": [
+            "sgtype",
+            "permid",
+            "permsid",
+            "permvalue",
+            "permnegated",
+            "permskip"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/servergroupautoaddperm.txt",
+        "description": "Adds a set of specified permissions to *ALL* regular server groups on all virtual servers. The target groups will be identified by the value of their `i_group_auto_update_type` permission specified with `sgtype`. Multiple permissions can be added at once. A permission can be specified by `permid` or `permsid`. The known values for sgtype are: 10: Channel Guest 15: Server Guest 20: Query Guest 25: Channel Voice 30: Server Normal 35: Channel Operator 40: Channel Admin 45: Server Admin 50: Query Admin"
+    },
+    {
+        "name": "servergroupautodelperm",
+        "usage": "servergroupautodelperm sgtype={groupID} [permid={permID}...] [permsid={permName}...]",
+        "permissions": [
+            "b_permission_modify_power_ignore"
+        ],
+        "parameters": [
+            "sgtype",
+            "permid",
+            "permsid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/servergroupautodelperm.txt",
+        "description": "Removes a set of specified permissions from *ALL* regular server groups on all virtual servers. The target groups will be identified by the value of their i_group_auto_update_type permission specified with sgtype. Multiple permissions can be removed at once. A permission can be specified by permid or permsid. The known values for sgtype are: 10: Channel Guest 15: Server Guest 20: Query Guest 25: Channel Voice 30: Server Normal 35: Channel Operator 40: Channel Admin 45: Server Admin 50: Query Admin"
+    },
+    {
+        "name": "servergroupclientlist",
+        "usage": "servergroupclientlist sgid={groupID} [-names]",
+        "permissions": [
+            "b_virtualserver_servergroup_client_list"
+        ],
+        "parameters": [
+            "sgid"
+        ],
+        "options": [
+            "names"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/servergroupclientlist.txt",
+        "description": "Displays the IDs of all clients currently residing in the server group specified with `sgid`. If you're using the optional `-names` option, the output will also contain the last known nickname and the unique identifier of the clients."
+    },
+    {
+        "name": "servergroupcopy",
+        "usage": "servergroupcopy ssgid={sourceGroupID} tsgid={targetGroupID} name={groupName} type={groupDbType}",
+        "permissions": [
+            "b_virtualserver_servergroup_create",
+            "i_group_modify_power",
+            "i_group_needed_modify_power"
+        ],
+        "parameters": [
+            "ssgid",
+            "tsgid",
+            "name",
+            "type"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/servergroupcopy.txt",
+        "description": "Creates a copy of the server group specified with `ssgid`. If `tsgid` is set to 0, the server will create a new group. To overwrite an existing group, simply set `tsgid` to the ID of a designated target group. If a target group is set, the name parameter will be ignored. The `type` parameter can be used to create ServerQuery groups and template groups. For detailed information, see Definitions."
+    },
+    {
+        "name": "servergroupdel",
+        "usage": "servergroupdel sgid={groupID} force={1|0}",
+        "permissions": [
+            "b_virtualserver_servergroup_delete"
+        ],
+        "parameters": [
+            "sgid",
+            "force"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/servergroupdel.txt",
+        "description": "Deletes the server group specified with sgid. If force is set to 1, the server group will be deleted even if there are clients within."
+    },
+    {
+        "name": "servergroupdelclient",
+        "usage": "servergroupdelclient sgid={groupID} cldbid={clientDBID} servergroupdelclient [-continueonerror] sgid={groupID} cldbid={clientDBID}|cldbid={clientDBID}",
+        "permissions": [
+            "i_group_member_remove_power",
+            "i_group_needed_member_remove_power"
+        ],
+        "parameters": [
+            "sgid",
+            "cldbid"
+        ],
+        "options": [
+            "continueonerror"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/servergroupdelclient.txt",
+        "description": "Removes one or more clients specified with cldbid from the server group specified with sgid."
+    },
+    {
+        "name": "servergroupdelperm",
+        "usage": "servergroupdelperm [-continueonerror] sgid={groupID} [permid={permID}...] [permsid={permName}...]",
+        "permissions": [
+            "i_group_modify_power",
+            "i_group_needed_modify_power",
+            "i_permission_modify_power"
+        ],
+        "parameters": [
+            "sgid",
+            "permid",
+            "permsid"
+        ],
+        "options": [
+            "continueonerror"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/servergroupdelperm.txt",
+        "description": "Removes a set of specified permissions from the server group specified with sgid. Multiple permissions can be removed at once. A permission can be specified by permid or permsid."
+    },
+    {
+        "name": "servergrouplist",
+        "usage": "servergrouplist",
+        "permissions": [
+            "b_serverinstance_modify_querygroup",
+            "b_serverinstance_modify_templates",
+            "b_virtualserver_servergroup_list"
+        ],
+        "parameters": [],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/servergrouplist.txt",
+        "description": "Displays a list of server groups available. Depending on your permissions, the output may also contain global ServerQuery groups and template groups."
+    },
+    {
+        "name": "servergrouppermlist",
+        "usage": "servergrouppermlist sgid={groupID} [-permsid]",
+        "permissions": [
+            "b_virtualserver_servergroup_permission_list"
+        ],
+        "parameters": [
+            "sgid"
+        ],
+        "options": [
+            "permsid"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/servergrouppermlist.txt",
+        "description": "Displays a list of permissions assigned to the server group specified with `sgid`. If the `-permsid` option is specified, the output will contain the permission names instead of the internal IDs."
+    },
+    {
+        "name": "servergrouprename",
+        "usage": "servergrouprename sgid={groupID} name={groupName}",
+        "permissions": [
+            "i_group_modify_power",
+            "i_group_needed_modify_power"
+        ],
+        "parameters": [
+            "sgid",
+            "name"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/servergrouprename.txt",
+        "description": "Changes the name of the server group specified with sgid."
+    },
+    {
+        "name": "servergroupsbyclientid",
+        "usage": "servergroupsbyclientid cldbid={clientDBID}",
+        "permissions": [],
+        "parameters": [
+            "cldbid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/servergroupsbyclientid.txt",
+        "description": "Displays all server groups the client specified with cldbid is currently residing in."
+    },
+    {
+        "name": "serveridgetbyport",
+        "usage": "serveridgetbyport virtualserver_port={serverPort}",
+        "permissions": [
+            "b_serverinstance_virtualserver_list"
+        ],
+        "parameters": [
+            "virtualserver_port"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/serveridgetbyport.txt",
+        "description": "Displays the database ID of the virtual server running on the UDP port specified by virtualserver_port."
+    },
+    {
+        "name": "serverinfo",
+        "usage": "serverinfo",
+        "permissions": [
+            "b_virtualserver_info_view"
+        ],
+        "parameters": [],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/serverinfo.txt",
+        "description": "Displays detailed configuration information about the selected virtual server including unique ID, number of clients online, configuration, etc. For detailed information, see Virtual Server Properties."
+    },
+    {
+        "name": "serverlist",
+        "usage": "serverlist [-uid] [-short] [-all] [-onlyoffline]",
+        "permissions": [
+            "b_serverinstance_virtualserver_list"
+        ],
+        "parameters": [],
+        "options": [
+            "uid",
+            "short",
+            "all",
+            "onlyoffline"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/serverlist.txt",
+        "description": "Displays a list of virtual servers including their ID, status, number of clients online, etc. If you're using the -all option, the server will list all virtual servers stored in the database. This can be useful when multiple server instances with different machine IDs are using the same database. The machine ID is used to identify the server instance a virtual server is associated with. The status of a virtual server can be either online, offline, booting up, shutting down or virtual online. While most of them are self-explanatory, virtual online is a bit more complicated. Whenever you select a virtual server which is currently stopped with the -virtual parameter, it will be started in virtual mode which means you are able to change its configuration, create channels or change permissions, but no regular TeamSpeak 6 Client can connect. As soon as the last ServerQuery client deselects the virtual server, its status will be changed back to offline."
+    },
+    {
+        "name": "servernotifyregister",
+        "usage": "servernotifyregister event={server|channel|textserver|textchannel|textprivate|bans} [id={channelID}]",
+        "permissions": [
+            "b_client_ban_list",
+            "b_virtualserver_notify_register"
+        ],
+        "parameters": [
+            "event",
+            "id"
+        ],
+        "options": [],
+        "sshOnly": true,
+        "webQuery": false,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/servernotifyregister.txt",
+        "description": "Registers for a specified category of events on a virtual server to receive notification messages. Depending on the notifications you've registered for, the server will send you a message on every event in the view of your ServerQuery client (e.g. clients joining your channel, incoming text messages, server configuration changes, etc). The event source is declared by the event parameter while id can be used to limit the notifications to a specific channel."
+    },
+    {
+        "name": "servernotifyunregister",
+        "usage": "servernotifyunregister [event={server|channel|textserver|textchannel|textprivate|bans}] [id={channelID}]",
+        "permissions": [
+            "b_client_ban_list",
+            "b_virtualserver_notify_unregister"
+        ],
+        "parameters": [
+            "event",
+            "id"
+        ],
+        "options": [],
+        "sshOnly": true,
+        "webQuery": false,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/servernotifyunregister.txt",
+        "description": "If no event parameter is given, unregisters all events previously registered with servernotifyregister. If event parameter is given, only that event will be unregistered. After this the server will not sent notification messages for the event(s)."
+    },
+    {
+        "name": "serverprocessstop",
+        "usage": "serverprocessstop [reasonmsg={text}]",
+        "permissions": [
+            "b_serverinstance_stop"
+        ],
+        "parameters": [
+            "reasonmsg"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/serverprocessstop.txt",
+        "description": "Stops the entire TeamSpeak 6 Server instance by shutting down the process. The reasonmsg parameter specifies a text message that is sent to the clients before the client disconnects."
+    },
+    {
+        "name": "serverrequestconnectioninfo",
+        "usage": "serverrequestconnectioninfo",
+        "permissions": [
+            "b_virtualserver_connectioninfo_view"
+        ],
+        "parameters": [],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/serverrequestconnectioninfo.txt",
+        "description": "Displays detailed connection information about the selected virtual server including uptime, traffic information, etc."
+    },
+    {
+        "name": "serversnapshotcreate",
+        "usage": "serversnapshotcreate [password=secret]",
+        "permissions": [
+            "b_virtualserver_snapshot_create"
+        ],
+        "parameters": [],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/serversnapshotcreate.txt",
+        "description": "Displays a snapshot of the selected virtual server containing all settings, groups and known client identities. The data from a server snapshot can be used to restore a virtual servers configuration, channels and permissions using the serversnapshotdeploy command."
+    },
+    {
+        "name": "serversnapshotdeploy",
+        "usage": "serversnapshotdeploy [-mapping] [-keepfiles] [password=secret] virtualserver_snapshot",
+        "permissions": [
+            "b_virtualserver_snapshot_deploy"
+        ],
+        "parameters": [],
+        "options": [
+            "mapping",
+            "keepfiles"
+        ],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/serversnapshotdeploy.txt",
+        "description": "Restores the selected virtual servers configuration using the data from a previously created server snapshot. Please note that the TeamSpeak 6 Server does NOT check for necessary permissions while deploying a snapshot so the command could be abused to gain additional privileges. With -keepfiles set, the channels that exist on the virtualserver and the backup keep will have there files preserved."
+    },
+    {
+        "name": "serverstart",
+        "usage": "serverstart sid={serverID}",
+        "permissions": [
+            "b_virtualserver_start_any",
+            "b_virtualserver_start"
+        ],
+        "parameters": [
+            "sid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/serverstart.txt",
+        "description": "Starts the virtual server specified with sid. Depending on your permissions, you're able to start either your own virtual server only or all virtual servers in the server instance."
+    },
+    {
+        "name": "serverstop",
+        "usage": "serverstop sid={serverID} [reasonmsg={text}]",
+        "permissions": [
+            "b_virtualserver_stop_any",
+            "b_virtualserver_stop"
+        ],
+        "parameters": [
+            "sid",
+            "reasonmsg"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/serverstop.txt",
+        "description": "Stops the virtual server specified with sid. Depending on your permissions, you're able to stop either your own virtual server only or all virtual servers in the server instance. The reasonmsg parameter specifies a text message that is sent to the clients before the client disconnects."
+    },
+    {
+        "name": "servertemppasswordadd",
+        "usage": "servertemppasswordadd pw={password} desc={description} duration={seconds} tcid={channelID} tcpw={channelPW}",
+        "permissions": [
+            "b_virtualserver_modify_password"
+        ],
+        "parameters": [
+            "pw",
+            "desc",
+            "duration",
+            "tcid",
+            "tcpw"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/servertemppasswordadd.txt",
+        "description": "Sets a new temporary server password specified with pw. The temporary password will be valid for the number of seconds specified with duration. The client connecting with this password will automatically join the channel specified with tcid. If tcid is set to 0, the client will join the default channel."
+    },
+    {
+        "name": "servertemppassworddel",
+        "usage": "servertemppassworddel pw={password}",
+        "permissions": [
+            "b_virtualserver_modify_password"
+        ],
+        "parameters": [
+            "pw"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/servertemppassworddel.txt",
+        "description": "Deletes the temporary server password specified with pw."
+    },
+    {
+        "name": "servertemppasswordlist",
+        "usage": "servertemppasswordlist",
+        "permissions": [
+            "b_virtualserver_modify_password"
+        ],
+        "parameters": [],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/servertemppasswordlist.txt",
+        "description": "Returns a list of active temporary server passwords. The output contains the clear-text password, the nickname and unique identifier of the creating client."
+    },
+    {
+        "name": "setclientchannelgroup",
+        "usage": "setclientchannelgroup cgid={groupID} cid={channelID} cldbid={clientDBID}",
+        "permissions": [
+            "i_group_member_add_power",
+            "i_group_needed_member_add_power",
+            "i_group_member_remove_power",
+            "i_group_needed_member_remove_power"
+        ],
+        "parameters": [
+            "cgid",
+            "cid",
+            "cldbid"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/setclientchannelgroup.txt",
+        "description": "Sets the channel group of a client to the ID specified with cgid."
+    },
+    {
+        "name": "tokenadd",
+        "usage": "tokenadd tokentype={1|0} tokenid1={groupID} tokenid2={channelID} [tokendescription={description}] [tokencustomset={customFieldSet}]",
+        "permissions": [],
+        "parameters": [
+            "tokentype",
+            "tokenid1",
+            "tokenid2",
+            "tokendescription",
+            "tokencustomset"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": "privilegekeyadd",
+        "source": "serverquerydocs/tokenadd.txt",
+        "description": "Alias for privilegekeyadd."
+    },
+    {
+        "name": "tokendelete",
+        "usage": "tokendelete token={tokenKey}",
+        "permissions": [],
+        "parameters": [
+            "token"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": "privilegekeydelete",
+        "source": "serverquerydocs/tokendelete.txt",
+        "description": "Alias for privilegekeydelete"
+    },
+    {
+        "name": "tokenlist",
+        "usage": "tokenlist",
+        "permissions": [],
+        "parameters": [],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": "privilegekeylist",
+        "source": "serverquerydocs/tokenlist.txt",
+        "description": "Alias for privilegekeylist."
+    },
+    {
+        "name": "tokenuse",
+        "usage": "tokenuse token={tokenKey}",
+        "permissions": [],
+        "parameters": [
+            "token"
+        ],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": "privilegekeyuse",
+        "source": "serverquerydocs/tokenuse.txt",
+        "description": "Alias for privilegekeyuse."
+    },
+    {
+        "name": "use",
+        "usage": "use [sid={serverID}] [port={serverPort}] [-virtual] [client_nickname={nickname}] use {serverID} [-virtual] [client_nickname={nickname}]",
+        "permissions": [
+            "b_virtualserver_select"
+        ],
+        "parameters": [
+            "sid",
+            "port",
+            "client_nickname"
+        ],
+        "options": [
+            "virtual"
+        ],
+        "sshOnly": true,
+        "webQuery": false,
+        "category": "session",
+        "aliasOf": null,
+        "source": "serverquerydocs/use.txt",
+        "description": "Selects the virtual server specified with sid or port to allow further interaction. The ServerQuery client will appear on the virtual server and acts like a real TeamSpeak 6 Client, except it's unable to send or receive voice data. If your database contains multiple virtual servers using the same UDP port, use will select a random virtual server using the specified port."
+    },
+    {
+        "name": "version",
+        "usage": "version",
+        "permissions": [],
+        "parameters": [],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/version.txt",
+        "description": "Displays the servers version information including platform and build number."
+    },
+    {
+        "name": "whoami",
+        "usage": "whoami",
+        "permissions": [],
+        "parameters": [],
+        "options": [],
+        "sshOnly": false,
+        "webQuery": true,
+        "category": "query",
+        "aliasOf": null,
+        "source": "serverquerydocs/whoami.txt",
+        "description": "Displays information about your current ServerQuery connection including your loginname, etc."
+    }
+]

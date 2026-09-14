@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home — TS3ServerBot Query</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-depth="0" data-page="index">
+<header>
+    <div class="brand-block">
+        <button type="button" class="menu-toggle" aria-label="Open navigation">Menu</button>
+        <p class="brand">TS3ServerBot Query <span>TS3ServerBot.com</span></p>
+        <p class="meta">Developer docs · TeamSpeak 3.13.8 + 6.0.0-beta12.1 · SSH + WebQuery</p>
+    </div>
+    <form class="search-form" action="search.html" method="get" role="search">
+        <label class="sr-only" for="docs-search">Search documentation</label>
+        <input id="docs-search" class="search-input" type="search" name="q" placeholder="Search commands, methods, args…" autocomplete="off" spellcheck="false">
+        <kbd>/</kbd>
+        <div class="search-results" hidden></div>
+    </form>
+</header>
+<div class="layout">
+    <nav><p class="nav-group">Guides</p><ul><li class="active"><a href="index.html">Home</a></li><li><a href="guides/installation.html">Installation</a></li><li><a href="guides/first-connection.html">First connection</a></li><li><a href="guides/ssh.html">SSH</a></li><li><a href="guides/webquery.html">WebQuery</a></li><li><a href="guides/architecture.html">Architecture</a></li><li><a href="guides/not-supported.html">Not supported</a></li><li><a href="guides/errors.html">Errors</a></li><li><a href="guides/troubleshooting.html">Troubleshooting</a></li><li><a href="guides/security.html">Security</a></li><li><a href="guides/compatibility.html">Compatibility</a></li><li><a href="guides/examples.html">Examples</a></li></ul><p class="nav-group">Reference</p><ul><li><a href="reference/configuration.html">Configuration</a></li><li><a href="reference/operations.html">Operations</a></li><li><a href="reference/commands.html">Command matrix</a></li><li><a href="api.html">API reference</a></li></ul><p class="nav-group">TeamSpeak 6</p><ul><li><a href="reference/teamspeak6-commands.html">TS6-only commands</a></li></ul></nav>
+    <main>
+        <h1 id="home">Home</h1><p>The <strong>TS3ServerBot Query</strong> library is a Composer package for TeamSpeak Query over SSH and WebQuery.</p><p>It is developed under TS3ServerBot.com so PHP bots, automation, and management tools can share one client for TeamSpeak 3.13.8 and TeamSpeak 6.0.0-beta12.1.</p><h2 id="supported-servers">Supported servers</h2><ul><li>TeamSpeak 3.13.8</li><li>TeamSpeak 6.0.0-beta12.1 — see <a href="guides/compatibility.html">Compatibility</a> and <a href="reference/teamspeak6-commands.html">TS6-only commands</a></li></ul><h2 id="supported-transports">Supported transports</h2><ul><li>SSH ServerQuery on port 10022</li><li>WebQuery HTTP/JSON on port 10080</li></ul><p>Raw/telnet Query on port 10011 is <strong>not supported</strong>. See <a href="guides/not-supported.html">Not supported</a>.</p><h2 id="important-limitations">Important limitations</h2><ul><li>File-transfer <strong>bytes</strong> after <code>ftkey</code> are not documented; only FT control commands can be sent over SSH.</li><li><code>servernotifyregister</code> notify field lists are not in the 3.13.8 docs.</li><li>Native TeamSpeak HTTPS Query on 10443 is not claimed; use a reverse proxy if you need TLS for WebQuery.</li><li>This library follows the Query command help for TeamSpeak 3.13.8 and 6.0.0-beta12.1, not stale HTML ServerQuery manuals.</li></ul><h2 id="next">Next</h2><ol><li><a href="guides/installation.html">Installation</a></li><li><a href="guides/first-connection.html">First connection</a></li><li><a href="guides/ssh.html">SSH transport</a></li><li><a href="guides/webquery.html">WebQuery transport</a></li><li><a href="api.html">API reference</a></li><li><a href="reference/commands.html">Command matrix</a></li></ol>
+    </main>
+</div>
+<script src="assets/search-index.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

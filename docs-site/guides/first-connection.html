@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>First connection — TS3ServerBot Query</title>
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-depth="1" data-page="guides/first-connection">
+<header>
+    <div class="brand-block">
+        <button type="button" class="menu-toggle" aria-label="Open navigation">Menu</button>
+        <p class="brand">TS3ServerBot Query <span>TS3ServerBot.com</span></p>
+        <p class="meta">Developer docs · TeamSpeak 3.13.8 + 6.0.0-beta12.1 · SSH + WebQuery</p>
+    </div>
+    <form class="search-form" action="../search.html" method="get" role="search">
+        <label class="sr-only" for="docs-search">Search documentation</label>
+        <input id="docs-search" class="search-input" type="search" name="q" placeholder="Search commands, methods, args…" autocomplete="off" spellcheck="false">
+        <kbd>/</kbd>
+        <div class="search-results" hidden></div>
+    </form>
+</header>
+<div class="layout">
+    <nav><p class="nav-group">Guides</p><ul><li><a href="../index.html">Home</a></li><li><a href="installation.html">Installation</a></li><li class="active"><a href="first-connection.html">First connection</a></li><li><a href="ssh.html">SSH</a></li><li><a href="webquery.html">WebQuery</a></li><li><a href="architecture.html">Architecture</a></li><li><a href="not-supported.html">Not supported</a></li><li><a href="errors.html">Errors</a></li><li><a href="troubleshooting.html">Troubleshooting</a></li><li><a href="security.html">Security</a></li><li><a href="compatibility.html">Compatibility</a></li><li><a href="examples.html">Examples</a></li></ul><p class="nav-group">Reference</p><ul><li><a href="../reference/configuration.html">Configuration</a></li><li><a href="../reference/operations.html">Operations</a></li><li><a href="../reference/commands.html">Command matrix</a></li><li><a href="../api.html">API reference</a></li></ul><p class="nav-group">TeamSpeak 6</p><ul><li><a href="../reference/teamspeak6-commands.html">TS6-only commands</a></li></ul></nav>
+    <main>
+        <h1 id="first-connection">First connection</h1><h2 id="webquery">WebQuery</h2><pre><code>use TS3ServerBot\Client\TeamSpeakClient;
+use TS3ServerBot\Config\ClientConfig;
+use TS3ServerBot\Config\Transport;
+
+$client = TeamSpeakClient::webQuery(new ClientConfig(
+    host: &#039;127.0.0.1&#039;,
+    transport: Transport::WebQuery,
+    apiKey: &#039;your-api-key&#039;,
+    virtualServerId: 1,
+));
+
+$client-&gt;connect();
+$version = $client-&gt;version();
+$clients = $client-&gt;server(1)-&gt;getClients();
+$client-&gt;disconnect();</code></pre><p><code>version()</code> maps to the documented <code>version</code> command. <code>getClients()</code> maps to <code>clientlist</code>.</p><p>If the connection is down, <code>InvalidStateException</code> is thrown. If the API key is rejected, <code>AuthenticationException</code> is thrown.</p><h2 id="ssh">SSH</h2><pre><code>$client = TeamSpeakClient::ssh(new ClientConfig(
+    host: &#039;127.0.0.1&#039;,
+    transport: Transport::Ssh,
+    username: &#039;serveradmin&#039;,
+    password: &#039;your-query-password&#039;,
+    virtualServerId: 1,
+));
+
+$client-&gt;connect();
+$server = $client-&gt;server(1);
+$info = $server-&gt;getInfo();
+$client-&gt;disconnect();</code></pre><p><code>connect()</code> opens SSH without a PTY, authenticates with the Query username and password, waits for the ServerQuery banner, and selects the configured virtual server. That SSH handshake <strong>is</strong> Query login. Do not call <code>$client-&gt;login()</code> unless you need to switch Query identity (TeamSpeak then deselects the virtual server, so call <code>useServer()</code> again).</p><p><code>$client-&gt;login()</code> remains available for that identity switch. WebQuery never uses it; the API key is the credential.</p><h2 id="teamspeak-6">TeamSpeak 6</h2><p>Use the same WebQuery or SSH client. Set <code>serverFamily: ServerFamily::TeamSpeak6</code> to use the TeamSpeak 6.0.0-beta12.1 catalog.</p><pre><code>use TS3ServerBot\Client\TeamSpeakClient;
+use TS3ServerBot\Config\ClientConfig;
+use TS3ServerBot\Config\ServerFamily;
+use TS3ServerBot\Config\Transport;
+
+$client = TeamSpeakClient::webQuery(new ClientConfig(
+    host: &#039;127.0.0.1&#039;,
+    transport: Transport::WebQuery,
+    apiKey: &#039;your-api-key&#039;,
+    virtualServerId: 1,
+    serverFamily: ServerFamily::TeamSpeak6,
+));</code></pre><p>High-level methods such as <code>getClients()</code> and <code>getChannels()</code> stay the same. Commands that exist only on TeamSpeak 6.0.0-beta12.1 are in that version’s catalog; see <a href="../reference/teamspeak6-commands.html">TeamSpeak 6-only commands</a>.</p>
+    </main>
+</div>
+<script src="../assets/search-index.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

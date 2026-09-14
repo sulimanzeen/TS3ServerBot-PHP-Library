@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Security practices — TS3ServerBot Query</title>
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-depth="1" data-page="guides/security">
+<header>
+    <div class="brand-block">
+        <button type="button" class="menu-toggle" aria-label="Open navigation">Menu</button>
+        <p class="brand">TS3ServerBot Query <span>TS3ServerBot.com</span></p>
+        <p class="meta">Developer docs · TeamSpeak 3.13.8 + 6.0.0-beta12.1 · SSH + WebQuery</p>
+    </div>
+    <form class="search-form" action="../search.html" method="get" role="search">
+        <label class="sr-only" for="docs-search">Search documentation</label>
+        <input id="docs-search" class="search-input" type="search" name="q" placeholder="Search commands, methods, args…" autocomplete="off" spellcheck="false">
+        <kbd>/</kbd>
+        <div class="search-results" hidden></div>
+    </form>
+</header>
+<div class="layout">
+    <nav><p class="nav-group">Guides</p><ul><li><a href="../index.html">Home</a></li><li><a href="installation.html">Installation</a></li><li><a href="first-connection.html">First connection</a></li><li><a href="ssh.html">SSH</a></li><li><a href="webquery.html">WebQuery</a></li><li><a href="architecture.html">Architecture</a></li><li><a href="not-supported.html">Not supported</a></li><li><a href="errors.html">Errors</a></li><li><a href="troubleshooting.html">Troubleshooting</a></li><li class="active"><a href="security.html">Security</a></li><li><a href="compatibility.html">Compatibility</a></li><li><a href="examples.html">Examples</a></li></ul><p class="nav-group">Reference</p><ul><li><a href="../reference/configuration.html">Configuration</a></li><li><a href="../reference/operations.html">Operations</a></li><li><a href="../reference/commands.html">Command matrix</a></li><li><a href="../api.html">API reference</a></li></ul><p class="nav-group">TeamSpeak 6</p><ul><li><a href="../reference/teamspeak6-commands.html">TS6-only commands</a></li></ul></nav>
+    <main>
+        <h1 id="security-practices">Security practices</h1><ul><li>Use SSH or WebQuery only. Do not enable only raw Query on the TeamSpeak server if you want to use this library.</li><li>Prefer SSH or HTTP behind a reverse proxy with TLS.</li><li>Store API keys and passwords in environment variables, not in git.</li><li>Use <code>x-api-key</code> (the library default). Do not copy examples that put keys in URLs.</li><li>Give Query accounts the minimum permissions listed for each command in the version catalog.</li><li>Allowlist bot IPs in <code>query_ip_allowlist.txt</code>.</li><li>Assume exception messages may include TeamSpeak <code>msg=</code> text; the framework still redacts config secrets.</li><li>Snapshot passwords and <code>ftkey</code> values are sensitive.</li></ul><p>See <a href="../security.html">SECURITY.md</a> in the library directory.</p>
+    </main>
+</div>
+<script src="../assets/search-index.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

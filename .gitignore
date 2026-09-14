@@ -1,0 +1,11 @@
+/vendor/
+/.phpunit.cache/
+/composer.lock
+/.idea/
+/.vscode/
+*.log
+.env
+!.env.example
+
+config/client.php
+.phpunit.result.cache
