@@ -32,19 +32,7 @@ Supported servers: **TeamSpeak 3.13.8** and **TeamSpeak 6.0.0-beta12.1**. This p
 composer require ts3serverbot/query
 ```
 
-Until the package is on Packagist, from this package directory:
 
-```bash
-composer install
-```
-
-From another PHP project, require a local checkout as a path repository:
-
-
-
-```bash
-composer require ts3serverbot/query:@dev
-```
 
 Prefer keeping secrets in `.env` in this directory. Copy [`.env.example`](.env.example) to `.env`, then pass values into `ClientConfig` (for example `getenv('TS_API_KEY')`). Never commit `.env`.
 
