@@ -40,13 +40,7 @@ composer install
 
 From another PHP project, require a local checkout as a path repository:
 
-```json
-{
-    "repositories": [
-        { "type": "path", "url": "/path/to/this-package" }
-    ]
-}
-```
+
 
 ```bash
 composer require ts3serverbot/query:@dev
