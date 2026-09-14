@@ -2,7 +2,7 @@
 
 ## Reporting
 
-Email security issues privately to the maintainers of TS3ServerBot.com. Do not open a public issue with credentials or exploit details.
+Report it in Issues
 
 ## Framework safeguards
 
